@@ -21,6 +21,8 @@ class ResUsers(models.Model):
     dive_phone_work = fields.Char(related="partner_id.dive_phone_work", readonly=False)
     dive_birthday = fields.Date(related="partner_id.dive_birthday", readonly=False)
     dive_profession = fields.Char(related="partner_id.dive_profession", readonly=False)
+    dive_is_plongeur = fields.Boolean(related="partner_id.dive_is_plongeur", readonly=False)
+    dive_is_hsa = fields.Boolean(related="partner_id.dive_is_hsa", readonly=False)
     dive_brevet = fields.Selection(related="partner_id.dive_brevet", readonly=False)
     dive_brevet_label = fields.Char(related="partner_id.dive_brevet_label")
     dive_brevet_short = fields.Char(related="partner_id.dive_brevet_short")
@@ -51,7 +53,7 @@ class ResUsers(models.Model):
         ]
 
     @api.model
-    def get_directory_members(self, search=None):
+    def get_directory_members(self, search=None, category=None):
         domain = self._directory_domain()
         if search:
             domain += [
@@ -61,6 +63,10 @@ class ResUsers(models.Model):
                 ("dive_firstname", "ilike", search),
                 ("dive_lastname", "ilike", search),
             ]
+        if category == "plongeur":
+            domain.append(("dive_is_plongeur", "=", True))
+        elif category == "hsa":
+            domain.append(("dive_is_hsa", "=", True))
         return self.sudo().search(domain, order="dive_brevet_rank desc, name asc")
 
     def get_directory_card_name(self):
@@ -70,6 +76,10 @@ class ResUsers(models.Model):
     def get_dive_specialties(self):
         self.ensure_one()
         return self.partner_id.get_dive_specialties()
+
+    def get_dive_categories(self):
+        self.ensure_one()
+        return self.partner_id.get_dive_categories()
 
     def get_directory_profile_fields(self, viewer):
         self.ensure_one()

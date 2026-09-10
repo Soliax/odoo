@@ -40,17 +40,25 @@ class MemberDirectoryController(http.Controller):
         website=True,
         sitemap=False,
     )
-    def members_list(self, search="", **kwargs):
+    def members_list(self, search="", category="", **kwargs):
         denied = self._ensure_access()
         if denied:
             return denied
 
-        members = request.env["res.users"].get_directory_members(search=search or None)
+        category = (category or "").strip().lower()
+        if category not in ("", "plongeur", "hsa"):
+            category = ""
+
+        members = request.env["res.users"].get_directory_members(
+            search=search or None,
+            category=category or None,
+        )
         return request.render(
             "website_member_directory.members_list",
             {
                 "members": members,
                 "search": search or "",
+                "category": category,
                 "intro": self._get_intro(),
                 "page_name": "member_directory",
             },
@@ -81,6 +89,8 @@ class MemberDirectoryController(http.Controller):
                 "member": member,
                 "partner": member.partner_id,
                 "sections": sections,
+                "specialties": member.get_dive_specialties(),
+                "categories": member.get_dive_categories(),
                 "page_name": "member_directory",
             },
         )

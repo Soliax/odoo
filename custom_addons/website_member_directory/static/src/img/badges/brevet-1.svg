@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 340">
+  <defs>
+    <linearGradient id="metal-1star" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#86efac"/><stop offset="35%" stop-color="#22c55e"/>
+      <stop offset="70%" stop-color="#15803d"/><stop offset="100%" stop-color="#052e16"/>
+    </linearGradient>
+    <linearGradient id="leaf-1star" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#86efac"/><stop offset="55%" stop-color="#22c55e"/>
+      <stop offset="100%" stop-color="#15803d"/>
+    </linearGradient>
+    <linearGradient id="shine-1star" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fff" stop-opacity=".6"/>
+      <stop offset="45%" stop-color="#fff" stop-opacity=".05"/>
+      <stop offset="100%" stop-color="#000" stop-opacity=".4"/>
+    </linearGradient>
+    <filter id="glow-1star" x="-35%" y="-35%" width="170%" height="170%">
+      <feGaussianBlur stdDeviation="7" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <clipPath id="win-1star">
+      <path d="M78 52 L202 52 L220 76 L220 196 L202 224 L78 224 L60 196 L60 76 Z"/>
+    </clipPath>
+  </defs>
+
+  <path d="M50 24 L230 24 L262 70 L262 228 L230 298 L50 298 L18 228 L18 70 Z"
+        fill="#22c55e" opacity=".3" filter="url(#glow-1star)"/>
+  <path d="M50 24 L230 24 L262 70 L262 228 L230 298 L50 298 L18 228 L18 70 Z"
+        fill="url(#metal-1star)" stroke="#052e16" stroke-width="2.2"/>
+  <path d="M50 24 L140 24 L140 298 L50 298 L18 228 L18 70 Z" fill="url(#shine-1star)" opacity=".5"/>
+  <path d="M140 24 L230 24 L262 70 L262 228 L230 298 L140 298 Z" fill="#000" opacity=".14"/>
+  <path d="M50 24 L230 24 L212 46 L68 46 Z" fill="#fff" opacity=".38"/>
+  <path d="M18 70 L50 24 L68 46 L36 86 Z" fill="#fff" opacity=".22"/>
+  <path d="M262 70 L230 24 L212 46 L244 86 Z" fill="#000" opacity=".22"/>
+
+  <path d="M64 40 L216 40 L246 78 L246 222 L216 280 L64 280 L34 222 L34 78 Z"
+        fill="none" stroke="#fff" stroke-opacity=".32" stroke-width="4"/>
+
+  <path d="M50 298 L78 252 L110 298 Z" fill="url(#metal-1star)" stroke="#052e16" stroke-width="1"/>
+  <path d="M230 298 L202 252 L170 298 Z" fill="url(#metal-1star)" stroke="#052e16" stroke-width="1"/>
+  <path d="M50 298 L78 252 L110 298 Z" fill="#fff" opacity=".18"/>
+  <path d="M230 298 L202 252 L170 298 Z" fill="#000" opacity=".2"/>
+  <path d="M140 8 L164 38 L140 50 L116 38 Z" fill="url(#metal-1star)" stroke="#052e16" stroke-width="1"/>
+  <path d="M140 8 L164 38 L140 50 L116 38 Z" fill="#fff" opacity=".32"/>
+  <path d="M12 148 L36 126 L36 170 Z" fill="url(#metal-1star)"/>
+  <path d="M268 148 L244 126 L244 170 Z" fill="url(#metal-1star)"/>
+
+  <path d="M78 52 L202 52 L220 76 L220 196 L202 224 L78 224 L60 196 L60 76 Z" fill="#052e16"/>
+  <g clip-path="url(#win-1star)">
+    
+  <svg x="60" y="52" width="160" height="172" viewBox="0 0 200 180" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <linearGradient id="sea-1star" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#38bdf8"/>
+        <stop offset="40%" stop-color="#0284c7"/>
+        <stop offset="100%" stop-color="#0c4a6e"/>
+      </linearGradient>
+      <radialGradient id="gsea-1star" cx="50%" cy="30%" r="60%">
+        <stop offset="0%" stop-color="#bae6fd" stop-opacity=".4"/>
+        <stop offset="100%" stop-color="#0369a1" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <rect width="200" height="180" fill="url(#sea-1star)"/>
+<ellipse cx="100" cy="36" rx="80" ry="42" fill="url(#gsea-1star)"/>
+<circle cx="30" cy="34" r="2.2" fill="#e0f2fe" opacity=".8"/>
+<circle cx="55" cy="60" r="1.5" fill="#bae6fd" opacity=".55"/>
+<circle cx="170" cy="28" r="2" fill="#7dd3fc" opacity=".65"/>
+<circle cx="148" cy="52" r="1.3" fill="#e0f2fe" opacity=".5"/>
+<path d="M16 180 C30 140, 10 118, 26 90 C40 120, 20 148, 34 180Z" fill="#115e59" opacity=".55"/>
+<path d="M180 180 C164 145, 184 122, 170 94 C156 124, 174 150, 162 180Z" fill="#134e4a" opacity=".5"/>
+<path d="M42 180 C50 152, 38 136, 48 112" stroke="#0f766e" stroke-width="3.5" fill="none" opacity=".45"/>
+<path d="M38 98 C48 90, 60 90, 70 98 C60 106, 48 106, 38 98Z" fill="#082f49" opacity=".42"/>
+<path d="M140 76 C150 68, 162 68, 170 76 C162 84, 150 84, 140 76Z" fill="#082f49" opacity=".38"/>
+
+  <g fill="#0b1220">
+    <ellipse cx="108" cy="88" rx="32" ry="14"/>
+    <circle cx="138" cy="80" r="12"/>
+    <rect x="132" y="74" width="18" height="10" rx="2" fill="#082f49"/>
+    <path d="M76 88 C62 76, 50 86, 46 100 C58 96, 68 94, 76 92Z"/>
+    <path d="M92 102 L82 130 L96 122 L100 134 L110 114Z"/>
+    <path d="M120 102 L130 132 L116 122Z"/>
+    <circle cx="94" cy="58" r="4" fill="#7dd3fc" opacity=".6"/>
+    <circle cx="100" cy="48" r="2.6" fill="#bae6fd" opacity=".5"/>
+    <circle cx="106" cy="40" r="1.8" fill="#e0f2fe" opacity=".45"/>
+  </g>
+  </svg>
+  </g>
+  <path d="M78 52 L202 52 L220 76 L200 68 L90 68 Z" fill="#fff" opacity=".18"/>
+
+  <g transform="translate(140,230)">
+    <circle r="30" fill="#052e16" opacity=".5"/>
+    <circle r="26" fill="url(#metal-1star)" stroke="#fff" stroke-width="2.2" stroke-opacity=".5"/>
+    <circle r="21" fill="#16a34a"/>
+    <g><path d="M0,-8 L2.2,-2.4 L8.2,-2.4 L3.4,1.2 L5.2,7.2 L0,3.6 L-5.2,7.2 L-3.4,1.2 L-8.2,-2.4 L-2.2,-2.4 Z" transform="translate(0.0,0)" fill="#fff"/></g>
+  </g>
+</svg>

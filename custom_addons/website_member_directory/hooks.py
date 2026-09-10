@@ -5,6 +5,8 @@ from datetime import date
 DEMO_DIVERS = [
     {
         "login": "diver.1star",
+        "plongeur": True,
+        "hsa": False,
         "brevet": "1",
         "firstname": "Nora",
         "lastname": "OneStar",
@@ -21,6 +23,8 @@ DEMO_DIVERS = [
     },
     {
         "login": "diver.2star",
+        "plongeur": True,
+        "hsa": True,
         "brevet": "2",
         "firstname": "Vinciane",
         "lastname": "Aubry",
@@ -46,6 +50,8 @@ DEMO_DIVERS = [
     },
     {
         "login": "diver.3star",
+        "plongeur": True,
+        "hsa": False,
         "brevet": "3",
         "firstname": "Marc",
         "lastname": "ThreeStar",
@@ -66,6 +72,8 @@ DEMO_DIVERS = [
     },
     {
         "login": "diver.4star",
+        "plongeur": False,
+        "hsa": True,
         "brevet": "4",
         "firstname": "Ines",
         "lastname": "FourStar",
@@ -87,6 +95,8 @@ DEMO_DIVERS = [
     },
     {
         "login": "diver.am",
+        "plongeur": True,
+        "hsa": True,
         "brevet": "am",
         "firstname": "Hugo",
         "lastname": "Assistant",
@@ -109,6 +119,8 @@ DEMO_DIVERS = [
     },
     {
         "login": "diver.mc",
+        "plongeur": True,
+        "hsa": False,
         "brevet": "mc",
         "firstname": "Claire",
         "lastname": "MoniteurClub",
@@ -132,6 +144,8 @@ DEMO_DIVERS = [
     },
     {
         "login": "diver.mf",
+        "plongeur": False,
+        "hsa": True,
         "brevet": "mf",
         "firstname": "Olivier",
         "lastname": "MoniteurFederal",
@@ -156,6 +170,8 @@ DEMO_DIVERS = [
     },
     {
         "login": "diver.mn",
+        "plongeur": True,
+        "hsa": True,
         "brevet": "mn",
         "firstname": "Amine",
         "lastname": "MoniteurNational",
@@ -178,6 +194,42 @@ DEMO_DIVERS = [
             "dive_spec_fn": date(2022, 8, 8),
         },
     },
+    {
+        "login": "diver.nb",
+        "plongeur": True,
+        "hsa": False,
+        "brevet": False,
+        "firstname": "Sam",
+        "lastname": "NonBrevete",
+        "function": "Membre",
+        "profession": "Etudiant",
+        "street": "Rue du Masque 2",
+        "zip": "1000",
+        "city": "Bruxelles",
+        "phone": "0470 99 00 01",
+        "email": "sam.nb@example.com",
+        "birthday": date(2003, 3, 3),
+        "lifras_id": "90009",
+        "specs": {},
+    },
+    {
+        "login": "diver.hsa",
+        "plongeur": False,
+        "hsa": True,
+        "brevet": False,
+        "firstname": "Lea",
+        "lastname": "Hockey",
+        "function": "Hockey subaquatique",
+        "profession": "Sportive",
+        "street": "Avenue du Palet 7",
+        "zip": "1050",
+        "city": "Ixelles",
+        "phone": "0470 99 00 02",
+        "email": "lea.hsa@example.com",
+        "birthday": date(1995, 8, 8),
+        "lifras_id": "90010",
+        "specs": {},
+    },
 ]
 
 
@@ -198,7 +250,7 @@ def _upsert_demo_diver(env, data):
         "dive_lastname": data["lastname"],
         "dive_birthday": data.get("birthday"),
         "dive_profession": data.get("profession"),
-        "dive_brevet": data["brevet"],
+        "dive_brevet": data.get("brevet") or False,
         "dive_lifras_id": data.get("lifras_id"),
         "dive_contact_name": data.get("contact_name"),
         "dive_contact_phone": data.get("contact_phone"),
@@ -206,6 +258,8 @@ def _upsert_demo_diver(env, data):
         "dive_last_ecg": data.get("last_ecg"),
         "dive_other_brevets": data.get("other_brevets"),
         "dive_cfps_end": data.get("cfps_end"),
+        "dive_is_plongeur": data.get("plongeur", True),
+        "dive_is_hsa": data.get("hsa", False),
     }
     partner_vals.update(data.get("specs") or {})
     if user:

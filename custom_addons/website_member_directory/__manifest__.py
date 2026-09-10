@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": "Members",
-    "version": "19.0.1.2.0",
+    "version": "19.0.1.5.0",
     "category": "Website",
     "summary": "Private diving club members page with LIFRAS brevets and specialties",
     "description": """
@@ -11,6 +11,7 @@ Members website page (/membres)
 * Diving club fields and Specialites (date = title earned)
 * Specialty pills on cards and profiles
 * Game-like metallic frames by brevet level
+* HSA / Plongeur category tags + filters
 * Demo divers for each brevet (password: diverdemo)
 """,
     "author": "Independent Developer",
