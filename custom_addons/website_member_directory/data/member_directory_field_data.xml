@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="field_email" model="member.directory.field">
+        <field name="name">Email</field>
+        <field name="source_model">res.partner</field>
+        <field name="field_name">email</field>
+        <field name="widget">email</field>
+        <field name="section">contact</field>
+        <field name="sequence">10</field>
+    </record>
+    <record id="field_phone" model="member.directory.field">
+        <field name="name">Phone</field>
+        <field name="source_model">res.partner</field>
+        <field name="field_name">phone</field>
+        <field name="widget">phone</field>
+        <field name="section">contact</field>
+        <field name="sequence">20</field>
+    </record>
+    <record id="field_address" model="member.directory.field">
+        <field name="name">Address</field>
+        <field name="source_model">res.partner</field>
+        <field name="field_name">street</field>
+        <field name="widget">address</field>
+        <field name="section">address</field>
+        <field name="sequence">10</field>
+    </record>
+    <record id="field_website" model="member.directory.field">
+        <field name="name">Website</field>
+        <field name="source_model">res.partner</field>
+        <field name="field_name">website</field>
+        <field name="widget">url</field>
+        <field name="section">professional</field>
+        <field name="sequence">10</field>
+    </record>
+    <record id="field_function" model="member.directory.field">
+        <field name="name">Job Position</field>
+        <field name="source_model">res.partner</field>
+        <field name="field_name">function</field>
+        <field name="widget">text</field>
+        <field name="section">professional</field>
+        <field name="sequence">20</field>
+    </record>
+    <record id="field_company" model="member.directory.field">
+        <field name="name">Company</field>
+        <field name="source_model">res.partner</field>
+        <field name="field_name">parent_id</field>
+        <field name="widget">many2one</field>
+        <field name="section">professional</field>
+        <field name="sequence">30</field>
+    </record>
+    <record id="field_comment" model="member.directory.field">
+        <field name="name">Notes</field>
+        <field name="source_model">res.partner</field>
+        <field name="field_name">comment</field>
+        <field name="widget">html</field>
+        <field name="section">extra</field>
+        <field name="sequence">10</field>
+    </record>
+</odoo>

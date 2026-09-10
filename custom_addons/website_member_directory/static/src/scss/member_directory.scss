@@ -1,0 +1,161 @@
+
+.o_member_directory {
+    --md-ink: #1c1917;
+    --md-muted: #78716c;
+    --md-line: #e7e5e4;
+    --md-card: #fffaf5;
+    --md-accent: #0f766e;
+    --md-accent-soft: #ccfbf1;
+    --md-shadow: 0 18px 40px rgba(28, 25, 23, 0.08);
+
+    color: var(--md-ink);
+    background:
+        radial-gradient(circle at top left, rgba(15, 118, 110, 0.08), transparent 28%),
+        linear-gradient(180deg, #fafaf9 0%, #ffffff 100%);
+
+    .s_md_kicker {
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--md-accent);
+    }
+
+    .s_md_search .form-control {
+        border-color: var(--md-line);
+        background: #fff;
+    }
+
+    .s_md_card {
+        display: block;
+        height: 100%;
+        color: inherit;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .s_md_card:hover {
+        transform: translateY(-4px);
+        color: inherit;
+    }
+
+    .s_md_card:hover .s_md_card_inner {
+        box-shadow: var(--md-shadow);
+        border-color: transparent;
+    }
+
+    .s_md_card_inner {
+        height: 100%;
+        padding: 1.75rem 1.5rem 1.5rem;
+        border: 1px solid var(--md-line);
+        border-radius: 1.25rem;
+        background: var(--md-card);
+        text-align: center;
+        transition: box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .s_md_avatar_wrap {
+        margin-bottom: 1.1rem;
+    }
+
+    .s_md_avatar,
+    .s_md_profile_photo {
+        width: 112px;
+        height: 112px;
+        object-fit: cover;
+        border-radius: 999px;
+        border: 4px solid #fff;
+        box-shadow: 0 10px 24px rgba(28, 25, 23, 0.12);
+        background: var(--md-accent-soft);
+    }
+
+    .s_md_avatar_fallback {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--md-accent);
+    }
+
+    .s_md_name {
+        font-size: 1.15rem;
+        font-weight: 700;
+        margin-bottom: 0.25rem;
+    }
+
+    .s_md_subtitle {
+        color: var(--md-muted);
+        min-height: 1.4em;
+        margin-bottom: 1rem;
+        font-size: 0.95rem;
+    }
+
+    .s_md_cta {
+        display: inline-block;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--md-accent);
+    }
+
+    .s_md_back {
+        color: var(--md-muted);
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .s_md_back:hover {
+        color: var(--md-accent);
+    }
+
+    .s_md_profile_photo {
+        width: 148px;
+        height: 148px;
+    }
+
+    .s_md_section_card {
+        height: 100%;
+        padding: 1.5rem;
+        border: 1px solid var(--md-line);
+        border-radius: 1.25rem;
+        background: #fff;
+        box-shadow: var(--md-shadow);
+    }
+
+    .s_md_section_title {
+        margin-bottom: 1rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid var(--md-line);
+        font-weight: 700;
+    }
+
+    .s_md_field {
+        display: grid;
+        gap: 0.25rem;
+        padding: 0.85rem 0;
+        border-bottom: 1px solid #f5f5f4;
+    }
+
+    .s_md_field:last-child {
+        border-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    .s_md_field dt {
+        font-size: 0.78rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--md-muted);
+        font-weight: 700;
+    }
+
+    .s_md_field dd {
+        margin: 0;
+        font-size: 1rem;
+    }
+
+    .s_md_field a {
+        color: var(--md-accent);
+        text-decoration: none;
+        font-weight: 600;
+    }
+}
