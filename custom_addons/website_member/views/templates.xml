@@ -71,7 +71,7 @@
 
     <template id="members_list" name="Members List">
         <t t-call="website.layout">
-            <div id="wrap" class="o_member_directory">
+            <div id="wrap" class="o_website_member">
                 <div class="oe_structure">
                     <section class="s_md_hero">
                         <div class="container">
@@ -142,7 +142,7 @@
             <t t-set="brevet_css" t-value="member.dive_brevet_css or 'brevet-nb'"/>
             <t t-set="specialties" t-value="member.get_dive_specialties()"/>
             <t t-set="categories" t-value="member.get_dive_categories()"/>
-            <div t-attf-class="o_member_directory o_member_profile s_md_profile_#{brevet_css}">
+            <div t-attf-class="o_website_member o_member_profile s_md_profile_#{brevet_css}">
                 <div id="wrap">
                     <div class="oe_structure">
                         <section class="s_md_profile_hero">
@@ -231,7 +231,7 @@
 
     <template id="members_forbidden" name="Members Forbidden">
         <t t-call="website.layout">
-            <div id="wrap" class="o_member_directory">
+            <div id="wrap" class="o_website_member">
                 <div class="container py-5 text-center">
                     <h1 class="h3 mb-3">Acces reserve</h1>
                     <p class="text-muted mb-4">Vous devez etre connecte pour consulter les membres.</p>

@@ -1,6 +1,6 @@
 /* website_member — Hearthstone-like TCG cards */
 
-.o_member_directory {
+.o_website_member {
   --md-stone-1: #6e675c;
   --md-stone-2: #3a3530;
   --md-stone-3: #1a1714;
@@ -32,7 +32,7 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 .s_md_grid_section { padding: 2rem 0 3rem; }
-.o_member_directory:not(.o_member_profile) .s_md_grid_section {
+.o_website_member:not(.o_member_profile) .s_md_grid_section {
   background: radial-gradient(ellipse at 50% 0%, #1a1814 0%, #0a0a0a 55%);
 }
 

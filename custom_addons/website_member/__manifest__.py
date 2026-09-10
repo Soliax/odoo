@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": "Members",
-    "version": "19.0.2.1.0",
+    "version": "19.0.2.2.0",
     "category": "Website",
     "summary": "Member directory TCG cards + event participant website blocks",
     "description": """
@@ -17,15 +17,15 @@ Members website blocks
     "license": "LGPL-3",
     "depends": ["website", "portal", "html_builder", "website_event"],
     "data": [
-        "security/member_directory_security.xml",
+        "security/security.xml",
         "security/ir.model.access.csv",
-        "data/member_directory_field_data.xml",
-        "data/member_directory_specialty_fields.xml",
-        "data/member_directory_brevet_fields.xml",
-        "views/member_directory_field_views.xml",
+        "data/profile_fields.xml",
+        "data/specialty_fields.xml",
+        "data/brevet_fields.xml",
+        "views/member_field_views.xml",
         "views/res_users_views.xml",
         "views/res_config_settings_views.xml",
-        "views/member_directory_templates.xml",
+        "views/templates.xml",
         "views/snippets/s_md_members.xml",
         "views/snippets/s_md_event_attendees.xml",
         "views/snippets/snippets.xml",
@@ -33,7 +33,7 @@ Members website blocks
     ],
     "assets": {
         "web.assets_frontend": [
-            "website_member/static/src/scss/member_directory.scss",
+            "website_member/static/src/scss/member.scss",
             "website_member/static/src/snippets/**/*.js",
         ],
         "website.website_builder_assets": [
