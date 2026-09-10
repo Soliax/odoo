@@ -1,65 +1,55 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 223 260" width="223" height="260" role="img" aria-labelledby="badge-silver-title badge-silver-desc">
-  <title id="badge-silver-title">SILVER portrait badge frame</title>
-  <desc id="badge-silver-desc">Editable angular metallic badge frame based on the supplied PNG reference, with a clipped portrait area, beveled nameplate, side laurels, and replaceable text. When inserting a real portrait, update the SVG title and description to describe the final subject.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 223 260" width="223" height="260" role="img" aria-labelledby="badge-silver-title badge-silver-desc" data-level="SILVER">
+  <title id="badge-silver-title">SILVER level portrait badge frame</title>
+  <desc id="badge-silver-desc">Editable level-specific metallic badge frame with a top head-portrait slot and a lower custom-name plate. When inserting a real portrait or final name, update the SVG title and description to describe the finished badge.</desc>
   <defs>
     <linearGradient id="badge-silver-outerMetal" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#ffffff"/>
-      <stop offset="0.08" stop-color="#eaf3ff"/>
-      <stop offset="0.26" stop-color="#b5c6d7"/>
-      <stop offset="0.52" stop-color="#5b6c7f"/>
-      <stop offset="0.76" stop-color="#b5c6d7"/>
+      <stop offset="0.08" stop-color="#ebf3ff"/>
+      <stop offset="0.28" stop-color="#b8c8d8"/>
+      <stop offset="0.56" stop-color="#5a6a7d"/>
+      <stop offset="0.78" stop-color="#b8c8d8"/>
       <stop offset="1" stop-color="#ffffff"/>
     </linearGradient>
-    <linearGradient id="badge-silver-edgeMetal" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#ffffff" stop-opacity="0.95"/>
-      <stop offset="0.22" stop-color="#eaf3ff" stop-opacity="0.9"/>
-      <stop offset="0.6" stop-color="#b5c6d7" stop-opacity="0.82"/>
-      <stop offset="1" stop-color="#5b6c7f" stop-opacity="1"/>
-    </linearGradient>
-    <linearGradient id="badge-silver-facetMetal" x1="0" y1="0" x2="1" y2="0.3">
+    <linearGradient id="badge-silver-facetMetal" x1="0" y1="0" x2="1" y2="0.35">
       <stop offset="0" stop-color="#ffffff" stop-opacity="0.82"/>
-      <stop offset="0.3" stop-color="#f4fbff" stop-opacity="0.62"/>
-      <stop offset="1" stop-color="#5b6c7f" stop-opacity="0.16"/>
+      <stop offset="0.3" stop-color="#f5fbff" stop-opacity="0.64"/>
+      <stop offset="1" stop-color="#5a6a7d" stop-opacity="0.18"/>
     </linearGradient>
-    <radialGradient id="badge-silver-innerPanel" cx="50%" cy="36%" r="70%">
-      <stop offset="0" stop-color="#0f1f1b"/>
-      <stop offset="0.55" stop-color="#47576a"/>
+    <radialGradient id="badge-silver-innerPanel" cx="50%" cy="38%" r="72%">
+      <stop offset="0" stop-color="#10201c"/>
+      <stop offset="0.58" stop-color="#47586a"/>
       <stop offset="1" stop-color="#030506"/>
     </radialGradient>
-    <radialGradient id="badge-silver-photoGlow" cx="50%" cy="42%" r="52%">
-      <stop offset="0" stop-color="#879db3" stop-opacity="0.32"/>
-      <stop offset="0.55" stop-color="#b5c6d7" stop-opacity="0.12"/>
+    <radialGradient id="badge-silver-photoGlow" cx="50%" cy="40%" r="55%">
+      <stop offset="0" stop-color="#8ba0b3" stop-opacity="0.28"/>
+      <stop offset="0.55" stop-color="#b8c8d8" stop-opacity="0.14"/>
       <stop offset="1" stop-color="#000000" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="badge-silver-glassShine" cx="34%" cy="24%" r="82%">
+    <radialGradient id="badge-silver-glassShine" cx="34%" cy="24%" r="84%">
       <stop offset="0" stop-color="#ffffff" stop-opacity="0.78"/>
-      <stop offset="0.18" stop-color="#ffffff" stop-opacity="0.22"/>
-      <stop offset="0.48" stop-color="#ffffff" stop-opacity="0.08"/>
+      <stop offset="0.18" stop-color="#ffffff" stop-opacity="0.24"/>
+      <stop offset="0.5" stop-color="#ffffff" stop-opacity="0.08"/>
       <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
     </radialGradient>
-    <filter id="badge-silver-softGlow" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="6"/>
-    </filter>
-    <clipPath id="badge-silver-photoClip">
-      <path d="M111.5 21 L178 49 L170 113 L148 136 L128 136 L121 118 L102 118 L95 136 L75 136 L53 113 L45 49 Z"/>
-    </clipPath>
-    <path id="badge-silver-frameOuter" d="M111.5 4 L198 38 L186 124 L161 150 L134 150 L128 131 L95 131 L89 150 L62 150 L37 124 L25 38 Z"/>
-    <path id="badge-silver-frameInner" d="M111.5 18 L182 47 L173 117 L153 139 L127 139 L121 121 L102 121 L96 139 L70 139 L50 117 L41 47 Z"/>
-    <path id="badge-silver-nameplateOuter" d="M37 170 L186 170 L214 191 L194 228 L29 228 L9 191 Z"/>
-    <path id="badge-silver-nameplateInner" d="M45 178 L178 178 L201 194 L186 220 L37 220 L22 194 Z"/>
-    <path id="badge-silver-crestOuter" d="M111.5 110 L154 126 L148 164 L111.5 179 L75 164 L69 126 Z"/>
-    <path id="badge-silver-crestInner" d="M111.5 118 L144 130 L139 157 L111.5 169 L84 157 L79 130 Z"/>
+    <filter id="badge-silver-softGlow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="6"/></filter>
+    <clipPath id="badge-silver-photoClip"><path d="M111.5 21 L184 48 L173 115 L150 137 L128 137 L121 119 L102 119 L95 137 L73 137 L50 115 L39 48 Z"/></clipPath>
+    <path id="badge-silver-frameOuter" d="M111.5 4 L205 37 L193 126 L167 152 L136 152 L129 135 L94 135 L87 152 L56 152 L30 126 L18 37 Z"/>
+    <path id="badge-silver-frameInner" d="M111.5 18 L186 47 L175 118 L152 140 L128 140 L121 122 L102 122 L95 140 L71 140 L48 118 L37 47 Z"/>
+    <path id="badge-silver-nameplateOuter" d="M28 173 L195 173 L216 191 L197 229 L26 229 L7 191 Z"/>
+    <path id="badge-silver-nameplateInner" d="M40 181 L183 181 L199 194 L185 220 L38 220 L24 194 Z"/>
+    <path id="badge-silver-crestOuter" d="M111.5 112 L156 126 L149 165 L111.5 180 L74 165 L67 126 Z"/>
+    <path id="badge-silver-crestInner" d="M111.5 119 L145 130 L140 158 L111.5 170 L83 158 L78 130 Z"/>
     <path id="badge-silver-star" d="M111.5 124 L116 134 L127 135 L118.5 142.5 L121 154 L111.5 148 L102 154 L104.5 142.5 L96 135 L107 134 Z"/>
-    <path id="badge-silver-leafLeftA" d="M7 119 L28 141 L17 145 Z"/>
-    <path id="badge-silver-leafLeftB" d="M18 132 L47 154 L31 157 Z"/>
-    <path id="badge-silver-leafLeftC" d="M33 140 L67 160 L46 165 Z"/>
-    <path id="badge-silver-leafLeftD" d="M48 147 L81 164 L60 170 Z"/>
-    <path id="badge-silver-leafLeftE" d="M64 152 L94 166 L73 173 Z"/>
-    <path id="badge-silver-leafRightA" d="M216 119 L205 145 L195 141 Z"/>
-    <path id="badge-silver-leafRightB" d="M205 132 L192 157 L176 154 Z"/>
-    <path id="badge-silver-leafRightC" d="M190 140 L177 165 L156 160 Z"/>
-    <path id="badge-silver-leafRightD" d="M175 147 L162 170 L141 164 Z"/>
-    <path id="badge-silver-leafRightE" d="M159 152 L149 173 L128 166 Z"/>
+    <path id="badge-silver-leafLeft1" d="M7 119 L28 141 L17 145 Z"/>
+    <path id="badge-silver-leafLeft2" d="M18 132 L47 154 L31 157 Z"/>
+    <path id="badge-silver-leafLeft3" d="M33 140 L67 160 L46 165 Z"/>
+    <path id="badge-silver-leafLeft4" d="M48 147 L81 164 L60 170 Z"/>
+    <path id="badge-silver-leafLeft5" d="M64 152 L94 166 L73 173 Z"/>
+    <path id="badge-silver-leafRight1" d="M216 119 L205 145 L195 141 Z"/>
+    <path id="badge-silver-leafRight2" d="M205 132 L192 157 L176 154 Z"/>
+    <path id="badge-silver-leafRight3" d="M190 140 L177 165 L156 160 Z"/>
+    <path id="badge-silver-leafRight4" d="M175 147 L162 170 L141 164 Z"/>
+    <path id="badge-silver-leafRight5" d="M159 152 L149 173 L128 166 Z"/>
   </defs>
 
   <g id="badge-silver-glowGroup" filter="url(#badge-silver-softGlow)">
@@ -69,41 +59,39 @@
   </g>
 
   <g id="badge-silver-photoAreaGroup">
-    <image aria-hidden="true" focusable="false" data-portrait-slot="true" id="badge-silver-portraitImage" href="" x="40" y="18" width="143" height="122" preserveAspectRatio="xMidYMid slice" clip-path="url(#badge-silver-photoClip)"/>
+    <image aria-hidden="true" focusable="false" data-portrait-slot="true" id="badge-silver-portraitImage" href="" x="28" y="8" width="167" height="138" preserveAspectRatio="xMidYMid slice" clip-path="url(#badge-silver-photoClip)"/>
     <g clip-path="url(#badge-silver-photoClip)">
-      <rect x="40" y="18" width="143" height="122" fill="#000000"/>
-      <rect x="40" y="18" width="143" height="122" fill="url(#badge-silver-innerPanel)"/>
-      <ellipse cx="111.5" cy="74" rx="48" ry="37" fill="#b5c6d7" fill-opacity="0.14"/>
-      <ellipse cx="111.5" cy="95" rx="62" ry="30" fill="#000000" fill-opacity="0.2"/>
-      <path d="M50 31 C78 18 117 17 173 36 L173 67 C146 55 113 52 84 57 C69 60 57 65 50 72 Z" fill="url(#badge-silver-glassShine)"/>
+      <rect x="26" y="6" width="171" height="142" fill="#000000"/>
+      <rect x="26" y="6" width="171" height="142" fill="url(#badge-silver-innerPanel)"/>
+      <ellipse cx="111.5" cy="77" rx="52" ry="39" fill="#b8c8d8" fill-opacity="0.14"/>
+      <ellipse cx="111.5" cy="99" rx="66" ry="30" fill="#000000" fill-opacity="0.22"/>
+      <path d="M43 28 C79 13 120 14 180 35 L180 69 C153 56 117 53 87 59 C68 63 52 68 43 77 Z" fill="url(#badge-silver-glassShine)"/>
     </g>
   </g>
 
   <g id="badge-silver-frameGroup">
-    <path d="M111.5 4 L198 38 L186 124 L161 150 L134 150 L128 131 L95 131 L89 150 L62 150 L37 124 L25 38 Z M111.5 18 L182 47 L173 117 L153 139 L127 139 L121 121 L102 121 L96 139 L70 139 L50 117 L41 47 Z" fill="url(#badge-silver-outerMetal)" fill-rule="evenodd"/>
-    <use href="#badge-silver-frameOuter" fill="none" stroke="#ffffff" stroke-opacity="0.55" stroke-width="1.2"/>
-    <use href="#badge-silver-frameInner" fill="none" stroke="#020403" stroke-opacity="0.8" stroke-width="1.2"/>
-    <path d="M111.5 8 L191 40 L184 50 L111.5 19 L39 50 L32 40 Z" fill="url(#badge-silver-facetMetal)"/>
-    <path d="M184 50 L191 40 L180 119 L173 117 Z" fill="url(#badge-silver-facetMetal)"/>
-    <path d="M39 50 L32 40 L43 119 L50 117 Z" fill="url(#badge-silver-facetMetal)"/>
-    <path d="M173 117 L181 121 L160 145 L153 139 Z" fill="url(#badge-silver-facetMetal)"/>
-    <path d="M50 117 L42 121 L63 145 L70 139 Z" fill="url(#badge-silver-facetMetal)"/>
-    <path d="M96 139 L89 150 L62 150 L70 139 Z" fill="url(#badge-silver-facetMetal)"/>
-    <path d="M127 139 L134 150 L161 150 L153 139 Z" fill="url(#badge-silver-facetMetal)"/>
+    <path d="M111.5 4 L205 37 L193 126 L167 152 L136 152 L129 135 L94 135 L87 152 L56 152 L30 126 L18 37 Z M111.5 18 L186 47 L175 118 L152 140 L128 140 L121 122 L102 122 L95 140 L71 140 L48 118 L37 47 Z" fill="url(#badge-silver-outerMetal)" fill-rule="evenodd"/>
+    <use href="#badge-silver-frameOuter" fill="none" stroke="#ffffff" stroke-opacity="0.56" stroke-width="1.2"/>
+    <use href="#badge-silver-frameInner" fill="none" stroke="#020403" stroke-opacity="0.82" stroke-width="1.2"/>
+    <path d="M111.5 7 L189 38 L182 48 L111.5 19 L41 48 L34 38 Z" fill="url(#badge-silver-facetMetal)"/>
+    <path d="M35 45 L45 112" stroke="#ffffff" stroke-opacity="0.28" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M188 42 L178 112" stroke="#ffffff" stroke-opacity="0.38" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M73 139 L95 139" stroke="#ffffff" stroke-opacity="0.18" stroke-width="1.1" stroke-linecap="round"/>
+    <path d="M128 139 L150 139" stroke="#ffffff" stroke-opacity="0.18" stroke-width="1.1" stroke-linecap="round"/>
   </g>
 
   <g id="badge-silver-laurelsGroup">
     <g fill="url(#badge-silver-outerMetal)" stroke="#ffffff" stroke-opacity="0.28" stroke-width="0.7">
-      <use href="#badge-silver-leafLeftA"/>
-      <use href="#badge-silver-leafLeftB"/>
-      <use href="#badge-silver-leafLeftC"/>
-      <use href="#badge-silver-leafLeftD"/>
-      <use href="#badge-silver-leafLeftE"/>
-      <use href="#badge-silver-leafRightA"/>
-      <use href="#badge-silver-leafRightB"/>
-      <use href="#badge-silver-leafRightC"/>
-      <use href="#badge-silver-leafRightD"/>
-      <use href="#badge-silver-leafRightE"/>
+      <use href="#badge-silver-leafLeft1"/>
+      <use href="#badge-silver-leafLeft2"/>
+      <use href="#badge-silver-leafLeft3"/>
+      <use href="#badge-silver-leafLeft4"/>
+      <use href="#badge-silver-leafLeft5"/>
+      <use href="#badge-silver-leafRight1"/>
+      <use href="#badge-silver-leafRight2"/>
+      <use href="#badge-silver-leafRight3"/>
+      <use href="#badge-silver-leafRight4"/>
+      <use href="#badge-silver-leafRight5"/>
     </g>
     <g fill="url(#badge-silver-facetMetal)">
       <path d="M11 122 L22 140 L17 145 Z"/>
@@ -114,40 +102,36 @@
   </g>
 
   <g id="badge-silver-crestGroup">
-    <path d="M111.5 110 L154 126 L148 164 L111.5 179 L75 164 L69 126 Z" fill="url(#badge-silver-outerMetal)"/>
-    <use href="#badge-silver-crestOuter" fill="none" stroke="#ffffff" stroke-opacity="0.45" stroke-width="1.2"/>
+    <path d="M111.5 112 L156 126 L149 165 L111.5 180 L74 165 L67 126 Z" fill="url(#badge-silver-outerMetal)"/>
+    <use href="#badge-silver-crestOuter" fill="none" stroke="#ffffff" stroke-opacity="0.46" stroke-width="1.2"/>
     <use href="#badge-silver-crestInner" fill="url(#badge-silver-innerPanel)"/>
-    <use href="#badge-silver-crestInner" fill="none" stroke="#f4fbff" stroke-opacity="0.35" stroke-width="0.8"/>
+    <use href="#badge-silver-crestInner" fill="none" stroke="#f5fbff" stroke-opacity="0.34" stroke-width="0.8"/>
     <path d="M86 126 L111.5 118 L137 126 L133 134 L111.5 127 L90 134 Z" fill="url(#badge-silver-facetMetal)"/>
     <use href="#badge-silver-star" fill="url(#badge-silver-outerMetal)"/>
     <use href="#badge-silver-star" fill="none" stroke="#ffffff" stroke-opacity="0.45" stroke-width="0.8"/>
-    <circle cx="111.5" cy="139" r="2.2" fill="#ffffff" fill-opacity="0.45"/>
+    <circle cx="111.5" cy="139" r="2.2" fill="#ffffff" fill-opacity="0.46"/>
   </g>
 
   <g id="badge-silver-nameplateGroup">
-    <path d="M37 170 L186 170 L214 191 L194 228 L29 228 L9 191 Z M45 178 L178 178 L201 194 L186 220 L37 220 L22 194 Z" fill="url(#badge-silver-outerMetal)" fill-rule="evenodd"/>
+    <path d="M28 173 L195 173 L216 191 L197 229 L26 229 L7 191 Z M40 181 L183 181 L199 194 L185 220 L38 220 L24 194 Z" fill="url(#badge-silver-outerMetal)" fill-rule="evenodd"/>
     <use href="#badge-silver-nameplateOuter" fill="none" stroke="#ffffff" stroke-opacity="0.52" stroke-width="1.1"/>
     <use href="#badge-silver-nameplateInner" fill="url(#badge-silver-innerPanel)"/>
     <use href="#badge-silver-nameplateInner" fill="none" stroke="#ffffff" stroke-opacity="0.18" stroke-width="0.8"/>
-    <path d="M42 174 L181 174 L172 180 L51 180 Z" fill="url(#badge-silver-facetMetal)"/>
-    <path d="M25 194 L40 182 L38 218 L29 228 Z" fill="url(#badge-silver-facetMetal)"/>
-    <path d="M198 182 L202 194 L194 228 L185 218 Z" fill="url(#badge-silver-facetMetal)"/>
-    <path d="M111.5 220 L157 220 L150 226 L74 226 L66 220 Z" fill="#ffffff" fill-opacity="0.16"/>
+    <path d="M43 175 L180 175 L170 181 L53 181 Z" fill="url(#badge-silver-facetMetal)"/>
+    <path d="M29 228 L42 214 L181 214 L194 228 Z" fill="#ffffff" fill-opacity="0.08"/>
   </g>
 
   <g id="badge-silver-labelGroup">
-    <text id="badge-silver-labelShadow" x="111.5" y="203" text-anchor="middle" font-family="'Orbitron', 'Montserrat', 'Arial', sans-serif" font-size="15" font-weight="700" letter-spacing="1.3" fill="#000000" fill-opacity="0.72" transform="translate(0 1.8)">SILVER</text>
-    <text id="badge-silver-labelText" x="111.5" y="203" text-anchor="middle" font-family="'Orbitron', 'Montserrat', 'Arial', sans-serif" font-size="15" font-weight="700" letter-spacing="1.3" fill="#f5fffb">SILVER</text>
+    <text id="badge-silver-labelShadow" data-name-slot="true" x="111.5" y="204" text-anchor="middle" font-family="'Orbitron', 'Montserrat', 'Arial', sans-serif" font-size="14" font-weight="700" letter-spacing="1.1" fill="#000000" fill-opacity="0.72" transform="translate(0 1.8)">CUSTOM NAME</text>
+    <text id="badge-silver-labelText" data-name-slot="true" x="111.5" y="204" text-anchor="middle" font-family="'Orbitron', 'Montserrat', 'Arial', sans-serif" font-size="14" font-weight="700" letter-spacing="1.1" fill="#f6fffb">CUSTOM NAME</text>
   </g>
 
   <g id="badge-silver-highlightsGroup" pointer-events="none">
-    <path d="M111.5 7 L187 38" stroke="#ffffff" stroke-opacity="0.85" stroke-width="1.5" stroke-linecap="round"/>
-    <path d="M111.5 7 L35 38" stroke="#ffffff" stroke-opacity="0.62" stroke-width="1.3" stroke-linecap="round"/>
-    <path d="M31 53 L39 112" stroke="#ffffff" stroke-opacity="0.38" stroke-width="1.1" stroke-linecap="round"/>
-    <path d="M192 46 L183 113" stroke="#ffffff" stroke-opacity="0.52" stroke-width="1.1" stroke-linecap="round"/>
-    <path d="M52 157 L91 169" stroke="#ffffff" stroke-opacity="0.23" stroke-width="0.9" stroke-linecap="round"/>
-    <path d="M171 157 L132 169" stroke="#ffffff" stroke-opacity="0.23" stroke-width="0.9" stroke-linecap="round"/>
-    <ellipse cx="86" cy="43" rx="22" ry="7" transform="rotate(-28 86 43)" fill="#ffffff" fill-opacity="0.22"/>
-    <ellipse cx="140" cy="193" rx="36" ry="5" fill="#ffffff" fill-opacity="0.09"/>
+    <path d="M111.5 6 L187 37" stroke="#ffffff" stroke-opacity="0.85" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M111.5 6 L36 37" stroke="#ffffff" stroke-opacity="0.64" stroke-width="1.3" stroke-linecap="round"/>
+    <path d="M52 157 L92 169" stroke="#ffffff" stroke-opacity="0.23" stroke-width="0.9" stroke-linecap="round"/>
+    <path d="M171 157 L131 169" stroke="#ffffff" stroke-opacity="0.23" stroke-width="0.9" stroke-linecap="round"/>
+    <ellipse cx="86" cy="42" rx="22" ry="7" transform="rotate(-28 86 42)" fill="#ffffff" fill-opacity="0.22"/>
+    <ellipse cx="140" cy="194" rx="36" ry="5" fill="#ffffff" fill-opacity="0.1"/>
   </g>
 </svg>
