@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="snippets" inherit_id="website.snippets">
+        <xpath expr="//snippets[@id='snippet_structure']" position="inside">
+            <t t-snippet="website_member.s_md_members"
+               string="Members"
+               group="people">
+                <keywords>membres members divers brevets club directory annuaire</keywords>
+            </t>
+            <t t-snippet="website_member.s_md_event_attendees"
+               string="Event Participants"
+               group="events">
+                <keywords>participants attendees event evenement inscrits</keywords>
+            </t>
+        </xpath>
+    </template>
+</odoo>

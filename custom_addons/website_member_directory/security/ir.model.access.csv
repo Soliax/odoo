@@ -1,3 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_member_directory_field_user,member.directory.field.user,model_member_directory_field,base.group_user,1,0,0,0
-access_member_directory_field_manager,member.directory.field.manager,model_member_directory_field,website_member_directory.group_member_directory_manager,1,1,1,1

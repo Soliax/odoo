@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+<t t-name="website_member.MdMembersOption">
+    <BuilderContext action="'reloadMdSnippet'">
+        <BuilderRow label.translate="Show Filters">
+            <BuilderCheckbox dataAttributeAction="'showFilters'"
+                             dataAttributeActionValue="'1'"/>
+        </BuilderRow>
+        <BuilderRow label.translate="Show Specialties">
+            <BuilderCheckbox dataAttributeAction="'showSpecialties'"
+                             dataAttributeActionValue="'1'"/>
+        </BuilderRow>
+        <BuilderRow label.translate="Columns">
+            <BuilderSelect dataAttributeAction="'columns'">
+                <BuilderSelectItem dataAttributeActionValue="'2'">2</BuilderSelectItem>
+                <BuilderSelectItem dataAttributeActionValue="'3'">3</BuilderSelectItem>
+                <BuilderSelectItem dataAttributeActionValue="'4'">4</BuilderSelectItem>
+            </BuilderSelect>
+        </BuilderRow>
+        <BuilderRow label.translate="Max Cards">
+            <BuilderSelect dataAttributeAction="'limit'">
+                <BuilderSelectItem dataAttributeActionValue="'0'">All</BuilderSelectItem>
+                <BuilderSelectItem dataAttributeActionValue="'4'">4</BuilderSelectItem>
+                <BuilderSelectItem dataAttributeActionValue="'8'">8</BuilderSelectItem>
+                <BuilderSelectItem dataAttributeActionValue="'12'">12</BuilderSelectItem>
+                <BuilderSelectItem dataAttributeActionValue="'24'">24</BuilderSelectItem>
+            </BuilderSelect>
+        </BuilderRow>
+        <BuilderRow label.translate="Default Category">
+            <BuilderSelect dataAttributeAction="'category'">
+                <BuilderSelectItem dataAttributeActionValue="'all'">All</BuilderSelectItem>
+                <BuilderSelectItem dataAttributeActionValue="'plongeur'">Plongeur</BuilderSelectItem>
+                <BuilderSelectItem dataAttributeActionValue="'hsa'">HSA</BuilderSelectItem>
+            </BuilderSelect>
+        </BuilderRow>
+    </BuilderContext>
+</t>
+
+<t t-name="website_member.MdAttendeesOption">
+    <BuilderContext action="'reloadMdSnippet'">
+        <BuilderRow label.translate="Event" preview="false">
+            <BuilderMany2One
+                model="'event.event'"
+                dataAttributeAction="'eventId'"
+                fields="['id', 'name']"
+                limit="20"
+            />
+        </BuilderRow>
+        <BuilderRow label.translate="Published Members Only">
+            <BuilderCheckbox dataAttributeAction="'publishedOnly'"
+                             dataAttributeActionValue="'1'"/>
+        </BuilderRow>
+        <BuilderRow label.translate="Max Rows">
+            <BuilderSelect dataAttributeAction="'limit'">
+                <BuilderSelectItem dataAttributeActionValue="'0'">All</BuilderSelectItem>
+                <BuilderSelectItem dataAttributeActionValue="'5'">5</BuilderSelectItem>
+                <BuilderSelectItem dataAttributeActionValue="'10'">10</BuilderSelectItem>
+                <BuilderSelectItem dataAttributeActionValue="'20'">20</BuilderSelectItem>
+                <BuilderSelectItem dataAttributeActionValue="'50'">50</BuilderSelectItem>
+            </BuilderSelect>
+        </BuilderRow>
+    </BuilderContext>
+</t>
+</templates>

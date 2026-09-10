@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="s_md_event_attendees" name="Event Participants">
+        <section class="s_md_event_attendees pt32 pb32"
+                 data-event-id=""
+                 data-limit="0"
+                 data-published-only="1"
+                 data-snippet="s_md_event_attendees"
+                 data-name="Event Participants">
+            <div class="container">
+                <div class="s_md_attendees_title mb-3 d-flex align-items-baseline justify-content-between gap-2 flex-wrap">
+                    <h2 class="h4 mb-0">Participants</h2>
+                    <span class="s_md_attendees_count text-muted small"/>
+                </div>
+                <div class="s_md_attendees_content">
+                    <div class="s_md_snippet_placeholder text-center text-muted py-4">
+                        Selectionnez un evenement dans les options du bloc, ou placez ce bloc sur une page evenement.
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <template id="s_md_attendees_content" name="Event Attendees Content">
+        <t t-if="not cards">
+            <div class="alert alert-light border text-center py-4 mb-0">
+                <t t-if="not event_id">Choisissez un evenement dans les options du bloc.</t>
+                <t t-else="">Aucun participant publie pour cet evenement.</t>
+            </div>
+        </t>
+        <div t-else="" class="s_md_attendee_list">
+            <t t-foreach="cards" t-as="card">
+                <t t-call="website_member.md_attendee_row"/>
+            </t>
+        </div>
+    </template>
+</odoo>

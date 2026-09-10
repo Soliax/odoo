@@ -1,3 +1,5 @@
+# Run with:  powershell -ExecutionPolicy Bypass -File .\start-odoo.ps1
+# Or use:    .\start-odoo.cmd
 param(
     [string]$Database = "odoo19-dev",
     [string]$ExtraArgs = ""
