@@ -9,7 +9,7 @@ $OdooBin = Join-Path $Root "odoo\odoo-bin"
 $Conf = Join-Path $Root "odoo.conf"
 
 if (-not (Test-Path $Python)) {
-    Write-Error "Missing venv at $Python — run scripts\bootstrap.ps1 first."
+    Write-Error "Missing venv at $Python - create it with: py -3.11 -m venv .venv"
     exit 1
 }
 
@@ -26,5 +26,5 @@ if ($ExtraArgs) {
     $argList += $ExtraArgs.Split(" ")
 }
 
-Write-Host "Starting Odoo → http://localhost:8069  (db=$Database)"
+Write-Host "Starting Odoo -> http://localhost:8069  (db=$Database)"
 & $Python @argList
