@@ -1,16 +1,17 @@
 # -*- coding: utf-8 -*-
 {
     "name": "Website Member Directory",
-    "version": "19.0.1.0.0",
+    "version": "19.0.1.1.0",
     "category": "Website",
-    "summary": "Private member directory with configurable profile fields",
+    "summary": "Private diving club member directory with LIFRAS brevets",
     "description": """
 Logged-in member directory (/membres)
 =====================================
-* Card grid with photo + name (internal users only)
-* Generic profile page filled from backend data
-* Admin-configurable visible fields, order and sections
-* Access restricted to authenticated users
+* Card grid with photo + name for internal users
+* Diving club fields (LIFRAS brevet, medical, contacts...)
+* Dynamic profile fields from backend
+* Brevet-tier card visuals (1* to MN)
+* Demo divers for each brevet level (password: diverdemo)
 """,
     "author": "Independent Developer",
     "license": "LGPL-3",
@@ -30,6 +31,7 @@ Logged-in member directory (/membres)
             "website_member_directory/static/src/scss/member_directory.scss",
         ],
     },
+    "post_init_hook": "post_init_hook",
     "installable": True,
     "application": True,
 }

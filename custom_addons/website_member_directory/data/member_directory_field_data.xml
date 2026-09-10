@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo noupdate="1">
+    <record id="field_firstname" model="member.directory.field">
+        <field name="name">Prenom</field>
+        <field name="source_model">res.partner</field>
+        <field name="field_name">dive_firstname</field>
+        <field name="widget">text</field>
+        <field name="section">identity</field>
+        <field name="sequence">10</field>
+    </record>
+    <record id="field_lastname" model="member.directory.field">
+        <field name="name">Nom</field>
+        <field name="source_model">res.partner</field>
+        <field name="field_name">dive_lastname</field>
+        <field name="widget">text</field>
+        <field name="section">identity</field>
+        <field name="sequence">20</field>
+    </record>
+    <record id="field_birthday" model="member.directory.field">
+        <field name="name">Date de naissance</field>
+        <field name="source_model">res.partner</field>
+        <field name="field_name">dive_birthday</field>
+        <field name="widget">date</field>
+        <field name="section">identity</field>
+        <field name="sequence">30</field>
+    </record>
     <record id="field_email" model="member.directory.field">
-        <field name="name">Email</field>
+        <field name="name">Courriel</field>
         <field name="source_model">res.partner</field>
         <field name="field_name">email</field>
         <field name="widget">email</field>
@@ -9,51 +33,139 @@
         <field name="sequence">10</field>
     </record>
     <record id="field_phone" model="member.directory.field">
-        <field name="name">Phone</field>
+        <field name="name">Telephone portable</field>
         <field name="source_model">res.partner</field>
         <field name="field_name">phone</field>
         <field name="widget">phone</field>
         <field name="section">contact</field>
         <field name="sequence">20</field>
     </record>
+    <record id="field_phone_home" model="member.directory.field">
+        <field name="name">Telephone domicile</field>
+        <field name="source_model">res.partner</field>
+        <field name="field_name">dive_phone_home</field>
+        <field name="widget">phone</field>
+        <field name="section">contact</field>
+        <field name="sequence">30</field>
+    </record>
+    <record id="field_phone_work" model="member.directory.field">
+        <field name="name">Telephone professionnel</field>
+        <field name="source_model">res.partner</field>
+        <field name="field_name">dive_phone_work</field>
+        <field name="widget">phone</field>
+        <field name="section">contact</field>
+        <field name="sequence">40</field>
+    </record>
     <record id="field_address" model="member.directory.field">
-        <field name="name">Address</field>
+        <field name="name">Adresse</field>
         <field name="source_model">res.partner</field>
         <field name="field_name">street</field>
         <field name="widget">address</field>
         <field name="section">address</field>
         <field name="sequence">10</field>
     </record>
-    <record id="field_website" model="member.directory.field">
-        <field name="name">Website</field>
-        <field name="source_model">res.partner</field>
-        <field name="field_name">website</field>
-        <field name="widget">url</field>
-        <field name="section">professional</field>
-        <field name="sequence">10</field>
-    </record>
     <record id="field_function" model="member.directory.field">
-        <field name="name">Job Position</field>
+        <field name="name">Fonction</field>
         <field name="source_model">res.partner</field>
         <field name="field_name">function</field>
         <field name="widget">text</field>
         <field name="section">professional</field>
+        <field name="sequence">10</field>
+    </record>
+    <record id="field_profession" model="member.directory.field">
+        <field name="name">Profession</field>
+        <field name="source_model">res.partner</field>
+        <field name="field_name">dive_profession</field>
+        <field name="widget">text</field>
+        <field name="section">professional</field>
         <field name="sequence">20</field>
     </record>
-    <record id="field_company" model="member.directory.field">
-        <field name="name">Company</field>
+    <record id="field_brevet" model="member.directory.field">
+        <field name="name">Brevet</field>
         <field name="source_model">res.partner</field>
-        <field name="field_name">parent_id</field>
-        <field name="widget">many2one</field>
-        <field name="section">professional</field>
+        <field name="field_name">dive_brevet</field>
+        <field name="widget">brevet</field>
+        <field name="section">lifras</field>
+        <field name="sequence">10</field>
+    </record>
+    <record id="field_lifras_id" model="member.directory.field">
+        <field name="name">ID membre Lifras</field>
+        <field name="source_model">res.partner</field>
+        <field name="field_name">dive_lifras_id</field>
+        <field name="widget">text</field>
+        <field name="section">lifras</field>
+        <field name="sequence">20</field>
+    </record>
+    <record id="field_other_brevets" model="member.directory.field">
+        <field name="name">Autres Brevets</field>
+        <field name="source_model">res.partner</field>
+        <field name="field_name">dive_other_brevets</field>
+        <field name="widget">text</field>
+        <field name="section">lifras</field>
         <field name="sequence">30</field>
     </record>
-    <record id="field_comment" model="member.directory.field">
-        <field name="name">Notes</field>
+    <record id="field_cfps" model="member.directory.field">
+        <field name="name">CFPS</field>
         <field name="source_model">res.partner</field>
-        <field name="field_name">comment</field>
-        <field name="widget">html</field>
-        <field name="section">extra</field>
+        <field name="field_name">dive_cfps</field>
+        <field name="widget">boolean</field>
+        <field name="section">lifras</field>
+        <field name="sequence">40</field>
+    </record>
+    <record id="field_nitrox" model="member.directory.field">
+        <field name="name">Date Nitrox Basic</field>
+        <field name="source_model">res.partner</field>
+        <field name="field_name">dive_nitrox_basic_date</field>
+        <field name="widget">date</field>
+        <field name="section">lifras</field>
+        <field name="sequence">50</field>
+    </record>
+    <record id="field_cfps_start" model="member.directory.field">
+        <field name="name">Date Debut CFPS</field>
+        <field name="source_model">res.partner</field>
+        <field name="field_name">dive_cfps_start</field>
+        <field name="widget">date</field>
+        <field name="section">lifras</field>
+        <field name="sequence">60</field>
+    </record>
+    <record id="field_cfps_end" model="member.directory.field">
+        <field name="name">Date Fin CFPS</field>
+        <field name="source_model">res.partner</field>
+        <field name="field_name">dive_cfps_end</field>
+        <field name="widget">date</field>
+        <field name="section">lifras</field>
+        <field name="sequence">70</field>
+    </record>
+    <record id="field_contact_name" model="member.directory.field">
+        <field name="name">Personne de contact</field>
+        <field name="source_model">res.partner</field>
+        <field name="field_name">dive_contact_name</field>
+        <field name="widget">text</field>
+        <field name="section">medical</field>
         <field name="sequence">10</field>
+    </record>
+    <record id="field_contact_phone" model="member.directory.field">
+        <field name="name">Telephone du contact</field>
+        <field name="source_model">res.partner</field>
+        <field name="field_name">dive_contact_phone</field>
+        <field name="widget">phone</field>
+        <field name="section">medical</field>
+        <field name="sequence">20</field>
+    </record>
+    <record id="field_last_medical" model="member.directory.field">
+        <field name="name">Derniere Visite Medicale</field>
+        <field name="source_model">res.partner</field>
+        <field name="field_name">dive_last_medical</field>
+        <field name="widget">date</field>
+        <field name="section">medical</field>
+        <field name="sequence">30</field>
+    </record>
+    <record id="field_last_ecg" model="member.directory.field">
+        <field name="name">Dernier ECG Effort</field>
+        <field name="source_model">res.partner</field>
+        <field name="field_name">dive_last_ecg</field>
+        <field name="widget">date</field>
+        <field name="section">medical</field>
+        <field name="sequence">40</field>
     </record>
 </odoo>

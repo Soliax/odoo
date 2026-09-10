@@ -13,19 +13,18 @@ class MemberDirectoryField(models.Model):
     sequence = fields.Integer(default=10)
     section = fields.Selection(
         [
-            ("identity", "Identity"),
+            ("identity", "Identite"),
             ("contact", "Contact"),
-            ("address", "Address"),
-            ("professional", "Professional"),
+            ("address", "Adresse"),
+            ("professional", "Professionnel"),
+            ("lifras", "LIFRAS"),
+            ("medical", "Medical"),
             ("extra", "Extra"),
         ],
         default="contact",
         required=True,
     )
-    section_sequence = fields.Integer(
-        compute="_compute_section_sequence",
-        store=True,
-    )
+    section_sequence = fields.Integer(compute="_compute_section_sequence", store=True)
     source_model = fields.Selection(
         [
             ("res.partner", "Contact (res.partner)"),
@@ -34,11 +33,7 @@ class MemberDirectoryField(models.Model):
         default="res.partner",
         required=True,
     )
-    field_name = fields.Char(
-        string="Technical Field",
-        required=True,
-        help="Technical name of the field on the source model, e.g. email, phone, street.",
-    )
+    field_name = fields.Char(string="Technical Field", required=True)
     widget = fields.Selection(
         [
             ("text", "Text"),
@@ -46,8 +41,11 @@ class MemberDirectoryField(models.Model):
             ("phone", "Phone"),
             ("url", "URL"),
             ("html", "HTML"),
+            ("date", "Date"),
+            ("brevet", "Brevet badge"),
             ("address", "Address block"),
             ("many2one", "Related record name"),
+            ("boolean", "Yes / No"),
         ],
         default="text",
         required=True,
@@ -75,7 +73,9 @@ class MemberDirectoryField(models.Model):
             "contact": 20,
             "address": 30,
             "professional": 40,
-            "extra": 50,
+            "lifras": 50,
+            "medical": 60,
+            "extra": 70,
         }
         for rec in self:
             rec.section_sequence = order.get(rec.section, 99)
@@ -99,10 +99,9 @@ class MemberDirectoryField(models.Model):
             return False
         if self.visibility == "connected":
             return bool(user and not user._is_public())
-        return bool(user.groups_id & self.group_ids)
+        return bool(user.all_group_ids & self.group_ids)
 
     def get_display_value(self, member_user):
-        """Return a render-ready dict for QWeb."""
         self.ensure_one()
         record = member_user.partner_id if self.source_model == "res.partner" else member_user
         field = record._fields.get(self.field_name)
@@ -115,18 +114,37 @@ class MemberDirectoryField(models.Model):
             lines = (partner.contact_address or partner._display_address(without_company=True) or "").strip()
             return {"type": "address", "value": lines} if lines else False
 
+        if self.widget == "brevet" or self.field_name == "dive_brevet":
+            if not raw:
+                return False
+            partner = member_user.partner_id
+            return {
+                "type": "brevet",
+                "value": partner.dive_brevet_label or raw,
+                "short": partner.dive_brevet_short or raw,
+                "css": partner.dive_brevet_css or "brevet-none",
+            }
+
         if field.type in ("many2one",):
             if not raw:
                 return False
             return {"type": "many2one", "value": raw.display_name, "id": raw.id}
 
-        if field.type in ("boolean",):
-            return {"type": "text", "value": self.env._("Yes") if raw else self.env._("No")}
+        if field.type in ("boolean",) or self.widget == "boolean":
+            if raw is False and self.widget != "boolean":
+                # still show False for boolean widget
+                pass
+            return {"type": "text", "value": self.env._("Oui") if raw else self.env._("Non")}
 
         if field.type in ("html",):
             if not raw:
                 return False
             return {"type": "html", "value": raw}
+
+        if field.type == "date":
+            if not raw:
+                return False
+            return {"type": "date", "value": raw.strftime("%d-%m-%y")}
 
         if raw in (False, None, ""):
             return False
@@ -135,11 +153,10 @@ class MemberDirectoryField(models.Model):
         if field.type == "selection":
             value = dict(field._description_selection(self.env)).get(raw, raw)
 
-        widget = self.widget
-        if widget == "email":
+        if self.widget == "email":
             return {"type": "email", "value": value}
-        if widget == "phone":
+        if self.widget == "phone":
             return {"type": "phone", "value": value}
-        if widget == "url":
+        if self.widget == "url":
             return {"type": "url", "value": value}
         return {"type": "text", "value": value}
