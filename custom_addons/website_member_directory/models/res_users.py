@@ -15,6 +15,7 @@ class ResUsers(models.Model):
         help="Optional short line under the name on member cards.",
     )
 
+    club_is_hsa = fields.Boolean(related="partner_id.club_is_hsa", readonly=False)
     dive_firstname = fields.Char(related="partner_id.dive_firstname", readonly=False)
     dive_lastname = fields.Char(related="partner_id.dive_lastname", readonly=False)
     dive_phone_home = fields.Char(related="partner_id.dive_phone_home", readonly=False)
@@ -70,6 +71,14 @@ class ResUsers(models.Model):
     def get_dive_specialties(self):
         self.ensure_one()
         return self.partner_id.get_dive_specialties()
+
+    def has_directory_hsa_affiliation(self):
+        self.ensure_one()
+        return self.partner_id.has_directory_hsa_affiliation()
+
+    def has_directory_diving_affiliation(self):
+        self.ensure_one()
+        return self.partner_id.has_directory_diving_affiliation()
 
     def get_directory_profile_fields(self, viewer):
         self.ensure_one()
