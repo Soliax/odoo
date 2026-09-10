@@ -37,6 +37,7 @@ DIVE_SPECIALTIES = [
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
+    club_is_hsa = fields.Boolean(string="Part of HSA")
     dive_firstname = fields.Char(string="Prenom")
     dive_lastname = fields.Char(string="Nom")
     dive_phone_home = fields.Char(string="Telephone domicile")
@@ -100,3 +101,16 @@ class ResPartner(models.Model):
                     "css": "spec-%s" % code,
                 })
         return pills
+
+    def has_directory_hsa_affiliation(self):
+        self.ensure_one()
+        return bool(self.club_is_hsa)
+
+    def has_directory_diving_affiliation(self):
+        self.ensure_one()
+        return bool(
+            self.dive_brevet
+            or self.dive_lifras_id
+            or self.dive_other_brevets
+            or any(self[fname] for _code, _short, _full, fname in DIVE_SPECIALTIES)
+        )

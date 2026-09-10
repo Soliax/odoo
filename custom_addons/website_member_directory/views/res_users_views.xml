@@ -9,6 +9,7 @@
                 <group string="Members page" name="member_directory">
                     <field name="directory_published"/>
                     <field name="directory_subtitle"/>
+                    <field name="club_is_hsa"/>
                 </group>
             </xpath>
             <xpath expr="//notebook" position="inside">
@@ -78,6 +79,7 @@
                     </group>
                     <group>
                         <group string="LIFRAS">
+                            <field name="club_is_hsa"/>
                             <field name="dive_brevet"/>
                             <field name="dive_brevet_rank" invisible="1"/>
                             <field name="dive_lifras_id"/>

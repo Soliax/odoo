@@ -33,6 +33,7 @@ DEMO_DIVERS = [
         "email": "vincianeaubry@example.com",
         "birthday": date(1976, 2, 11),
         "lifras_id": "54666",
+        "hsa": True,
         "contact_name": "Jacques Hanappe",
         "contact_phone": "0470 35 41 44",
         "last_medical": date(2025, 12, 17),
@@ -99,6 +100,7 @@ DEMO_DIVERS = [
         "email": "hugo.am@example.com",
         "birthday": date(1982, 1, 9),
         "lifras_id": "50005",
+        "hsa": True,
         "specs": {
             "dive_spec_cfps": date(2020, 4, 4),
             "dive_spec_ve": date(2021, 6, 6),
@@ -194,6 +196,7 @@ def _upsert_demo_diver(env, data):
         "phone": data.get("phone"),
         "email": data.get("email"),
         "function": data.get("function"),
+        "club_is_hsa": data.get("hsa", False),
         "dive_firstname": data["firstname"],
         "dive_lastname": data["lastname"],
         "dive_birthday": data.get("birthday"),

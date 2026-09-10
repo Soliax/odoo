@@ -36,37 +36,60 @@
                                 <t t-foreach="members" t-as="member">
                                     <t t-set="brevet_css" t-value="member.dive_brevet_css or 'brevet-none'"/>
                                     <t t-set="specialties" t-value="member.get_dive_specialties()"/>
+                                    <t t-set="has_hsa" t-value="member.has_directory_hsa_affiliation()"/>
+                                    <t t-set="has_diving" t-value="member.has_directory_diving_affiliation()"/>
                                     <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
                                         <a t-att-href="'/membres/%s' % member.id"
                                            t-attf-class="s_md_card text-decoration-none s_md_#{brevet_css}">
                                             <div class="s_md_card_inner">
-                                                <span class="s_md_frame s_md_frame_tl"/>
-                                                <span class="s_md_frame s_md_frame_tr"/>
-                                                <span class="s_md_frame s_md_frame_bl"/>
-                                                <span class="s_md_frame s_md_frame_br"/>
-                                                <span t-if="member.dive_brevet_short" class="s_md_brevet_chip" t-esc="member.dive_brevet_short"/>
+                                                <span class="s_md_card_glow"/>
+                                                <div t-if="member.dive_brevet_short" class="s_md_brevet_diamond" t-att-title="member.dive_brevet_label or member.dive_brevet_short">
+                                                    <span t-esc="member.dive_brevet_short"/>
+                                                </div>
                                                 <div class="s_md_avatar_wrap">
                                                     <img t-if="member.image_128"
                                                          t-att-src="'/web/image/res.users/%s/image_128' % member.id"
-                                                         class="s_md_avatar" alt=""/>
+                                                         class="s_md_avatar"
+                                                         t-att-alt="'Portrait de %s' % (member.get_directory_card_name() or 'membre')"/>
                                                     <div t-else="" class="s_md_avatar s_md_avatar_fallback">
                                                         <span t-esc="(member.get_directory_card_name() or '?')[:1].upper()"/>
                                                     </div>
                                                 </div>
-                                                <h3 class="s_md_name" t-esc="member.get_directory_card_name()"/>
-                                                <p class="s_md_subtitle">
-                                                    <t t-if="member.dive_brevet_label" t-esc="member.dive_brevet_label"/>
-                                                    <t t-elif="member.directory_subtitle" t-esc="member.directory_subtitle"/>
-                                                    <t t-elif="member.partner_id.function" t-esc="member.partner_id.function"/>
-                                                </p>
-                                                <div t-if="specialties" class="s_md_spec_pills">
-                                                    <t t-foreach="specialties" t-as="spec">
-                                                        <span t-attf-class="s_md_spec_pill s_md_#{spec['css']}"
-                                                              t-att-title="('%s - depuis %s') % (spec['label'], spec['date'])"
-                                                              t-esc="spec['short']"/>
-                                                    </t>
+                                                <div class="s_md_nameplate">
+                                                    <h3 class="s_md_name" t-esc="member.get_directory_card_name()"/>
+                                                    <p class="s_md_subtitle">
+                                                        <t t-if="member.directory_subtitle" t-esc="member.directory_subtitle"/>
+                                                        <t t-elif="member.partner_id.function" t-esc="member.partner_id.function"/>
+                                                        <t t-elif="member.dive_brevet_label" t-esc="member.dive_brevet_label"/>
+                                                    </p>
                                                 </div>
-                                                <span class="s_md_cta">Voir le profil</span>
+                                                <div class="s_md_specs_panel">
+                                                    <div t-if="specialties" class="s_md_spec_pills">
+                                                        <t t-foreach="specialties" t-as="spec">
+                                                            <span t-attf-class="s_md_spec_pill s_md_#{spec['css']}"
+                                                                  t-att-title="('%s - depuis %s') % (spec['label'], spec['date'])"
+                                                                  t-esc="spec['short']"/>
+                                                        </t>
+                                                    </div>
+                                                    <p t-else="" class="s_md_specs_empty mb-0">Aucune specialite renseignee</p>
+                                                    <div t-if="has_hsa or has_diving" class="s_md_affiliations">
+                                                        <span class="s_md_affiliation_slot">
+                                                            <span t-if="has_hsa" class="s_md_affiliation s_md_affiliation_hsa" title="Membre HSA" aria-label="Membre HSA">
+                                                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                                                    <path d="M7.2 5.4a1 1 0 0 1 1.4 0l2.25 2.25-1.42 1.42L7.2 6.82a1 1 0 0 1 0-1.42Zm8.2 0a1 1 0 0 1 1.4 1.42l-2.24 2.24-1.42-1.42 2.25-2.25ZM9.3 12.05l2.65-2.65 4.7 4.7-2.64 2.65-4.71-4.7Zm-3.9 5.2c1.02-1.02 2.61-1.1 3.72-.24l-3.49 3.49c-.86-1.11-.78-2.69.24-3.25ZM12.65 8.7l1.42-1.42 4.7 4.7-1.42 1.42-4.7-4.7Zm-5.9 8.8 2.9-2.9 1.9 1.9-2.9 2.9H6.75Zm10.5-1.85c.9-.9 2.28-1.03 3.33-.4l-3.13 3.13c-.63-1.05-.5-2.43.4-3.33Z"/>
+                                                                    <circle cx="18.2" cy="18.2" r="1.75"/>
+                                                                </svg>
+                                                            </span>
+                                                        </span>
+                                                        <span class="s_md_affiliation_slot s_md_affiliation_slot_end">
+                                                            <span t-if="has_diving" class="s_md_affiliation s_md_affiliation_diving" title="Section plongee" aria-label="Section plongee">
+                                                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                                                    <path d="M9.5 3.5A2.5 2.5 0 0 0 7 6v6.5a2.5 2.5 0 0 0 2.5 2.5h.75V18a1 1 0 0 0 1 1h1.5a1 1 0 0 0 1-1v-3h.75A2.5 2.5 0 0 0 17 12.5V6a2.5 2.5 0 0 0-2.5-2.5h-5Zm1.75 2h1.5a.75.75 0 1 1 0 1.5h-1.5a.75.75 0 0 1 0-1.5ZM6 11.25h1v1.25A3.5 3.5 0 0 0 10.5 16h3A3.5 3.5 0 0 0 17 12.5v-1.25h1a2 2 0 0 1 2 2V15a.75.75 0 0 1-.75.75H4.75A.75.75 0 0 1 4 15v-1.75a2 2 0 0 1 2-2Z"/>
+                                                                </svg>
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </a>
                                     </div>
