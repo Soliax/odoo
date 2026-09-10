@@ -1,0 +1,28 @@
+# Local Python & runtime
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+odoo-server.log
+*.log
+filestore/
+.sessions/
+
+# Upstream sources ? clone locally, do not commit
+/odoo/
+/tutorials/
+
+# Secrets / local overrides
+odoo.conf
+odoo.conf.local
+
+# Editors / junk
+.idea/
+.vscode/*.log
+*.egg-info/
+dist/
+build/
+scripts/vsenv.txt
+scripts/odoo-stdout.log
+scripts/odoo-stderr.log
+scripts/_*.py
