@@ -9,6 +9,7 @@
         <a t-att-href="'/membres/%s' % member.id"
            t-attf-class="s_md_card s_md_#{brevet_css} text-decoration-none">
             <div class="s_md_card_shell">
+                <div class="s_md_card_frame" aria-hidden="true"/>
                 <div class="s_md_card_gem" t-att-title="member.dive_brevet_label or brevet_short">
                     <span t-esc="brevet_short"/>
                 </div>
@@ -16,12 +17,15 @@
                 <div class="s_md_card_art">
                     <div class="s_md_card_wing s_md_card_wing_l" aria-hidden="true"/>
                     <div class="s_md_card_wing s_md_card_wing_r" aria-hidden="true"/>
-                    <div class="s_md_card_oval">
-                        <img t-if="member.image_128"
-                             t-att-src="'/web/image/res.users/%s/image_128' % member.id"
-                             class="s_md_card_face" alt=""/>
-                        <div t-else="" class="s_md_card_face s_md_card_face_fallback"
-                             t-esc="(card_name or '?')[:1].upper()"/>
+                    <div class="s_md_card_oval_wrap">
+                        <div class="s_md_card_oval_ring" aria-hidden="true"/>
+                        <div class="s_md_card_oval">
+                            <img t-if="member.image_128"
+                                 t-att-src="'/web/image/res.users/%s/image_128' % member.id"
+                                 class="s_md_card_face" alt=""/>
+                            <div t-else="" class="s_md_card_face s_md_card_face_fallback"
+                                 t-esc="(card_name or '?')[:1].upper()"/>
+                        </div>
                     </div>
                 </div>
 
