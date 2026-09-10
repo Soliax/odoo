@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 223 260" width="223" height="260" role="img" aria-labelledby="badge-crimson-title badge-crimson-desc">
   <title id="badge-crimson-title">CRIMSON portrait badge frame</title>
-  <desc id="badge-crimson-desc">Editable angular metallic badge frame based on the supplied PNG reference, with a clipped portrait area, beveled nameplate, side laurels, and replaceable text.</desc>
+  <desc id="badge-crimson-desc">Editable angular metallic badge frame based on the supplied PNG reference, with a clipped portrait area, beveled nameplate, side laurels, and replaceable text. When inserting a real portrait, update the SVG title and description to describe the final subject.</desc>
   <defs>
     <linearGradient id="badge-crimson-outerMetal" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#ffffff"/>
@@ -69,7 +69,7 @@
   </g>
 
   <g id="badge-crimson-photoAreaGroup">
-    <image id="badge-crimson-portraitImage" href="" x="40" y="18" width="143" height="122" preserveAspectRatio="xMidYMid slice" clip-path="url(#badge-crimson-photoClip)"/>
+    <image aria-hidden="true" focusable="false" data-portrait-slot="true" id="badge-crimson-portraitImage" href="" x="40" y="18" width="143" height="122" preserveAspectRatio="xMidYMid slice" clip-path="url(#badge-crimson-photoClip)"/>
     <g clip-path="url(#badge-crimson-photoClip)">
       <rect x="40" y="18" width="143" height="122" fill="#000000"/>
       <rect x="40" y="18" width="143" height="122" fill="url(#badge-crimson-innerPanel)"/>
