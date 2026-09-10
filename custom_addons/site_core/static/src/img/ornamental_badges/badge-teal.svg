@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 223 260" width="223" height="260" role="img" aria-labelledby="badge-teal-title badge-teal-desc" data-level="TEAL">
-  <title id="badge-teal-title">TEAL level portrait badge frame</title>
-  <desc id="badge-teal-desc">Editable level-specific metallic badge frame with a top head-portrait slot and a lower custom-name plate. When inserting a real portrait or final name, update the SVG title and description to describe the finished badge.</desc>
+  <title id="badge-teal-title">TEAL profile ranking badge</title>
+  <desc id="badge-teal-desc">Editable RPG-style profile ranking badge with a replaceable real-person portrait slot, dynamic crest rank text, and a lower nameplate for editable name and rank title.</desc>
   <defs>
     <linearGradient id="badge-teal-outerMetal" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#ffffff"/>
@@ -112,6 +112,11 @@
     <circle cx="111.5" cy="139" r="2.2" fill="#ffffff" fill-opacity="0.46"/>
   </g>
 
+  <g id="badge-teal-rankGroup">
+    <text id="badge-teal-rankShadow" data-rank-code-slot="true" x="111.5" y="162" text-anchor="middle" font-family="'Orbitron', 'Montserrat', 'Arial', sans-serif" font-size="10" font-weight="800" letter-spacing="1.4" fill="#000000" fill-opacity="0.72" transform="translate(0 1.3)">TEAL</text>
+    <text id="badge-teal-rankText" data-rank-code-slot="true" x="111.5" y="162" text-anchor="middle" font-family="'Orbitron', 'Montserrat', 'Arial', sans-serif" font-size="10" font-weight="800" letter-spacing="1.4" fill="#f6fffb">TEAL</text>
+  </g>
+
   <g id="badge-teal-nameplateGroup">
     <path d="M37 171 L186 171 L209 188 L197 228 L26 228 L14 188 Z M48 179 L175 179 L193 192 L183 219 L40 219 L30 192 Z" fill="url(#badge-teal-outerMetal)" fill-rule="evenodd"/>
     <use href="#badge-teal-nameplateOuter" fill="none" stroke="#ffffff" stroke-opacity="0.52" stroke-width="1.1"/>
@@ -122,8 +127,10 @@
   </g>
 
   <g id="badge-teal-labelGroup">
-    <text id="badge-teal-labelShadow" data-name-slot="true" x="111.5" y="203" text-anchor="middle" font-family="'Orbitron', 'Montserrat', 'Arial', sans-serif" font-size="14" font-weight="700" letter-spacing="1.1" fill="#000000" fill-opacity="0.72" transform="translate(0 1.8)">CUSTOM NAME</text>
-    <text id="badge-teal-labelText" data-name-slot="true" x="111.5" y="203" text-anchor="middle" font-family="'Orbitron', 'Montserrat', 'Arial', sans-serif" font-size="14" font-weight="700" letter-spacing="1.1" fill="#f6fffb">CUSTOM NAME</text>
+    <text id="badge-teal-labelShadow" data-name-slot="true" x="111.5" y="197" text-anchor="middle" font-family="'Orbitron', 'Montserrat', 'Arial', sans-serif" font-size="14" font-weight="700" letter-spacing="1.1" fill="#000000" fill-opacity="0.72" transform="translate(0 1.8)">CUSTOM NAME</text>
+    <text id="badge-teal-labelText" data-name-slot="true" x="111.5" y="197" text-anchor="middle" font-family="'Orbitron', 'Montserrat', 'Arial', sans-serif" font-size="14" font-weight="700" letter-spacing="1.1" fill="#f6fffb">CUSTOM NAME</text>
+    <text id="badge-teal-rankTitleShadow" data-rank-slot="true" x="111.5" y="212" text-anchor="middle" font-family="'Orbitron', 'Montserrat', 'Arial', sans-serif" font-size="8.2" font-weight="700" letter-spacing="1.8" fill="#000000" fill-opacity="0.74" transform="translate(0 1.2)">TEAL TIER</text>
+    <text id="badge-teal-rankTitleText" data-rank-slot="true" x="111.5" y="212" text-anchor="middle" font-family="'Orbitron', 'Montserrat', 'Arial', sans-serif" font-size="8.2" font-weight="700" letter-spacing="1.8" fill="#f6fffb">TEAL TIER</text>
   </g>
 
   <g id="badge-teal-highlightsGroup" pointer-events="none">

@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 223 260" width="223" height="260" role="img" aria-labelledby="badge-silver-title badge-silver-desc" data-level="SILVER">
-  <title id="badge-silver-title">SILVER level portrait badge frame</title>
-  <desc id="badge-silver-desc">Editable level-specific metallic badge frame with a top head-portrait slot and a lower custom-name plate. When inserting a real portrait or final name, update the SVG title and description to describe the finished badge.</desc>
+  <title id="badge-silver-title">SILVER profile ranking badge</title>
+  <desc id="badge-silver-desc">Editable RPG-style profile ranking badge with a replaceable real-person portrait slot, dynamic crest rank text, and a lower nameplate for editable name and rank title.</desc>
   <defs>
     <linearGradient id="badge-silver-outerMetal" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#ffffff"/>
@@ -112,6 +112,11 @@
     <circle cx="111.5" cy="139" r="2.2" fill="#ffffff" fill-opacity="0.46"/>
   </g>
 
+  <g id="badge-silver-rankGroup">
+    <text id="badge-silver-rankShadow" data-rank-code-slot="true" x="111.5" y="162" text-anchor="middle" font-family="'Orbitron', 'Montserrat', 'Arial', sans-serif" font-size="10" font-weight="800" letter-spacing="1.4" fill="#000000" fill-opacity="0.72" transform="translate(0 1.3)">SLV</text>
+    <text id="badge-silver-rankText" data-rank-code-slot="true" x="111.5" y="162" text-anchor="middle" font-family="'Orbitron', 'Montserrat', 'Arial', sans-serif" font-size="10" font-weight="800" letter-spacing="1.4" fill="#f6fffb">SLV</text>
+  </g>
+
   <g id="badge-silver-nameplateGroup">
     <path d="M28 173 L195 173 L216 191 L197 229 L26 229 L7 191 Z M40 181 L183 181 L199 194 L185 220 L38 220 L24 194 Z" fill="url(#badge-silver-outerMetal)" fill-rule="evenodd"/>
     <use href="#badge-silver-nameplateOuter" fill="none" stroke="#ffffff" stroke-opacity="0.52" stroke-width="1.1"/>
@@ -122,8 +127,10 @@
   </g>
 
   <g id="badge-silver-labelGroup">
-    <text id="badge-silver-labelShadow" data-name-slot="true" x="111.5" y="204" text-anchor="middle" font-family="'Orbitron', 'Montserrat', 'Arial', sans-serif" font-size="14" font-weight="700" letter-spacing="1.1" fill="#000000" fill-opacity="0.72" transform="translate(0 1.8)">CUSTOM NAME</text>
-    <text id="badge-silver-labelText" data-name-slot="true" x="111.5" y="204" text-anchor="middle" font-family="'Orbitron', 'Montserrat', 'Arial', sans-serif" font-size="14" font-weight="700" letter-spacing="1.1" fill="#f6fffb">CUSTOM NAME</text>
+    <text id="badge-silver-labelShadow" data-name-slot="true" x="111.5" y="197" text-anchor="middle" font-family="'Orbitron', 'Montserrat', 'Arial', sans-serif" font-size="14" font-weight="700" letter-spacing="1.1" fill="#000000" fill-opacity="0.72" transform="translate(0 1.8)">CUSTOM NAME</text>
+    <text id="badge-silver-labelText" data-name-slot="true" x="111.5" y="197" text-anchor="middle" font-family="'Orbitron', 'Montserrat', 'Arial', sans-serif" font-size="14" font-weight="700" letter-spacing="1.1" fill="#f6fffb">CUSTOM NAME</text>
+    <text id="badge-silver-rankTitleShadow" data-rank-slot="true" x="111.5" y="212" text-anchor="middle" font-family="'Orbitron', 'Montserrat', 'Arial', sans-serif" font-size="8.2" font-weight="700" letter-spacing="1.8" fill="#000000" fill-opacity="0.74" transform="translate(0 1.2)">SILVER TIER</text>
+    <text id="badge-silver-rankTitleText" data-rank-slot="true" x="111.5" y="212" text-anchor="middle" font-family="'Orbitron', 'Montserrat', 'Arial', sans-serif" font-size="8.2" font-weight="700" letter-spacing="1.8" fill="#f6fffb">SILVER TIER</text>
   </g>
 
   <g id="badge-silver-highlightsGroup" pointer-events="none">
