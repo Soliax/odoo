@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 223 260" width="223" height="260" role="img" aria-labelledby="badge-ruby-title badge-ruby-desc" data-level="RUBY">
+  <title id="badge-ruby-title">RUBY level portrait badge frame</title>
+  <desc id="badge-ruby-desc">Editable level-specific metallic badge frame with a top head-portrait slot and a lower custom-name plate. When inserting a real portrait or final name, update the SVG title and description to describe the finished badge.</desc>
+  <defs>
+    <linearGradient id="badge-ruby-outerMetal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.08" stop-color="#ff99a7"/>
+      <stop offset="0.28" stop-color="#e85a69"/>
+      <stop offset="0.56" stop-color="#7d1733"/>
+      <stop offset="0.78" stop-color="#e85a69"/>
+      <stop offset="1" stop-color="#ffffff"/>
+    </linearGradient>
+    <linearGradient id="badge-ruby-facetMetal" x1="0" y1="0" x2="1" y2="0.35">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.82"/>
+      <stop offset="0.3" stop-color="#ffe9ec" stop-opacity="0.64"/>
+      <stop offset="1" stop-color="#7d1733" stop-opacity="0.18"/>
+    </linearGradient>
+    <radialGradient id="badge-ruby-innerPanel" cx="50%" cy="38%" r="72%">
+      <stop offset="0" stop-color="#10201c"/>
+      <stop offset="0.58" stop-color="#581024"/>
+      <stop offset="1" stop-color="#030506"/>
+    </radialGradient>
+    <radialGradient id="badge-ruby-photoGlow" cx="50%" cy="40%" r="55%">
+      <stop offset="0" stop-color="#b92a4c" stop-opacity="0.28"/>
+      <stop offset="0.55" stop-color="#e85a69" stop-opacity="0.14"/>
+      <stop offset="1" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="badge-ruby-glassShine" cx="34%" cy="24%" r="84%">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.78"/>
+      <stop offset="0.18" stop-color="#ffffff" stop-opacity="0.24"/>
+      <stop offset="0.5" stop-color="#ffffff" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="badge-ruby-softGlow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="6"/></filter>
+    <clipPath id="badge-ruby-photoClip"><path d="M111.5 21 L181 52 L169 108 L149 134 L128 134 L121 118 L102 118 L95 134 L74 134 L54 108 L42 52 Z"/></clipPath>
+    <path id="badge-ruby-frameOuter" d="M111.5 5 L201 42 L184 116 L157 149 L137 149 L130 133 L93 133 L86 149 L66 149 L39 116 L22 42 Z"/>
+    <path id="badge-ruby-frameInner" d="M111.5 18 L183 51 L171 111 L150 137 L128 137 L121 121 L102 121 L95 137 L73 137 L52 111 L40 51 Z"/>
+    <path id="badge-ruby-nameplateOuter" d="M30 172 L193 172 L211 193 L196 227 L27 227 L12 193 Z"/>
+    <path id="badge-ruby-nameplateInner" d="M41 180 L182 180 L196 194 L184 218 L39 218 L27 194 Z"/>
+    <path id="badge-ruby-crestOuter" d="M111.5 113 L151 124 L145 165 L111.5 185 L78 165 L72 124 Z"/>
+    <path id="badge-ruby-crestInner" d="M111.5 120 L142 129 L137 159 L111.5 173 L86 159 L81 129 Z"/>
+    <path id="badge-ruby-star" d="M111.5 124 L116 134 L127 135 L118.5 142.5 L121 154 L111.5 148 L102 154 L104.5 142.5 L96 135 L107 134 Z"/>
+    <path id="badge-ruby-leafLeft1" d="M7 119 L28 141 L17 145 Z"/>
+    <path id="badge-ruby-leafLeft2" d="M18 132 L47 154 L31 157 Z"/>
+    <path id="badge-ruby-leafLeft3" d="M33 140 L67 160 L46 165 Z"/>
+    <path id="badge-ruby-leafLeft4" d="M48 147 L81 164 L60 170 Z"/>
+    <path id="badge-ruby-leafLeft5" d="M64 152 L94 166 L73 173 Z"/>
+    <path id="badge-ruby-leafRight1" d="M216 119 L205 145 L195 141 Z"/>
+    <path id="badge-ruby-leafRight2" d="M205 132 L192 157 L176 154 Z"/>
+    <path id="badge-ruby-leafRight3" d="M190 140 L177 165 L156 160 Z"/>
+    <path id="badge-ruby-leafRight4" d="M175 147 L162 170 L141 164 Z"/>
+    <path id="badge-ruby-leafRight5" d="M159 152 L149 173 L128 166 Z"/>
+  </defs>
+
+  <g id="badge-ruby-glowGroup" filter="url(#badge-ruby-softGlow)">
+    <use href="#badge-ruby-frameOuter" fill="url(#badge-ruby-photoGlow)"/>
+    <use href="#badge-ruby-nameplateOuter" fill="url(#badge-ruby-photoGlow)"/>
+    <use href="#badge-ruby-crestOuter" fill="url(#badge-ruby-photoGlow)"/>
+  </g>
+
+  <g id="badge-ruby-photoAreaGroup">
+    <image aria-hidden="true" focusable="false" data-portrait-slot="true" id="badge-ruby-portraitImage" href="" x="28" y="8" width="167" height="138" preserveAspectRatio="xMidYMid slice" clip-path="url(#badge-ruby-photoClip)"/>
+    <g clip-path="url(#badge-ruby-photoClip)">
+      <rect x="26" y="6" width="171" height="142" fill="#000000"/>
+      <rect x="26" y="6" width="171" height="142" fill="url(#badge-ruby-innerPanel)"/>
+      <ellipse cx="111.5" cy="77" rx="52" ry="39" fill="#e85a69" fill-opacity="0.14"/>
+      <ellipse cx="111.5" cy="99" rx="66" ry="30" fill="#000000" fill-opacity="0.22"/>
+      <path d="M43 28 C79 13 120 14 180 35 L180 69 C153 56 117 53 87 59 C68 63 52 68 43 77 Z" fill="url(#badge-ruby-glassShine)"/>
+    </g>
+  </g>
+
+  <g id="badge-ruby-frameGroup">
+    <path d="M111.5 5 L201 42 L184 116 L157 149 L137 149 L130 133 L93 133 L86 149 L66 149 L39 116 L22 42 Z M111.5 18 L183 51 L171 111 L150 137 L128 137 L121 121 L102 121 L95 137 L73 137 L52 111 L40 51 Z" fill="url(#badge-ruby-outerMetal)" fill-rule="evenodd"/>
+    <use href="#badge-ruby-frameOuter" fill="none" stroke="#ffffff" stroke-opacity="0.56" stroke-width="1.2"/>
+    <use href="#badge-ruby-frameInner" fill="none" stroke="#020403" stroke-opacity="0.82" stroke-width="1.2"/>
+    <path d="M111.5 7 L189 38 L182 48 L111.5 19 L41 48 L34 38 Z" fill="url(#badge-ruby-facetMetal)"/>
+    <path d="M35 45 L45 112" stroke="#ffffff" stroke-opacity="0.28" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M188 42 L178 112" stroke="#ffffff" stroke-opacity="0.38" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M73 139 L95 139" stroke="#ffffff" stroke-opacity="0.18" stroke-width="1.1" stroke-linecap="round"/>
+    <path d="M128 139 L150 139" stroke="#ffffff" stroke-opacity="0.18" stroke-width="1.1" stroke-linecap="round"/>
+  </g>
+
+  <g id="badge-ruby-laurelsGroup">
+    <g fill="url(#badge-ruby-outerMetal)" stroke="#ffffff" stroke-opacity="0.28" stroke-width="0.7">
+      <use href="#badge-ruby-leafLeft1"/>
+      <use href="#badge-ruby-leafLeft2"/>
+      <use href="#badge-ruby-leafLeft3"/>
+      <use href="#badge-ruby-leafLeft4"/>
+      <use href="#badge-ruby-leafLeft5"/>
+      <use href="#badge-ruby-leafRight1"/>
+      <use href="#badge-ruby-leafRight2"/>
+      <use href="#badge-ruby-leafRight3"/>
+      <use href="#badge-ruby-leafRight4"/>
+      <use href="#badge-ruby-leafRight5"/>
+    </g>
+    <g fill="url(#badge-ruby-facetMetal)">
+      <path d="M11 122 L22 140 L17 145 Z"/>
+      <path d="M213 122 L206 145 L201 140 Z"/>
+      <path d="M37 143 L55 156 L46 165 Z"/>
+      <path d="M186 143 L177 165 L168 156 Z"/>
+    </g>
+  </g>
+
+  <g id="badge-ruby-crestGroup">
+    <path d="M111.5 113 L151 124 L145 165 L111.5 185 L78 165 L72 124 Z" fill="url(#badge-ruby-outerMetal)"/>
+    <use href="#badge-ruby-crestOuter" fill="none" stroke="#ffffff" stroke-opacity="0.46" stroke-width="1.2"/>
+    <use href="#badge-ruby-crestInner" fill="url(#badge-ruby-innerPanel)"/>
+    <use href="#badge-ruby-crestInner" fill="none" stroke="#ffe9ec" stroke-opacity="0.34" stroke-width="0.8"/>
+    <path d="M86 126 L111.5 118 L137 126 L133 134 L111.5 127 L90 134 Z" fill="url(#badge-ruby-facetMetal)"/>
+    <use href="#badge-ruby-star" fill="url(#badge-ruby-outerMetal)"/>
+    <use href="#badge-ruby-star" fill="none" stroke="#ffffff" stroke-opacity="0.45" stroke-width="0.8"/>
+    <circle cx="111.5" cy="139" r="2.2" fill="#ffffff" fill-opacity="0.46"/>
+  </g>
+
+  <g id="badge-ruby-nameplateGroup">
+    <path d="M30 172 L193 172 L211 193 L196 227 L27 227 L12 193 Z M41 180 L182 180 L196 194 L184 218 L39 218 L27 194 Z" fill="url(#badge-ruby-outerMetal)" fill-rule="evenodd"/>
+    <use href="#badge-ruby-nameplateOuter" fill="none" stroke="#ffffff" stroke-opacity="0.52" stroke-width="1.1"/>
+    <use href="#badge-ruby-nameplateInner" fill="url(#badge-ruby-innerPanel)"/>
+    <use href="#badge-ruby-nameplateInner" fill="none" stroke="#ffffff" stroke-opacity="0.18" stroke-width="0.8"/>
+    <path d="M43 175 L180 175 L170 181 L53 181 Z" fill="url(#badge-ruby-facetMetal)"/>
+    <path d="M29 228 L42 214 L181 214 L194 228 Z" fill="#ffffff" fill-opacity="0.08"/>
+  </g>
+
+  <g id="badge-ruby-labelGroup">
+    <text id="badge-ruby-labelShadow" data-name-slot="true" x="111.5" y="203" text-anchor="middle" font-family="'Orbitron', 'Montserrat', 'Arial', sans-serif" font-size="14" font-weight="700" letter-spacing="1.1" fill="#000000" fill-opacity="0.72" transform="translate(0 1.8)">CUSTOM NAME</text>
+    <text id="badge-ruby-labelText" data-name-slot="true" x="111.5" y="203" text-anchor="middle" font-family="'Orbitron', 'Montserrat', 'Arial', sans-serif" font-size="14" font-weight="700" letter-spacing="1.1" fill="#f6fffb">CUSTOM NAME</text>
+  </g>
+
+  <g id="badge-ruby-highlightsGroup" pointer-events="none">
+    <path d="M111.5 6 L187 37" stroke="#ffffff" stroke-opacity="0.85" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M111.5 6 L36 37" stroke="#ffffff" stroke-opacity="0.64" stroke-width="1.3" stroke-linecap="round"/>
+    <path d="M52 157 L92 169" stroke="#ffffff" stroke-opacity="0.23" stroke-width="0.9" stroke-linecap="round"/>
+    <path d="M171 157 L131 169" stroke="#ffffff" stroke-opacity="0.23" stroke-width="0.9" stroke-linecap="round"/>
+    <ellipse cx="86" cy="42" rx="22" ry="7" transform="rotate(-28 86 42)" fill="#ffffff" fill-opacity="0.22"/>
+    <ellipse cx="140" cy="194" rx="36" ry="5" fill="#ffffff" fill-opacity="0.1"/>
+  </g>
+</svg>

@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 223 260" width="223" height="260" role="img" aria-labelledby="badge-hsa-title badge-hsa-desc" data-level="HSA">
+  <title id="badge-hsa-title">HSA level portrait badge frame</title>
+  <desc id="badge-hsa-desc">Editable level-specific metallic badge frame with a top head-portrait slot and a lower custom-name plate. When inserting a real portrait or final name, update the SVG title and description to describe the finished badge.</desc>
+  <defs>
+    <linearGradient id="badge-hsa-outerMetal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.08" stop-color="#ffc65c"/>
+      <stop offset="0.28" stop-color="#ff9b28"/>
+      <stop offset="0.56" stop-color="#8e3c05"/>
+      <stop offset="0.78" stop-color="#ff9b28"/>
+      <stop offset="1" stop-color="#ffffff"/>
+    </linearGradient>
+    <linearGradient id="badge-hsa-facetMetal" x1="0" y1="0" x2="1" y2="0.35">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.82"/>
+      <stop offset="0.3" stop-color="#ffe5a5" stop-opacity="0.64"/>
+      <stop offset="1" stop-color="#8e3c05" stop-opacity="0.18"/>
+    </linearGradient>
+    <radialGradient id="badge-hsa-innerPanel" cx="50%" cy="38%" r="72%">
+      <stop offset="0" stop-color="#10201c"/>
+      <stop offset="0.58" stop-color="#7a2e00"/>
+      <stop offset="1" stop-color="#030506"/>
+    </radialGradient>
+    <radialGradient id="badge-hsa-photoGlow" cx="50%" cy="40%" r="55%">
+      <stop offset="0" stop-color="#cf6900" stop-opacity="0.28"/>
+      <stop offset="0.55" stop-color="#ff9b28" stop-opacity="0.14"/>
+      <stop offset="1" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="badge-hsa-glassShine" cx="34%" cy="24%" r="84%">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.78"/>
+      <stop offset="0.18" stop-color="#ffffff" stop-opacity="0.24"/>
+      <stop offset="0.5" stop-color="#ffffff" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="badge-hsa-softGlow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="6"/></filter>
+    <clipPath id="badge-hsa-photoClip"><path d="M111.5 23 L183 52 L171 111 L150 133 L128 133 L121 117 L102 117 L95 133 L73 133 L52 111 L40 52 Z"/></clipPath>
+    <path id="badge-hsa-frameOuter" d="M111.5 6 L203 41 L188 121 L162 147 L137 147 L129 130 L94 130 L86 147 L61 147 L35 121 L20 41 Z"/>
+    <path id="badge-hsa-frameInner" d="M111.5 20 L185 51 L173 114 L151 136 L128 136 L121 119 L102 119 L95 136 L72 136 L50 114 L38 51 Z"/>
+    <path id="badge-hsa-nameplateOuter" d="M27 168 L196 168 L218 189 L204 229 L19 229 L5 189 Z"/>
+    <path id="badge-hsa-nameplateInner" d="M39 177 L184 177 L201 193 L189 219 L34 219 L22 193 Z"/>
+    <path id="badge-hsa-crestOuter" d="M111.5 109 L154 123 L148 161 L111.5 176 L75 161 L69 123 Z"/>
+    <path id="badge-hsa-crestInner" d="M111.5 116 L145 128 L140 155 L111.5 167 L83 155 L78 128 Z"/>
+    <path id="badge-hsa-star" d="M111.5 124 L116 134 L127 135 L118.5 142.5 L121 154 L111.5 148 L102 154 L104.5 142.5 L96 135 L107 134 Z"/>
+    <path id="badge-hsa-leafLeft1" d="M7 119 L28 141 L17 145 Z"/>
+    <path id="badge-hsa-leafLeft2" d="M18 132 L47 154 L31 157 Z"/>
+    <path id="badge-hsa-leafLeft3" d="M33 140 L67 160 L46 165 Z"/>
+    <path id="badge-hsa-leafLeft4" d="M48 147 L81 164 L60 170 Z"/>
+    <path id="badge-hsa-leafLeft5" d="M64 152 L94 166 L73 173 Z"/>
+    <path id="badge-hsa-leafRight1" d="M216 119 L205 145 L195 141 Z"/>
+    <path id="badge-hsa-leafRight2" d="M205 132 L192 157 L176 154 Z"/>
+    <path id="badge-hsa-leafRight3" d="M190 140 L177 165 L156 160 Z"/>
+    <path id="badge-hsa-leafRight4" d="M175 147 L162 170 L141 164 Z"/>
+    <path id="badge-hsa-leafRight5" d="M159 152 L149 173 L128 166 Z"/>
+  </defs>
+
+  <g id="badge-hsa-glowGroup" filter="url(#badge-hsa-softGlow)">
+    <use href="#badge-hsa-frameOuter" fill="url(#badge-hsa-photoGlow)"/>
+    <use href="#badge-hsa-nameplateOuter" fill="url(#badge-hsa-photoGlow)"/>
+    <use href="#badge-hsa-crestOuter" fill="url(#badge-hsa-photoGlow)"/>
+  </g>
+
+  <g id="badge-hsa-photoAreaGroup">
+    <image aria-hidden="true" focusable="false" data-portrait-slot="true" id="badge-hsa-portraitImage" href="" x="28" y="8" width="167" height="138" preserveAspectRatio="xMidYMid slice" clip-path="url(#badge-hsa-photoClip)"/>
+    <g clip-path="url(#badge-hsa-photoClip)">
+      <rect x="26" y="6" width="171" height="142" fill="#000000"/>
+      <rect x="26" y="6" width="171" height="142" fill="url(#badge-hsa-innerPanel)"/>
+      <ellipse cx="111.5" cy="77" rx="52" ry="39" fill="#ff9b28" fill-opacity="0.14"/>
+      <ellipse cx="111.5" cy="99" rx="66" ry="30" fill="#000000" fill-opacity="0.22"/>
+      <path d="M43 28 C79 13 120 14 180 35 L180 69 C153 56 117 53 87 59 C68 63 52 68 43 77 Z" fill="url(#badge-hsa-glassShine)"/>
+    </g>
+  </g>
+
+  <g id="badge-hsa-frameGroup">
+    <path d="M111.5 6 L203 41 L188 121 L162 147 L137 147 L129 130 L94 130 L86 147 L61 147 L35 121 L20 41 Z M111.5 20 L185 51 L173 114 L151 136 L128 136 L121 119 L102 119 L95 136 L72 136 L50 114 L38 51 Z" fill="url(#badge-hsa-outerMetal)" fill-rule="evenodd"/>
+    <use href="#badge-hsa-frameOuter" fill="none" stroke="#ffffff" stroke-opacity="0.56" stroke-width="1.2"/>
+    <use href="#badge-hsa-frameInner" fill="none" stroke="#020403" stroke-opacity="0.82" stroke-width="1.2"/>
+    <path d="M111.5 7 L189 38 L182 48 L111.5 19 L41 48 L34 38 Z" fill="url(#badge-hsa-facetMetal)"/>
+    <path d="M35 45 L45 112" stroke="#ffffff" stroke-opacity="0.28" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M188 42 L178 112" stroke="#ffffff" stroke-opacity="0.38" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M73 139 L95 139" stroke="#ffffff" stroke-opacity="0.18" stroke-width="1.1" stroke-linecap="round"/>
+    <path d="M128 139 L150 139" stroke="#ffffff" stroke-opacity="0.18" stroke-width="1.1" stroke-linecap="round"/>
+  </g>
+
+  <g id="badge-hsa-laurelsGroup">
+    <g fill="url(#badge-hsa-outerMetal)" stroke="#ffffff" stroke-opacity="0.28" stroke-width="0.7">
+      <use href="#badge-hsa-leafLeft1"/>
+      <use href="#badge-hsa-leafLeft2"/>
+      <use href="#badge-hsa-leafLeft3"/>
+      <use href="#badge-hsa-leafLeft4"/>
+      <use href="#badge-hsa-leafLeft5"/>
+      <use href="#badge-hsa-leafRight1"/>
+      <use href="#badge-hsa-leafRight2"/>
+      <use href="#badge-hsa-leafRight3"/>
+      <use href="#badge-hsa-leafRight4"/>
+      <use href="#badge-hsa-leafRight5"/>
+    </g>
+    <g fill="url(#badge-hsa-facetMetal)">
+      <path d="M11 122 L22 140 L17 145 Z"/>
+      <path d="M213 122 L206 145 L201 140 Z"/>
+      <path d="M37 143 L55 156 L46 165 Z"/>
+      <path d="M186 143 L177 165 L168 156 Z"/>
+    </g>
+  </g>
+
+  <g id="badge-hsa-crestGroup">
+    <path d="M111.5 109 L154 123 L148 161 L111.5 176 L75 161 L69 123 Z" fill="url(#badge-hsa-outerMetal)"/>
+    <use href="#badge-hsa-crestOuter" fill="none" stroke="#ffffff" stroke-opacity="0.46" stroke-width="1.2"/>
+    <use href="#badge-hsa-crestInner" fill="url(#badge-hsa-innerPanel)"/>
+    <use href="#badge-hsa-crestInner" fill="none" stroke="#ffe5a5" stroke-opacity="0.34" stroke-width="0.8"/>
+    <path d="M86 126 L111.5 118 L137 126 L133 134 L111.5 127 L90 134 Z" fill="url(#badge-hsa-facetMetal)"/>
+    <use href="#badge-hsa-star" fill="url(#badge-hsa-outerMetal)"/>
+    <use href="#badge-hsa-star" fill="none" stroke="#ffffff" stroke-opacity="0.45" stroke-width="0.8"/>
+    <circle cx="111.5" cy="139" r="2.2" fill="#ffffff" fill-opacity="0.46"/>
+  </g>
+
+  <g id="badge-hsa-nameplateGroup">
+    <path d="M27 168 L196 168 L218 189 L204 229 L19 229 L5 189 Z M39 177 L184 177 L201 193 L189 219 L34 219 L22 193 Z" fill="url(#badge-hsa-outerMetal)" fill-rule="evenodd"/>
+    <use href="#badge-hsa-nameplateOuter" fill="none" stroke="#ffffff" stroke-opacity="0.52" stroke-width="1.1"/>
+    <use href="#badge-hsa-nameplateInner" fill="url(#badge-hsa-innerPanel)"/>
+    <use href="#badge-hsa-nameplateInner" fill="none" stroke="#ffffff" stroke-opacity="0.18" stroke-width="0.8"/>
+    <path d="M43 175 L180 175 L170 181 L53 181 Z" fill="url(#badge-hsa-facetMetal)"/>
+    <path d="M29 228 L42 214 L181 214 L194 228 Z" fill="#ffffff" fill-opacity="0.08"/>
+  </g>
+
+  <g id="badge-hsa-labelGroup">
+    <text id="badge-hsa-labelShadow" data-name-slot="true" x="111.5" y="201" text-anchor="middle" font-family="'Orbitron', 'Montserrat', 'Arial', sans-serif" font-size="14" font-weight="700" letter-spacing="1.1" fill="#000000" fill-opacity="0.72" transform="translate(0 1.8)">CUSTOM NAME</text>
+    <text id="badge-hsa-labelText" data-name-slot="true" x="111.5" y="201" text-anchor="middle" font-family="'Orbitron', 'Montserrat', 'Arial', sans-serif" font-size="14" font-weight="700" letter-spacing="1.1" fill="#f6fffb">CUSTOM NAME</text>
+  </g>
+
+  <g id="badge-hsa-highlightsGroup" pointer-events="none">
+    <path d="M111.5 6 L187 37" stroke="#ffffff" stroke-opacity="0.85" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M111.5 6 L36 37" stroke="#ffffff" stroke-opacity="0.64" stroke-width="1.3" stroke-linecap="round"/>
+    <path d="M52 157 L92 169" stroke="#ffffff" stroke-opacity="0.23" stroke-width="0.9" stroke-linecap="round"/>
+    <path d="M171 157 L131 169" stroke="#ffffff" stroke-opacity="0.23" stroke-width="0.9" stroke-linecap="round"/>
+    <ellipse cx="86" cy="42" rx="22" ry="7" transform="rotate(-28 86 42)" fill="#ffffff" fill-opacity="0.22"/>
+    <ellipse cx="140" cy="194" rx="36" ry="5" fill="#ffffff" fill-opacity="0.1"/>
+  </g>
+</svg>
