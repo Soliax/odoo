@@ -6,16 +6,15 @@ class ResUsers(models.Model):
     _inherit = "res.users"
 
     directory_published = fields.Boolean(
-        string="Show in Member Directory",
+        string="Show on Members page",
         default=True,
-        help="If enabled, this internal user appears in the website member directory.",
+        help="If enabled, this internal user appears on the website Members page.",
     )
     directory_subtitle = fields.Char(
-        string="Directory Subtitle",
-        help="Optional short line under the name on directory cards (e.g. role).",
+        string="Card subtitle",
+        help="Optional short line under the name on member cards.",
     )
 
-    # Related diving club fields (editable from the user form)
     dive_firstname = fields.Char(related="partner_id.dive_firstname", readonly=False)
     dive_lastname = fields.Char(related="partner_id.dive_lastname", readonly=False)
     dive_phone_home = fields.Char(related="partner_id.dive_phone_home", readonly=False)
@@ -33,9 +32,13 @@ class ResUsers(models.Model):
     dive_last_ecg = fields.Date(related="partner_id.dive_last_ecg", readonly=False)
     dive_lifras_id = fields.Char(related="partner_id.dive_lifras_id", readonly=False)
     dive_other_brevets = fields.Text(related="partner_id.dive_other_brevets", readonly=False)
-    dive_cfps = fields.Boolean(related="partner_id.dive_cfps", readonly=False)
-    dive_nitrox_basic_date = fields.Date(related="partner_id.dive_nitrox_basic_date", readonly=False)
-    dive_cfps_start = fields.Date(related="partner_id.dive_cfps_start", readonly=False)
+    dive_spec_cfps = fields.Date(related="partner_id.dive_spec_cfps", readonly=False)
+    dive_spec_ve = fields.Date(related="partner_id.dive_spec_ve", readonly=False)
+    dive_spec_pn = fields.Date(related="partner_id.dive_spec_pn", readonly=False)
+    dive_spec_pnc = fields.Date(related="partner_id.dive_spec_pnc", readonly=False)
+    dive_spec_in = fields.Date(related="partner_id.dive_spec_in", readonly=False)
+    dive_spec_inc = fields.Date(related="partner_id.dive_spec_inc", readonly=False)
+    dive_spec_fn = fields.Date(related="partner_id.dive_spec_fn", readonly=False)
     dive_cfps_end = fields.Date(related="partner_id.dive_cfps_end", readonly=False)
 
     @api.model
@@ -64,6 +67,10 @@ class ResUsers(models.Model):
         self.ensure_one()
         return self.partner_id.get_dive_display_name()
 
+    def get_dive_specialties(self):
+        self.ensure_one()
+        return self.partner_id.get_dive_specialties()
+
     def get_directory_profile_fields(self, viewer):
         self.ensure_one()
         Field = self.env["member.directory.field"].sudo()
@@ -90,13 +97,8 @@ class ResUsers(models.Model):
             )
         sections = []
         for section in [
-            "identity",
-            "contact",
-            "address",
-            "professional",
-            "lifras",
-            "medical",
-            "extra",
+            "identity", "contact", "address", "professional",
+            "lifras", "specialties", "medical", "extra",
         ]:
             if section in by_section and by_section[section]["items"]:
                 sections.append(by_section[section])

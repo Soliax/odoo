@@ -50,7 +50,7 @@
     </record>
 
     <menuitem id="menu_member_directory_root"
-              name="Member Directory"
+              name="Members"
               parent="website.menu_website_configuration"
               sequence="60"
               groups="website_member_directory.group_member_directory_manager"/>

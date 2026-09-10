@@ -13,26 +13,25 @@ DIVE_BREVET_SELECTION = [
 ]
 
 DIVE_BREVET_RANK = {
-    "1": 1,
-    "2": 2,
-    "3": 3,
-    "4": 4,
-    "am": 5,
-    "mc": 6,
-    "mf": 7,
-    "mn": 8,
+    "1": 1, "2": 2, "3": 3, "4": 4,
+    "am": 5, "mc": 6, "mf": 7, "mn": 8,
 }
 
 DIVE_BREVET_SHORT = {
-    "1": "1*",
-    "2": "2*",
-    "3": "3*",
-    "4": "4*",
-    "am": "AM",
-    "mc": "MC",
-    "mf": "MF",
-    "mn": "MN",
+    "1": "1*", "2": "2*", "3": "3*", "4": "4*",
+    "am": "AM", "mc": "MC", "mf": "MF", "mn": "MN",
 }
+
+# code, short label, full label, field name
+DIVE_SPECIALTIES = [
+    ("cfps", "CFPS", "Certificat Federal Premier Secours", "dive_spec_cfps"),
+    ("ve", "VE", "Vetement Etanche", "dive_spec_ve"),
+    ("pn", "PN", "Plongeur Nitrox", "dive_spec_pn"),
+    ("pnc", "PNC", "Plongeur Nitrox Confirme", "dive_spec_pnc"),
+    ("in", "IN", "Instructeur Nitrox", "dive_spec_in"),
+    ("inc", "INC", "Instructeur Nitrox Confirme", "dive_spec_inc"),
+    ("fn", "FN", "Formateur Nitrox", "dive_spec_fn"),
+]
 
 
 class ResPartner(models.Model):
@@ -55,10 +54,21 @@ class ResPartner(models.Model):
     dive_last_ecg = fields.Date(string="Dernier ECG Effort")
     dive_lifras_id = fields.Char(string="ID membre Lifras")
     dive_other_brevets = fields.Text(string="Autres Brevets")
-    dive_cfps = fields.Boolean(string="CFPS")
-    dive_nitrox_basic_date = fields.Date(string="Date Nitrox Basic")
-    dive_cfps_start = fields.Date(string="Date Debut CFPS")
+
+    # Specialites: a filled date means the title is earned
+    dive_spec_cfps = fields.Date(string="CFPS")
+    dive_spec_ve = fields.Date(string="VE")
+    dive_spec_pn = fields.Date(string="PN")
+    dive_spec_pnc = fields.Date(string="PNC")
+    dive_spec_in = fields.Date(string="IN")
+    dive_spec_inc = fields.Date(string="INC")
+    dive_spec_fn = fields.Date(string="FN")
     dive_cfps_end = fields.Date(string="Date Fin CFPS")
+
+    # legacy fields kept for upgrade safety (hidden in views)
+    dive_cfps = fields.Boolean(string="CFPS (legacy)")
+    dive_nitrox_basic_date = fields.Date(string="Date Nitrox Basic (legacy)")
+    dive_cfps_start = fields.Date(string="Date Debut CFPS (legacy)")
 
     @api.depends("dive_brevet")
     def _compute_dive_brevet_meta(self):
@@ -74,3 +84,19 @@ class ResPartner(models.Model):
         self.ensure_one()
         parts = [p for p in [self.dive_firstname, self.dive_lastname] if p]
         return " ".join(parts) if parts else self.name
+
+    def get_dive_specialties(self):
+        """Return earned specialties as pill payloads (date filled => title owned)."""
+        self.ensure_one()
+        pills = []
+        for code, short, full, fname in DIVE_SPECIALTIES:
+            obtained = self[fname]
+            if obtained:
+                pills.append({
+                    "code": code,
+                    "short": short,
+                    "label": full,
+                    "date": obtained.strftime("%d-%m-%y"),
+                    "css": "spec-%s" % code,
+                })
+        return pills

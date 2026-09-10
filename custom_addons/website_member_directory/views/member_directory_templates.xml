@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="members_list" name="Member Directory List">
+    <template id="members_list" name="Members List">
         <t t-call="website.layout">
             <div id="wrap" class="o_member_directory">
                 <div class="oe_structure">
@@ -35,11 +35,15 @@
                             <div t-else="" class="row g-4 s_md_grid">
                                 <t t-foreach="members" t-as="member">
                                     <t t-set="brevet_css" t-value="member.dive_brevet_css or 'brevet-none'"/>
+                                    <t t-set="specialties" t-value="member.get_dive_specialties()"/>
                                     <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
                                         <a t-att-href="'/membres/%s' % member.id"
                                            t-attf-class="s_md_card text-decoration-none s_md_#{brevet_css}">
                                             <div class="s_md_card_inner">
-                                                <div class="s_md_card_glow"/>
+                                                <span class="s_md_frame s_md_frame_tl"/>
+                                                <span class="s_md_frame s_md_frame_tr"/>
+                                                <span class="s_md_frame s_md_frame_bl"/>
+                                                <span class="s_md_frame s_md_frame_br"/>
                                                 <span t-if="member.dive_brevet_short" class="s_md_brevet_chip" t-esc="member.dive_brevet_short"/>
                                                 <div class="s_md_avatar_wrap">
                                                     <img t-if="member.image_128"
@@ -55,6 +59,13 @@
                                                     <t t-elif="member.directory_subtitle" t-esc="member.directory_subtitle"/>
                                                     <t t-elif="member.partner_id.function" t-esc="member.partner_id.function"/>
                                                 </p>
+                                                <div t-if="specialties" class="s_md_spec_pills">
+                                                    <t t-foreach="specialties" t-as="spec">
+                                                        <span t-attf-class="s_md_spec_pill s_md_#{spec['css']}"
+                                                              t-att-title="('%s - depuis %s') % (spec['label'], spec['date'])"
+                                                              t-esc="spec['short']"/>
+                                                    </t>
+                                                </div>
                                                 <span class="s_md_cta">Voir le profil</span>
                                             </div>
                                         </a>
@@ -68,34 +79,50 @@
         </t>
     </template>
 
-    <template id="member_profile" name="Member Directory Profile">
+    <template id="member_profile" name="Members Profile">
         <t t-call="website.layout">
             <t t-set="brevet_css" t-value="member.dive_brevet_css or 'brevet-none'"/>
+            <t t-set="specialties" t-value="member.get_dive_specialties()"/>
             <div t-attf-class="o_member_directory o_member_profile s_md_profile_#{brevet_css}">
                 <div id="wrap">
                     <div class="oe_structure">
                         <section class="s_md_profile_hero pt48 pb32">
                             <div class="container">
-                                <a href="/membres" class="s_md_back mb-4 d-inline-flex">&amp;larr; Retour a l'annuaire</a>
-                                <div class="row align-items-center g-4">
-                                    <div class="col-auto">
-                                        <div class="s_md_profile_photo_wrap">
-                                            <img t-if="member.image_1920"
-                                                 t-att-src="'/web/image/res.users/%s/image_1920' % member.id"
-                                                 class="s_md_profile_photo" alt=""/>
-                                            <div t-else="" class="s_md_profile_photo s_md_avatar_fallback">
-                                                <span t-esc="(member.get_directory_card_name() or '?')[:1].upper()"/>
+                                <a href="/membres" class="s_md_back mb-4 d-inline-flex">&amp;larr; Retour aux membres</a>
+                                <div t-attf-class="s_md_profile_panel s_md_#{brevet_css}">
+                                    <span class="s_md_frame s_md_frame_tl"/>
+                                    <span class="s_md_frame s_md_frame_tr"/>
+                                    <span class="s_md_frame s_md_frame_bl"/>
+                                    <span class="s_md_frame s_md_frame_br"/>
+                                    <div class="row align-items-center g-4">
+                                        <div class="col-auto">
+                                            <div class="s_md_profile_photo_wrap">
+                                                <img t-if="member.image_1920"
+                                                     t-att-src="'/web/image/res.users/%s/image_1920' % member.id"
+                                                     class="s_md_profile_photo" alt=""/>
+                                                <div t-else="" class="s_md_profile_photo s_md_avatar_fallback">
+                                                    <span t-esc="(member.get_directory_card_name() or '?')[:1].upper()"/>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col">
-                                        <p class="s_md_kicker mb-2">Profil membre</p>
-                                        <h1 class="display-6 mb-2" t-esc="member.get_directory_card_name()"/>
-                                        <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
-                                            <span t-if="member.dive_brevet_short" class="s_md_brevet_chip s_md_brevet_chip_lg" t-esc="member.dive_brevet_short"/>
-                                            <span t-if="member.dive_brevet_label" class="text-muted" t-esc="member.dive_brevet_label"/>
+                                        <div class="col">
+                                            <p class="s_md_kicker mb-2">Profil membre</p>
+                                            <h1 class="display-6 mb-2" t-esc="member.get_directory_card_name()"/>
+                                            <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+                                                <span t-if="member.dive_brevet_short" class="s_md_brevet_chip s_md_brevet_chip_lg" t-esc="member.dive_brevet_short"/>
+                                                <span t-if="member.dive_brevet_label" class="text-muted" t-esc="member.dive_brevet_label"/>
+                                            </div>
+                                            <div t-if="specialties" class="s_md_spec_pills s_md_spec_pills_lg mb-2">
+                                                <t t-foreach="specialties" t-as="spec">
+                                                    <span t-attf-class="s_md_spec_pill s_md_#{spec['css']}"
+                                                          t-att-title="spec['label']">
+                                                        <t t-esc="spec['short']"/>
+                                                        <small class="ms-1 opacity-75" t-esc="spec['date']"/>
+                                                    </span>
+                                                </t>
+                                            </div>
+                                            <p t-if="partner.function" class="lead text-muted mb-0" t-esc="partner.function"/>
                                         </div>
-                                        <p t-if="partner.function" class="lead text-muted mb-0" t-esc="partner.function"/>
                                     </div>
                                 </div>
                             </div>
@@ -159,12 +186,12 @@
         </t>
     </template>
 
-    <template id="members_forbidden" name="Member Directory Forbidden">
+    <template id="members_forbidden" name="Members Forbidden">
         <t t-call="website.layout">
             <div id="wrap" class="o_member_directory">
                 <div class="container py-5 text-center">
                     <h1 class="h3 mb-3">Acces reserve</h1>
-                    <p class="text-muted mb-4">Vous devez etre connecte pour consulter l'annuaire des membres.</p>
+                    <p class="text-muted mb-4">Vous devez etre connecte pour consulter les membres.</p>
                     <a class="btn btn-primary" href="/web/login?redirect=/membres">Se connecter</a>
                 </div>
             </div>

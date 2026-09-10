@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="view_users_form_directory" model="ir.ui.view">
-        <field name="name">res.users.form.member.directory</field>
+        <field name="name">res.users.form.members</field>
         <field name="model">res.users</field>
         <field name="inherit_id" ref="base.view_users_form"/>
         <field name="arch" type="xml">
             <xpath expr="//page[@name='preferences']" position="inside">
-                <group string="Website Member Directory" name="member_directory">
+                <group string="Members page" name="member_directory">
                     <field name="directory_published"/>
                     <field name="directory_subtitle"/>
                 </group>
@@ -30,16 +30,26 @@
                             <field name="dive_brevet"/>
                             <field name="dive_lifras_id"/>
                             <field name="dive_other_brevets"/>
-                            <field name="dive_cfps"/>
-                            <field name="dive_nitrox_basic_date"/>
-                            <field name="dive_cfps_start"/>
-                            <field name="dive_cfps_end"/>
                         </group>
                         <group string="Urgence / Medical">
                             <field name="dive_contact_name"/>
                             <field name="dive_contact_phone"/>
                             <field name="dive_last_medical"/>
                             <field name="dive_last_ecg"/>
+                        </group>
+                    </group>
+                    <group string="Specialites (date = titre obtenu)">
+                        <group>
+                            <field name="dive_spec_cfps" string="CFPS"/>
+                            <field name="dive_cfps_end" string="Fin validite CFPS"/>
+                            <field name="dive_spec_ve" string="VE"/>
+                            <field name="dive_spec_pn" string="PN"/>
+                        </group>
+                        <group>
+                            <field name="dive_spec_pnc" string="PNC"/>
+                            <field name="dive_spec_in" string="IN"/>
+                            <field name="dive_spec_inc" string="INC"/>
+                            <field name="dive_spec_fn" string="FN"/>
                         </group>
                     </group>
                 </page>
@@ -72,16 +82,26 @@
                             <field name="dive_brevet_rank" invisible="1"/>
                             <field name="dive_lifras_id"/>
                             <field name="dive_other_brevets"/>
-                            <field name="dive_cfps"/>
-                            <field name="dive_nitrox_basic_date"/>
-                            <field name="dive_cfps_start"/>
-                            <field name="dive_cfps_end"/>
                         </group>
                         <group string="Urgence / Medical">
                             <field name="dive_contact_name"/>
                             <field name="dive_contact_phone"/>
                             <field name="dive_last_medical"/>
                             <field name="dive_last_ecg"/>
+                        </group>
+                    </group>
+                    <group string="Specialites (date = titre obtenu)">
+                        <group>
+                            <field name="dive_spec_cfps" string="CFPS"/>
+                            <field name="dive_cfps_end" string="Fin validite CFPS"/>
+                            <field name="dive_spec_ve" string="VE"/>
+                            <field name="dive_spec_pn" string="PN"/>
+                        </group>
+                        <group>
+                            <field name="dive_spec_pnc" string="PNC"/>
+                            <field name="dive_spec_in" string="IN"/>
+                            <field name="dive_spec_inc" string="INC"/>
+                            <field name="dive_spec_fn" string="FN"/>
                         </group>
                     </group>
                 </page>

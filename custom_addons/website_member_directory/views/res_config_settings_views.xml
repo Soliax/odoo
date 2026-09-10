@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="website.res_config_settings_view_form"/>
         <field name="arch" type="xml">
             <xpath expr="//block[@id='website_info_settings']" position="after">
-                <block title="Member Directory" id="member_directory_settings">
+                <block title="Members" id="member_directory_settings">
                     <setting string="Directory intro text" help="Shown above the member cards.">
                         <field name="member_directory_intro"/>
                     </setting>

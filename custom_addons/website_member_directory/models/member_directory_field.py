@@ -18,6 +18,7 @@ class MemberDirectoryField(models.Model):
             ("address", "Adresse"),
             ("professional", "Professionnel"),
             ("lifras", "LIFRAS"),
+            ("specialties", "Specialites"),
             ("medical", "Medical"),
             ("extra", "Extra"),
         ],
@@ -74,6 +75,7 @@ class MemberDirectoryField(models.Model):
             "address": 30,
             "professional": 40,
             "lifras": 50,
+            "specialties": 55,
             "medical": 60,
             "extra": 70,
         }

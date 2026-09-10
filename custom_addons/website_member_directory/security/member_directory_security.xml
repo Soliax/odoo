@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record model="res.groups.privilege" id="res_groups_privilege_member_directory">
-        <field name="name">Member Directory</field>
+        <field name="name">Members</field>
         <field name="sequence">60</field>
         <field name="category_id" ref="base.module_category_website"/>
     </record>

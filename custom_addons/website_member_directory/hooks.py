@@ -17,6 +17,7 @@ DEMO_DIVERS = [
         "email": "nora.onestar@example.com",
         "birthday": date(2001, 5, 14),
         "lifras_id": "10001",
+        "specs": {"dive_spec_cfps": date(2024, 6, 1)},
     },
     {
         "login": "diver.2star",
@@ -36,11 +37,12 @@ DEMO_DIVERS = [
         "contact_phone": "0470 35 41 44",
         "last_medical": date(2025, 12, 17),
         "last_ecg": date(2025, 12, 17),
-        "other_brevets": "CFPS / Nitrox Basic",
-        "cfps": True,
-        "nitrox": date(2023, 10, 5),
-        "cfps_start": date(2023, 4, 15),
+        "other_brevets": "CFPS / Nitrox",
         "cfps_end": date(2028, 4, 15),
+        "specs": {
+            "dive_spec_cfps": date(2023, 4, 15),
+            "dive_spec_pn": date(2023, 10, 5),
+        },
     },
     {
         "login": "diver.3star",
@@ -51,11 +53,16 @@ DEMO_DIVERS = [
         "profession": "Ingenieur",
         "street": "Avenue du Large 8",
         "zip": "1200",
-        "city": "Woluw?",
+        "city": "Woluwe",
         "phone": "0470 33 33 33",
         "email": "marc.threestar@example.com",
         "birthday": date(1988, 7, 3),
         "lifras_id": "30003",
+        "specs": {
+            "dive_spec_cfps": date(2022, 3, 10),
+            "dive_spec_ve": date(2023, 5, 20),
+            "dive_spec_pn": date(2022, 11, 8),
+        },
     },
     {
         "login": "diver.4star",
@@ -71,6 +78,12 @@ DEMO_DIVERS = [
         "email": "ines.fourstar@example.com",
         "birthday": date(1984, 11, 21),
         "lifras_id": "40004",
+        "specs": {
+            "dive_spec_cfps": date(2021, 2, 2),
+            "dive_spec_ve": date(2022, 8, 14),
+            "dive_spec_pn": date(2021, 9, 9),
+            "dive_spec_pnc": date(2024, 1, 18),
+        },
     },
     {
         "login": "diver.am",
@@ -86,6 +99,13 @@ DEMO_DIVERS = [
         "email": "hugo.am@example.com",
         "birthday": date(1982, 1, 9),
         "lifras_id": "50005",
+        "specs": {
+            "dive_spec_cfps": date(2020, 4, 4),
+            "dive_spec_ve": date(2021, 6, 6),
+            "dive_spec_pn": date(2020, 10, 10),
+            "dive_spec_pnc": date(2022, 12, 12),
+            "dive_spec_in": date(2024, 3, 3),
+        },
     },
     {
         "login": "diver.mc",
@@ -101,6 +121,14 @@ DEMO_DIVERS = [
         "email": "claire.mc@example.com",
         "birthday": date(1979, 9, 18),
         "lifras_id": "60006",
+        "specs": {
+            "dive_spec_cfps": date(2019, 1, 15),
+            "dive_spec_ve": date(2019, 7, 7),
+            "dive_spec_pn": date(2018, 5, 5),
+            "dive_spec_pnc": date(2020, 9, 9),
+            "dive_spec_in": date(2021, 11, 11),
+            "dive_spec_inc": date(2023, 4, 4),
+        },
     },
     {
         "login": "diver.mf",
@@ -116,6 +144,15 @@ DEMO_DIVERS = [
         "email": "olivier.mf@example.com",
         "birthday": date(1975, 4, 2),
         "lifras_id": "70007",
+        "specs": {
+            "dive_spec_cfps": date(2017, 2, 2),
+            "dive_spec_ve": date(2017, 8, 8),
+            "dive_spec_pn": date(2016, 3, 3),
+            "dive_spec_pnc": date(2018, 6, 6),
+            "dive_spec_in": date(2019, 10, 10),
+            "dive_spec_inc": date(2021, 1, 1),
+            "dive_spec_fn": date(2024, 5, 5),
+        },
     },
     {
         "login": "diver.mn",
@@ -131,6 +168,15 @@ DEMO_DIVERS = [
         "email": "amine.mn@example.com",
         "birthday": date(1971, 12, 28),
         "lifras_id": "80008",
+        "specs": {
+            "dive_spec_cfps": date(2015, 1, 1),
+            "dive_spec_ve": date(2015, 4, 4),
+            "dive_spec_pn": date(2014, 2, 2),
+            "dive_spec_pnc": date(2016, 7, 7),
+            "dive_spec_in": date(2017, 9, 9),
+            "dive_spec_inc": date(2019, 3, 3),
+            "dive_spec_fn": date(2022, 8, 8),
+        },
     },
 ]
 
@@ -159,23 +205,21 @@ def _upsert_demo_diver(env, data):
         "dive_last_medical": data.get("last_medical"),
         "dive_last_ecg": data.get("last_ecg"),
         "dive_other_brevets": data.get("other_brevets"),
-        "dive_cfps": data.get("cfps", False),
-        "dive_nitrox_basic_date": data.get("nitrox"),
-        "dive_cfps_start": data.get("cfps_start"),
         "dive_cfps_end": data.get("cfps_end"),
     }
+    partner_vals.update(data.get("specs") or {})
     if user:
         user.partner_id.write(partner_vals)
         user.write({
             "name": name,
             "directory_published": True,
             "directory_subtitle": data.get("function"),
+            "password": "diverdemo",
         })
-        user.write({"password": "diverdemo"})
         return user
 
     partner = Partners.create(partner_vals)
-    user = Users.create({
+    return Users.create({
         "name": name,
         "login": data["login"],
         "password": "diverdemo",
@@ -184,14 +228,8 @@ def _upsert_demo_diver(env, data):
         "directory_published": True,
         "directory_subtitle": data.get("function"),
     })
-    return user
 
 
 def post_init_hook(env):
     for data in DEMO_DIVERS:
         _upsert_demo_diver(env, data)
-
-
-def post_load_hook():
-    # unused placeholder kept for clarity
-    return

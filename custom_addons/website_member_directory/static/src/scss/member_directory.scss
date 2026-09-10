@@ -1,17 +1,14 @@
 
 .o_member_directory {
-    --md-ink: #07131f;
-    --md-muted: #6b7c8f;
-    --md-line: rgba(255, 255, 255, 0.12);
-    --md-card: rgba(255, 255, 255, 0.86);
-    --md-accent: #14b8a6;
-    --md-shadow: 0 22px 50px rgba(2, 12, 27, 0.18);
+    --md-ink: #1c1917;
+    --md-muted: #78716c;
+    --md-paper: #fffdf9;
+    --md-hero: #0b1c2e;
 
     color: var(--md-ink);
     background:
-        radial-gradient(circle at 10% 0%, rgba(14, 165, 233, 0.18), transparent 30%),
-        radial-gradient(circle at 90% 10%, rgba(20, 184, 166, 0.14), transparent 28%),
-        linear-gradient(180deg, #04101c 0%, #0b1c2e 28%, #f4f8fb 28%, #ffffff 100%);
+        radial-gradient(circle at 12% 0%, rgba(14, 165, 233, 0.16), transparent 28%),
+        linear-gradient(180deg, #04101c 0%, #0b1c2e 26%, #f5f7fa 26%, #ffffff 100%);
 
     .s_md_hero,
     .s_md_profile_hero {
@@ -48,71 +45,122 @@
         display: block;
         height: 100%;
         color: inherit;
-        transition: transform 0.25s ease;
+        transition: transform 0.22s ease;
     }
 
     .s_md_card:hover {
-        transform: translateY(-8px) scale(1.01);
+        transform: translateY(-6px);
         color: inherit;
     }
 
-    .s_md_card_inner {
+    .s_md_card_inner,
+    .s_md_profile_panel {
         position: relative;
         overflow: hidden;
         height: 100%;
-        padding: 1.8rem 1.4rem 1.45rem;
-        border-radius: 1.4rem;
-        border: 1px solid rgba(255,255,255,0.35);
-        background: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(244,250,255,0.9));
+        padding: 1.7rem 1.35rem 1.35rem;
+        border-radius: 1.15rem;
+        background: var(--md-paper);
         text-align: center;
-        box-shadow: var(--md-shadow);
-        transition: box-shadow 0.25s ease, border-color 0.25s ease;
+        /* default thin frame, overridden per brevet */
+        border: 2px solid #c4b5a5;
+        box-shadow: 0 14px 30px rgba(28, 25, 23, 0.08);
     }
 
-    .s_md_card_glow {
-        position: absolute;
-        inset: auto -20% -40% -20%;
-        height: 55%;
-        background: radial-gradient(circle, rgba(20,184,166,0.22), transparent 70%);
-        pointer-events: none;
+    .s_md_profile_panel {
+        text-align: left;
+        padding: 1.75rem;
+        color: var(--md-ink);
     }
+
+    .s_md_profile_panel .s_md_kicker {
+        color: #0f766e;
+    }
+
+    .s_md_profile_panel .text-muted {
+        color: var(--md-muted) !important;
+    }
+
+    /* Corner ornaments for game-like frames */
+    .s_md_frame {
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        pointer-events: none;
+        z-index: 2;
+    }
+    .s_md_frame_tl { top: 8px; left: 8px; border-top: 3px solid currentColor; border-left: 3px solid currentColor; }
+    .s_md_frame_tr { top: 8px; right: 8px; border-top: 3px solid currentColor; border-right: 3px solid currentColor; }
+    .s_md_frame_bl { bottom: 8px; left: 8px; border-bottom: 3px solid currentColor; border-left: 3px solid currentColor; }
+    .s_md_frame_br { bottom: 8px; right: 8px; border-bottom: 3px solid currentColor; border-right: 3px solid currentColor; }
 
     .s_md_brevet_chip {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        min-width: 3rem;
-        padding: 0.28rem 0.7rem;
+        min-width: 2.8rem;
+        padding: 0.25rem 0.65rem;
         border-radius: 999px;
         font-size: 0.78rem;
         font-weight: 800;
         letter-spacing: 0.04em;
-        color: #06203a;
-        background: #dff8f3;
-        border: 1px solid rgba(6, 32, 58, 0.08);
-        margin-bottom: 0.9rem;
+        color: #1c1917;
+        background: #f5f5f4;
+        border: 1px solid rgba(28, 25, 23, 0.12);
+        margin-bottom: 0.85rem;
     }
 
     .s_md_brevet_chip_lg {
         font-size: 0.95rem;
-        min-width: 3.6rem;
-        padding: 0.4rem 0.9rem;
+        min-width: 3.4rem;
         margin-bottom: 0;
     }
 
-    .s_md_avatar_wrap {
-        margin-bottom: 1rem;
+    .s_md_spec_pills {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.35rem;
+        margin: 0 0 0.95rem;
+        min-height: 1.6rem;
     }
+
+    .s_md_spec_pills_lg {
+        justify-content: flex-start;
+    }
+
+    .s_md_spec_pill {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.18rem 0.5rem;
+        border-radius: 999px;
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.03em;
+        color: #0f172a;
+        background: #e2e8f0;
+        border: 1px solid rgba(15, 23, 42, 0.12);
+    }
+
+    .s_md_spec-cfps { background: #fee2e2; border-color: #fca5a5; color: #7f1d1d; }
+    .s_md_spec-ve { background: #e0e7ff; border-color: #a5b4fc; color: #312e81; }
+    .s_md_spec-pn { background: #cffafe; border-color: #67e8f9; color: #155e75; }
+    .s_md_spec-pnc { background: #a5f3fc; border-color: #22d3ee; color: #164e63; }
+    .s_md_spec-in { background: #fef3c7; border-color: #fcd34d; color: #78350f; }
+    .s_md_spec-inc { background: #fde68a; border-color: #f59e0b; color: #7c2d12; }
+    .s_md_spec-fn { background: #fbcfe8; border-color: #f472b6; color: #9d174d; }
+
+    .s_md_avatar_wrap { margin-bottom: 0.95rem; }
 
     .s_md_avatar,
     .s_md_profile_photo {
-        width: 112px;
-        height: 112px;
+        width: 108px;
+        height: 108px;
         object-fit: cover;
         border-radius: 999px;
-        border: 4px solid #fff;
-        box-shadow: 0 12px 28px rgba(4, 20, 40, 0.2);
-        background: #d8f3ef;
+        border: 3px solid #fff;
+        box-shadow: 0 8px 18px rgba(28, 25, 23, 0.12);
+        background: #f5f5f4;
     }
 
     .s_md_avatar_fallback {
@@ -121,25 +169,25 @@
         justify-content: center;
         font-size: 2rem;
         font-weight: 800;
-        color: #0f766e;
+        color: #57534e;
     }
 
     .s_md_name {
-        font-size: 1.15rem;
+        font-size: 1.12rem;
         font-weight: 800;
-        margin-bottom: 0.25rem;
+        margin-bottom: 0.2rem;
     }
 
     .s_md_subtitle {
         color: var(--md-muted);
-        min-height: 1.4em;
-        margin-bottom: 1rem;
-        font-size: 0.92rem;
+        min-height: 1.35em;
+        margin-bottom: 0.75rem;
+        font-size: 0.9rem;
     }
 
     .s_md_cta {
         display: inline-block;
-        font-size: 0.85rem;
+        font-size: 0.84rem;
         font-weight: 700;
         color: #0f766e;
     }
@@ -150,28 +198,23 @@
         font-weight: 700;
     }
 
-    .s_md_back:hover {
-        color: #5eead4;
-    }
+    .s_md_back:hover { color: #5eead4; }
 
-    .s_md_profile_photo {
-        width: 148px;
-        height: 148px;
-    }
+    .s_md_profile_photo { width: 140px; height: 140px; }
 
     .s_md_section_card {
         height: 100%;
         padding: 1.5rem;
-        border: 1px solid #e5eef5;
-        border-radius: 1.25rem;
+        border: 1px solid #e7e5e4;
+        border-radius: 1.15rem;
         background: #fff;
-        box-shadow: 0 16px 40px rgba(8, 28, 48, 0.06);
+        box-shadow: 0 12px 28px rgba(28, 25, 23, 0.05);
     }
 
     .s_md_section_title {
         margin-bottom: 1rem;
         padding-bottom: 0.75rem;
-        border-bottom: 1px solid #eef3f7;
+        border-bottom: 1px solid #f5f5f4;
         font-weight: 800;
     }
 
@@ -179,184 +222,197 @@
         display: grid;
         gap: 0.25rem;
         padding: 0.85rem 0;
-        border-bottom: 1px solid #f3f7fa;
+        border-bottom: 1px solid #f5f5f4;
     }
-
-    .s_md_field:last-child {
-        border-bottom: 0;
-        padding-bottom: 0;
-    }
-
+    .s_md_field:last-child { border-bottom: 0; padding-bottom: 0; }
     .s_md_field dt {
-        font-size: 0.75rem;
+        font-size: 0.74rem;
         letter-spacing: 0.08em;
         text-transform: uppercase;
         color: var(--md-muted);
         font-weight: 800;
     }
+    .s_md_field dd { margin: 0; font-size: 1rem; }
+    .s_md_field a { color: #0f766e; text-decoration: none; font-weight: 700; }
 
-    .s_md_field dd {
-        margin: 0;
-        font-size: 1rem;
-    }
+    /* ========== Game-like metallic frames by brevet ========== */
+    /* Neutral paper fill; prestige lives in the border/frame. */
 
-    .s_md_field a {
-        color: #0f766e;
-        text-decoration: none;
-        font-weight: 700;
-    }
-
-    /* ---- Brevet tiers: escalating spectacle ---- */
-
-    .s_md_brevet-1 .s_md_card_inner {
-        background: linear-gradient(180deg, #f7fcff, #eef8fb);
-        border-color: #b9e0ef;
-    }
-    .s_md_brevet-1 .s_md_brevet_chip { background: #d7f0fa; color: #0c4a6e; }
-
-    .s_md_brevet-2 .s_md_card_inner {
-        background:
-            radial-gradient(circle at top right, rgba(56, 189, 248, 0.18), transparent 40%),
-            linear-gradient(180deg, #f3fbff, #e7f5fb);
-        border-color: #7dd3fc;
-    }
-    .s_md_brevet-2 .s_md_brevet_chip { background: #bae6fd; color: #075985; }
-    .s_md_brevet-2 .s_md_avatar { box-shadow: 0 0 0 3px rgba(56,189,248,0.25), 0 12px 28px rgba(4,20,40,0.18); }
-
-    .s_md_brevet-3 .s_md_card_inner {
-        background:
-            radial-gradient(circle at 20% 0%, rgba(34, 211, 238, 0.22), transparent 35%),
-            linear-gradient(160deg, #ecfeff, #e0f2fe 60%, #f0fdfa);
-        border-color: #22d3ee;
-        box-shadow: 0 20px 40px rgba(8, 145, 178, 0.16);
-    }
-    .s_md_brevet-3 .s_md_brevet_chip { background: linear-gradient(135deg, #a5f3fc, #7dd3fc); }
-
-    .s_md_brevet-4 .s_md_card_inner {
-        background:
-            radial-gradient(circle at 80% 10%, rgba(99, 102, 241, 0.22), transparent 40%),
-            linear-gradient(165deg, #eef2ff, #e0f2fe 50%, #ecfeff);
-        border-color: #818cf8;
-        box-shadow: 0 24px 48px rgba(67, 56, 202, 0.18);
-    }
-    .s_md_brevet-4 .s_md_brevet_chip {
-        background: linear-gradient(135deg, #c7d2fe, #93c5fd);
-        color: #312e81;
-    }
-    .s_md_brevet-4 .s_md_avatar {
-        box-shadow: 0 0 0 4px rgba(129,140,248,0.35), 0 14px 30px rgba(49,46,129,0.2);
-    }
-
-    .s_md_brevet-am .s_md_card_inner {
-        background:
-            radial-gradient(circle at top, rgba(251, 191, 36, 0.24), transparent 42%),
-            linear-gradient(170deg, #fffbeb, #ecfeff 55%, #f0fdfa);
-        border-color: #f59e0b;
-        box-shadow: 0 26px 50px rgba(180, 83, 9, 0.18);
-    }
-    .s_md_brevet-am .s_md_brevet_chip {
-        background: linear-gradient(135deg, #fde68a, #67e8f9);
-        color: #78350f;
-        box-shadow: 0 0 18px rgba(245, 158, 11, 0.35);
-    }
-
-    .s_md_brevet-mc .s_md_card_inner {
-        background:
-            radial-gradient(circle at 15% 0%, rgba(251, 146, 60, 0.28), transparent 38%),
-            radial-gradient(circle at 90% 100%, rgba(14, 165, 233, 0.18), transparent 40%),
-            linear-gradient(165deg, #fff7ed, #e0f2fe);
-        border: 1px solid transparent;
-        background-clip: padding-box;
+    /* 1* Bronze thin */
+    .s_md_brevet-1 .s_md_card_inner,
+    .s_md_brevet-1.s_md_profile_panel {
+        border: 2px solid #b08d57;
         box-shadow:
-            0 0 0 1px rgba(251, 146, 60, 0.55),
-            0 28px 55px rgba(154, 52, 18, 0.22);
+            inset 0 0 0 1px rgba(176, 141, 87, 0.35),
+            0 12px 24px rgba(28, 25, 23, 0.08);
+        color: #8a6a3b;
+    }
+    .s_md_brevet-1 .s_md_brevet_chip { background: #f3e6d4; border-color: #b08d57; color: #6b4f2a; }
+
+    /* 2* Bronze thicker + corners */
+    .s_md_brevet-2 .s_md_card_inner,
+    .s_md_brevet-2.s_md_profile_panel {
+        border: 3px solid #cd7f32;
+        box-shadow:
+            inset 0 0 0 1px #e8b87a,
+            0 0 0 1px rgba(205, 127, 50, 0.25),
+            0 14px 28px rgba(28, 25, 23, 0.1);
+        color: #cd7f32;
+    }
+    .s_md_brevet-2 .s_md_frame { width: 20px; height: 20px; }
+    .s_md_brevet-2 .s_md_brevet_chip { background: #f6dfc4; border-color: #cd7f32; color: #7a3f0d; }
+
+    /* 3* Silver */
+    .s_md_brevet-3 .s_md_card_inner,
+    .s_md_brevet-3.s_md_profile_panel {
+        border: 3px solid #a8b0b8;
+        background:
+            linear-gradient(#fffdf9, #fffdf9) padding-box,
+            linear-gradient(135deg, #f8fafc, #94a3b8, #e2e8f0, #64748b) border-box;
+        border: 3px solid transparent;
+        box-shadow:
+            inset 0 0 0 1px rgba(148, 163, 184, 0.45),
+            0 16px 30px rgba(15, 23, 42, 0.1);
+        color: #64748b;
+    }
+    .s_md_brevet-3 .s_md_brevet_chip { background: #e2e8f0; border-color: #94a3b8; color: #334155; }
+
+    /* 4* Silver double */
+    .s_md_brevet-4 .s_md_card_inner,
+    .s_md_brevet-4.s_md_profile_panel {
+        border: 4px solid transparent;
+        background:
+            linear-gradient(#fffdf9, #fffdf9) padding-box,
+            linear-gradient(140deg, #ffffff, #cbd5e1 25%, #64748b 50%, #e2e8f0 75%, #94a3b8) border-box;
+        box-shadow:
+            inset 0 0 0 2px #fff,
+            inset 0 0 0 4px rgba(100, 116, 139, 0.35),
+            0 18px 34px rgba(15, 23, 42, 0.12);
+        color: #475569;
+    }
+    .s_md_brevet-4 .s_md_frame { width: 22px; height: 22px; border-width: 3px; }
+    .s_md_brevet-4 .s_md_brevet_chip {
+        background: linear-gradient(135deg, #f8fafc, #cbd5e1);
+        border-color: #64748b;
+        color: #1e293b;
+    }
+
+    /* AM Rose-gold */
+    .s_md_brevet-am .s_md_card_inner,
+    .s_md_brevet-am.s_md_profile_panel {
+        border: 3px solid transparent;
+        background:
+            linear-gradient(#fffdf9, #fffdf9) padding-box,
+            linear-gradient(135deg, #fff7ed, #f0abfc, #fda4af, #fbbf24) border-box;
+        box-shadow:
+            inset 0 0 0 1px rgba(251, 191, 36, 0.35),
+            0 0 0 1px rgba(244, 114, 182, 0.15),
+            0 20px 36px rgba(190, 24, 93, 0.1);
+        color: #db2777;
+    }
+    .s_md_brevet-am .s_md_frame { width: 22px; height: 22px; border-width: 3px; }
+    .s_md_brevet-am .s_md_brevet_chip {
+        background: linear-gradient(135deg, #fce7f3, #fde68a);
+        border-color: #f472b6;
+        color: #9d174d;
+    }
+
+    /* MC Gold ornate */
+    .s_md_brevet-mc .s_md_card_inner,
+    .s_md_brevet-mc.s_md_profile_panel {
+        border: 4px solid transparent;
+        background:
+            linear-gradient(#fffdf9, #fffdf9) padding-box,
+            linear-gradient(135deg, #fffbeb, #f59e0b, #b45309, #fde68a, #d97706) border-box;
+        box-shadow:
+            inset 0 0 0 1px rgba(253, 230, 138, 0.8),
+            inset 0 0 0 5px rgba(180, 83, 9, 0.18),
+            0 0 18px rgba(245, 158, 11, 0.22),
+            0 22px 40px rgba(146, 64, 14, 0.14);
+        color: #b45309;
+    }
+    .s_md_brevet-mc .s_md_frame {
+        width: 26px;
+        height: 26px;
+        border-width: 4px;
+        filter: drop-shadow(0 0 2px rgba(245, 158, 11, 0.55));
     }
     .s_md_brevet-mc .s_md_brevet_chip {
-        background: linear-gradient(135deg, #fdba74, #38bdf8);
-        color: #7c2d12;
-        box-shadow: 0 0 22px rgba(251, 146, 60, 0.45);
+        background: linear-gradient(135deg, #fde68a, #f59e0b);
+        border-color: #b45309;
+        color: #78350f;
+        box-shadow: 0 0 10px rgba(245, 158, 11, 0.35);
     }
-    .s_md_brevet-mc .s_md_name { letter-spacing: 0.01em; }
 
-    .s_md_brevet-mf .s_md_card_inner {
-        color: #f8fafc;
+    /* MF Platinum */
+    .s_md_brevet-mf .s_md_card_inner,
+    .s_md_brevet-mf.s_md_profile_panel {
+        border: 4px solid transparent;
         background:
-            radial-gradient(circle at 20% 0%, rgba(168, 85, 247, 0.45), transparent 35%),
-            radial-gradient(circle at 90% 20%, rgba(56, 189, 248, 0.35), transparent 40%),
-            linear-gradient(160deg, #1e1b4b, #0f172a 55%, #082f49);
-        border-color: rgba(216, 180, 254, 0.45);
+            linear-gradient(#fffdf9, #fffdf9) padding-box,
+            linear-gradient(130deg, #ffffff, #e2e8f0, #a5b4fc, #cbd5e1, #f8fafc, #818cf8) border-box;
         box-shadow:
-            0 0 0 1px rgba(192, 132, 252, 0.35),
-            0 30px 60px rgba(76, 29, 149, 0.35),
-            inset 0 1px 0 rgba(255,255,255,0.12);
+            inset 0 0 0 1px rgba(255, 255, 255, 0.95),
+            inset 0 0 0 6px rgba(129, 140, 248, 0.16),
+            0 0 22px rgba(129, 140, 248, 0.28),
+            0 24px 44px rgba(49, 46, 129, 0.14);
+        color: #6366f1;
     }
-    .s_md_brevet-mf .s_md_card_glow {
-        background: radial-gradient(circle, rgba(192,132,252,0.35), transparent 70%);
+    .s_md_brevet-mf .s_md_frame {
+        width: 28px;
+        height: 28px;
+        border-width: 4px;
+        filter: drop-shadow(0 0 3px rgba(129, 140, 248, 0.7));
     }
     .s_md_brevet-mf .s_md_brevet_chip {
-        background: linear-gradient(135deg, #e9d5ff, #67e8f9);
-        color: #4c1d95;
-        box-shadow: 0 0 28px rgba(192, 132, 252, 0.55);
-    }
-    .s_md_brevet-mf .s_md_subtitle,
-    .s_md_brevet-mf .s_md_cta { color: #c4b5fd; }
-    .s_md_brevet-mf .s_md_avatar {
-        border-color: rgba(233, 213, 255, 0.8);
-        box-shadow: 0 0 0 4px rgba(168,85,247,0.35), 0 0 30px rgba(56,189,248,0.35);
+        background: linear-gradient(135deg, #e0e7ff, #f8fafc, #c7d2fe);
+        border-color: #818cf8;
+        color: #312e81;
+        box-shadow: 0 0 14px rgba(129, 140, 248, 0.4);
     }
 
-    .s_md_brevet-mn .s_md_card_inner {
-        color: #fff7ed;
+    /* MN Diamond / iridescent platinum-gold ? most elaborate */
+    .s_md_brevet-mn .s_md_card_inner,
+    .s_md_brevet-mn.s_md_profile_panel {
+        border: 5px solid transparent;
         background:
-            radial-gradient(circle at 50% -10%, rgba(250, 204, 21, 0.55), transparent 34%),
-            radial-gradient(circle at 0% 80%, rgba(14, 165, 233, 0.35), transparent 40%),
-            radial-gradient(circle at 100% 70%, rgba(244, 114, 182, 0.28), transparent 42%),
-            linear-gradient(155deg, #020617 0%, #111827 45%, #0c4a6e 100%);
-        border-color: rgba(253, 224, 71, 0.55);
+            linear-gradient(#fffdf9, #fffdf9) padding-box,
+            linear-gradient(120deg, #fde047, #38bdf8, #f472b6, #a78bfa, #fde047, #fbbf24) border-box;
         box-shadow:
-            0 0 0 1px rgba(250, 204, 21, 0.4),
-            0 0 40px rgba(250, 204, 21, 0.18),
-            0 34px 70px rgba(2, 6, 23, 0.55),
-            inset 0 1px 0 rgba(255,255,255,0.18);
-        animation: md-mn-pulse 4.5s ease-in-out infinite;
+            inset 0 0 0 1px rgba(255, 255, 255, 0.95),
+            inset 0 0 0 3px rgba(253, 224, 71, 0.45),
+            inset 0 0 0 7px rgba(56, 189, 248, 0.12),
+            0 0 0 1px rgba(253, 224, 71, 0.35),
+            0 0 28px rgba(250, 204, 21, 0.35),
+            0 0 48px rgba(56, 189, 248, 0.18),
+            0 28px 50px rgba(15, 23, 42, 0.16);
+        color: #ca8a04;
+        animation: md-frame-shimmer 5s linear infinite;
     }
-    .s_md_brevet-mn .s_md_card_glow {
-        height: 70%;
-        background:
-            radial-gradient(circle at 30% 40%, rgba(250,204,21,0.28), transparent 45%),
-            radial-gradient(circle at 70% 60%, rgba(56,189,248,0.22), transparent 40%);
+    .s_md_brevet-mn .s_md_frame {
+        width: 32px;
+        height: 32px;
+        border-width: 4px;
+        filter: drop-shadow(0 0 4px rgba(250, 204, 21, 0.85));
     }
     .s_md_brevet-mn .s_md_brevet_chip {
-        background: linear-gradient(135deg, #fde047, #38bdf8 55%, #f472b6);
+        background: linear-gradient(135deg, #fde047, #38bdf8 50%, #f472b6);
+        border-color: #ca8a04;
         color: #111827;
-        box-shadow: 0 0 34px rgba(250, 204, 21, 0.55);
+        box-shadow: 0 0 18px rgba(250, 204, 21, 0.55);
         text-transform: uppercase;
     }
-    .s_md_brevet-mn .s_md_name {
-        background: linear-gradient(90deg, #fde68a, #fff, #7dd3fc);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-    }
-    .s_md_brevet-mn .s_md_subtitle,
-    .s_md_brevet-mn .s_md_cta { color: #fde68a; }
-    .s_md_brevet-mn .s_md_avatar {
-        border-color: #fde047;
+    .s_md_brevet-mn .s_md_avatar,
+    .s_md_brevet-mn .s_md_profile_photo {
         box-shadow:
-            0 0 0 4px rgba(250,204,21,0.35),
-            0 0 0 8px rgba(56,189,248,0.18),
-            0 0 40px rgba(250,204,21,0.35);
+            0 0 0 3px #fde047,
+            0 0 0 6px rgba(56, 189, 248, 0.45),
+            0 10px 24px rgba(15, 23, 42, 0.18);
     }
 
-    .s_md_profile_brevet-mf .s_md_profile_hero,
-    .s_md_profile_brevet-mn .s_md_profile_hero {
-        background:
-            radial-gradient(circle at 20% 0%, rgba(168, 85, 247, 0.28), transparent 35%),
-            radial-gradient(circle at 80% 0%, rgba(250, 204, 21, 0.18), transparent 30%);
-    }
-
-    @keyframes md-mn-pulse {
-        0%, 100% { filter: brightness(1); }
-        50% { filter: brightness(1.08); }
+    @keyframes md-frame-shimmer {
+        0% { filter: hue-rotate(0deg) brightness(1); }
+        50% { filter: hue-rotate(18deg) brightness(1.05); }
+        100% { filter: hue-rotate(0deg) brightness(1); }
     }
 }
