@@ -1,11 +1,14 @@
 /* website_member — Lightwell-inspired TCG cards */
 
-.o_website_member {
-  --md-stone-hi: #f4f1ea;
-  --md-stone: #d9d2c5;
-  --md-stone-mid: #b8b0a2;
-  --md-stone-lo: #8a8276;
-  --md-stone-ink: #4a453c;
+:root,
+.o_website_member,
+.s_md_card,
+.s_md_members,
+.s_md_event_attendees {
+  --md-stone-hi: #f7f3ea;
+  --md-stone: #e4dccf;
+  --md-stone-mid: #cfc5b4;
+  --md-stone-lo: #9a907e;
   --md-gold-hi: #ffe9a8;
   --md-gold: #d4b76a;
   --md-gold-lo: #8a6418;
@@ -39,7 +42,7 @@
 }
 .s_md_grid_section { padding: 2rem 0 3rem; }
 .o_website_member:not(.o_member_profile) .s_md_grid_section {
-  background: #ece8e0;
+  background: #ebe6dc;
 }
 
 .s_md_filters_bar {
@@ -59,11 +62,11 @@
 }
 .s_md_search_btn:hover { background: #18575a; color: #fff; }
 
-/* ——— Grid (room for overhanging gems) ——— */
+/* Grid — room for overhanging gems */
 .s_md_tcg_grid {
   display: grid;
-  gap: 1.75rem 1.35rem;
-  padding: 0.75rem 0.5rem 1rem;
+  gap: 1.85rem 1.4rem;
+  padding: 0.85rem 0.6rem 1.1rem;
   overflow: visible;
 }
 .s_md_cols_2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -79,53 +82,43 @@
   .s_md_cols_2 { grid-template-columns: 1fr; max-width: 300px; margin-inline: auto; }
 }
 
-/* ——— Card: light stone + parchment (Lightwell) ——— */
+/* ========== CARD ========== */
 .s_md_card {
   display: block;
-  color: inherit;
-  padding: 12px 10px 16px; /* space so half-out icons are not clipped */
+  color: var(--md-ink);
+  padding: 14px 12px 18px;
   overflow: visible;
+  text-decoration: none !important;
 }
+.s_md_card:hover { color: var(--md-ink); }
+
+/* Light stone body = the visible card (no dark full-plate overlay) */
 .s_md_card_shell {
   position: relative;
-  aspect-ratio: #{"5 / 7.15"};
-  border-radius: 16px;
+  aspect-ratio: 0.7;
+  border-radius: 18px;
   overflow: visible;
-  /* white-ish stone / weathered book cover */
-  background:
-    repeating-linear-gradient(
-      92deg,
-      rgba(255, 255, 255, 0.35) 0 1px,
-      transparent 1px 4px
-    ),
-    repeating-linear-gradient(
-      0deg,
-      rgba(74, 69, 60, 0.04) 0 1px,
-      transparent 1px 5px
-    ),
-    radial-gradient(120% 80% at 30% 10%, #fffaf0 0%, transparent 45%),
-    radial-gradient(90% 60% at 80% 90%, rgba(138, 130, 118, 0.35) 0%, transparent 50%),
-    linear-gradient(160deg, var(--md-stone-hi) 0%, var(--md-stone) 38%, var(--md-stone-mid) 72%, #a39a8c 100%);
-  /* parchment / book edge */
+  background-color: #e8e0d2;
+  background-image:
+    radial-gradient(ellipse at 20% 15%, rgba(255, 255, 255, 0.7), transparent 45%),
+    radial-gradient(ellipse at 85% 80%, rgba(120, 100, 70, 0.12), transparent 40%),
+    linear-gradient(165deg, #f8f4eb 0%, #e6ddd0 45%, #d2c7b6 100%);
+  border: 3px solid #c4a66a;
+  outline: 2px solid #efe2c0;
+  outline-offset: 2px;
   box-shadow:
-    0 0 0 1px #f7f1e4,
-    0 0 0 3px var(--md-parchment-edge),
-    0 0 0 5px #8a7350,
-    0 0 0 6px #efe2c0,
-    0 12px 26px rgba(60, 45, 20, 0.28),
-    inset 0 2px 0 rgba(255, 255, 255, 0.75),
-    inset 0 -6px 14px rgba(90, 70, 40, 0.12);
+    0 0 0 1px #8a7350,
+    0 14px 28px rgba(60, 45, 20, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    inset 0 -8px 16px rgba(90, 70, 40, 0.08);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .s_md_card:hover .s_md_card_shell {
   transform: translateY(-4px);
   box-shadow:
-    0 0 0 1px #fff8ec,
-    0 0 0 3px var(--md-parchment-edge),
-    0 0 0 5px #9a8458,
-    0 0 0 6px #f3e6c8,
-    0 18px 32px rgba(60, 45, 20, 0.35),
-    inset 0 2px 0 rgba(255, 255, 255, 0.85);
+    0 0 0 1px #9a8458,
+    0 20px 34px rgba(60, 45, 20, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 .s_md_tcg_wrap_static .s_md_card { pointer-events: none; }
 .s_md_tcg_wrap_static .s_md_card_shell {
@@ -133,50 +126,34 @@
   max-width: 42vw;
 }
 
-/* Inner plate (recessed art field) */
-.s_md_card_shell::before {
-  content: "";
-  position: absolute;
-  inset: 11px;
-  border-radius: 10px;
-  background:
-    radial-gradient(ellipse at 50% 20%, #3a342c 0%, #1a1714 70%);
-  box-shadow:
-    inset 0 0 0 1px rgba(244, 241, 234, 0.35),
-    inset 0 4px 14px rgba(0, 0, 0, 0.45);
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* ——— Hex gem — half outside top-left ——— */
+/* Hex gem — half outside top-left */
 .s_md_card_gem {
   position: absolute;
   z-index: 8;
-  top: -12px;
-  left: -12px;
-  width: 54px;
-  height: 60px;
+  top: -14px;
+  left: -14px;
+  width: 56px;
+  height: 62px;
   display: grid;
   place-items: center;
   clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
   background:
-    linear-gradient(125deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.2) 22%, transparent 40%),
-    linear-gradient(300deg, rgba(0, 0, 0, 0.35) 0%, transparent 42%),
-    linear-gradient(160deg, var(--md-brevet-hi) 0%, var(--md-brevet) 45%, var(--md-brevet-lo) 100%);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    linear-gradient(125deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.2) 24%, transparent 42%),
+    linear-gradient(160deg, var(--md-brevet-hi) 0%, var(--md-brevet) 48%, var(--md-brevet-lo) 100%);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
   color: #fff;
   font-weight: 800;
-  font-size: 0.82rem;
+  font-size: 0.84rem;
   letter-spacing: -0.03em;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
 }
-.s_md_card_gem > span { line-height: 1; position: relative; z-index: 1; }
+.s_md_card_gem > span { line-height: 1; }
 
-/* ——— Portrait oval + gold wings ——— */
+/* Portrait oval + gold wings */
 .s_md_card_art {
   position: absolute;
   z-index: 2;
-  top: 8%;
+  top: 7%;
   left: 50%;
   transform: translateX(-50%);
   width: 78%;
@@ -184,15 +161,14 @@
 }
 .s_md_card_oval {
   position: absolute;
-  inset: 0 8% 0 8%;
-  border-radius: #{"50% / 46%"};
+  inset: 0 9% 0 9%;
+  border-radius: 50%;
   overflow: hidden;
   background: #2a241c;
   box-shadow:
-    0 0 0 2px #efe2c0,
-    0 0 0 4px #6a6256,
-    0 0 0 5px #c9b896,
-    0 6px 14px rgba(0, 0, 0, 0.45);
+    0 0 0 3px #efe2c0,
+    0 0 0 5px #6a5a40,
+    0 8px 16px rgba(0, 0, 0, 0.35);
 }
 .s_md_card_face {
   width: 100%;
@@ -206,125 +182,109 @@
   font-size: 2.8rem;
   font-weight: 700;
   color: #efe2c0;
-  background:
-    radial-gradient(circle at 35% 28%, #5a4a38, transparent 52%),
-    linear-gradient(160deg, #3a3228, #1a1612);
+  background: linear-gradient(160deg, #4a3f32, #1a1612);
 }
 
 .s_md_card_wing {
   position: absolute;
-  top: 14%;
-  width: 24%;
-  height: 58%;
+  top: 12%;
+  width: 22%;
+  height: 55%;
   pointer-events: none;
-  background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.65) 0%, transparent 30%),
-    linear-gradient(200deg, var(--md-gold-hi) 0%, var(--md-gold) 42%, var(--md-gold-lo) 100%);
-  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.4));
-  clip-path: polygon(42% 0%, 100% 16%, 82% 100%, 0% 72%, 16% 28%);
-  opacity: 0.95;
+  background: linear-gradient(200deg, #ffe9a8 0%, #d4b76a 45%, #8a6418 100%);
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.35));
+  clip-path: polygon(40% 0%, 100% 18%, 80% 100%, 0% 70%, 18% 28%);
 }
-.s_md_card_wing_l { left: -4%; transform: scaleX(-1); }
-.s_md_card_wing_r { right: -4%; }
+.s_md_card_wing_l { left: -2%; transform: scaleX(-1); }
+.s_md_card_wing_r { right: -2%; }
 
-/* ——— Curved parchment name banner ——— */
+/* Curved parchment name banner */
 .s_md_card_banner {
   position: absolute;
   z-index: 5;
-  top: 46.5%;
-  left: -2%;
-  right: -2%;
-  height: 12%;
+  top: 47%;
+  left: 3%;
+  right: 3%;
+  height: 11%;
+  min-height: 34px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 1rem;
-  /* scroll / parchemin shape */
-  background:
-    linear-gradient(180deg, #fff8e6 0%, var(--md-parchment) 35%, var(--md-parchment-2) 78%, #c9ae74 100%);
-  clip-path: polygon(
-    2% 28%, 5% 8%, 8% 0%, 92% 0%, 95% 8%, 98% 28%,
-    100% 55%, 97% 82%, 92% 100%, 8% 100%, 3% 82%, 0% 55%
-  );
+  padding: 0 1.1rem;
+  background: linear-gradient(180deg, #fff8e6 0%, #f3e6c8 40%, #e0c892 100%);
+  border: 1px solid #c4a66a;
+  border-radius: 8px;
+  /* slight curve via clip — avoid SCSS "/" division in border-radius */
+  clip-path: polygon(3% 18%, 6% 0%, 94% 0%, 97% 18%, 100% 50%, 97% 82%, 94% 100%, 6% 100%, 3% 82%, 0% 50%);
   box-shadow:
-    0 3px 8px rgba(60, 40, 10, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.65),
-    inset 0 -2px 3px rgba(120, 80, 20, 0.15);
+    0 3px 8px rgba(60, 40, 10, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.75);
 }
+/* scroll rolls on the sides */
 .s_md_card_banner::before,
 .s_md_card_banner::after {
-  /* rolled scroll ends */
   content: "";
   position: absolute;
-  top: 12%;
-  bottom: 12%;
-  width: 10px;
-  border-radius: 4px;
-  background: linear-gradient(90deg, #b89555, #efe0bf 45%, #a07a3a);
-  box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.25);
+  top: -2px;
+  bottom: -2px;
+  width: 12px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #a07a3a, #efe0bf 45%, #b89555);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
 }
-.s_md_card_banner::before { left: 4px; }
-.s_md_card_banner::after { right: 4px; }
+.s_md_card_banner::before { left: -6px; }
+.s_md_card_banner::after { right: -6px; }
 
 .s_md_card_name {
   position: relative;
   z-index: 1;
   font-weight: 800;
-  font-size: clamp(0.78rem, 2.1vw, 0.98rem);
-  color: var(--md-ink);
-  letter-spacing: 0.01em;
+  font-size: clamp(0.78rem, 2vw, 0.95rem);
+  color: #1c1610;
   line-height: 1.15;
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 100%;
-  text-shadow:
-    0 0 2px #fff,
-    0 0 4px #fff,
-    0 1px 0 rgba(255, 255, 255, 0.8);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
 }
 
 /* Rarity gem under banner */
 .s_md_card_rarity {
   position: absolute;
   z-index: 6;
-  top: 56.5%;
+  top: 56%;
   left: 50%;
   width: 14px;
   height: 18px;
-  transform: translateX(-50%);
+  transform: translate(-50%, -30%);
   clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-  background:
-    linear-gradient(145deg, #fff 0%, var(--md-brevet) 42%, var(--md-brevet-lo) 100%);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  background: linear-gradient(145deg, #fff 0%, var(--md-brevet) 45%, var(--md-brevet-lo) 100%);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
 }
 
-/* ——— Parchment text box ——— */
+/* Parchment specialties box */
 .s_md_card_text {
   position: absolute;
   z-index: 3;
-  left: 9%;
-  right: 9%;
-  top: 59%;
-  bottom: 13%;
-  border-radius: 4px;
-  background:
-    radial-gradient(ellipse at 50% 25%, rgba(255, 255, 255, 0.35), transparent 55%),
-    linear-gradient(180deg, #f6ebd0 0%, #dfcba0 100%);
-  box-shadow:
-    inset 0 0 0 1px var(--md-parchment-edge),
-    inset 0 0 0 2px rgba(255, 248, 230, 0.5),
-    0 1px 3px rgba(60, 40, 10, 0.2);
-  padding: 0.75rem 0.45rem 0.4rem;
+  left: 8%;
+  right: 8%;
+  top: 58%;
+  bottom: 12%;
+  border-radius: 6px;
+  background: linear-gradient(180deg, #f7edd4 0%, #e2cfa5 100%);
+  border: 1px solid #c4a66a;
+  box-shadow: inset 0 0 0 1px rgba(255, 248, 230, 0.55);
+  padding: 0.7rem 0.4rem 0.4rem;
   overflow: hidden;
 }
 .s_md_card_text::before {
   content: "";
   position: absolute;
-  inset: 14% 20%;
-  opacity: 0.06;
-  background: radial-gradient(circle at 50% 50%, #3a2a10 0 30%, transparent 31%);
+  inset: 18% 22%;
+  opacity: 0.07;
+  background: radial-gradient(circle, #3a2a10 0 32%, transparent 33%);
   pointer-events: none;
 }
 .s_md_card_pills {
@@ -339,99 +299,55 @@
   overflow: hidden;
 }
 
-/* ——— Bottom icons — half outside ——— */
+/* Bottom icons — half outside */
 .s_md_card_stat {
   position: absolute;
   z-index: 7;
-  bottom: -12px;
-  width: 46px;
-  height: 46px;
+  bottom: -14px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   display: grid;
   place-items: center;
-  background:
-    radial-gradient(circle at 32% 28%, #fff 0%, var(--md-gold-hi) 16%, var(--md-gold) 48%, var(--md-gold-lo) 100%);
+  background: radial-gradient(circle at 32% 28%, #fff 0%, #ffe9a8 18%, #d4b76a 50%, #8a6418 100%);
   box-shadow:
     0 0 0 2px #f7edd4,
     0 0 0 3px #6a5a40,
-    0 4px 10px rgba(0, 0, 0, 0.35);
+    0 4px 10px rgba(0, 0, 0, 0.3);
 }
 .s_md_card_stat img {
   width: 62%;
   height: 62%;
   object-fit: contain;
 }
-.s_md_card_stat_hsa { left: -8px; }
-.s_md_card_stat_dive { right: -8px; }
+.s_md_card_stat_hsa { left: -10px; }
+.s_md_card_stat_dive { right: -10px; }
 .s_md_card_stat_hsa {
-  background:
-    radial-gradient(circle at 32% 28%, #fff 0%, #ffd4a8 16%, #e07a28 50%, #7a3a10 100%);
+  background: radial-gradient(circle at 32% 28%, #fff 0%, #ffd4a8 18%, #e07a28 52%, #7a3a10 100%);
 }
 .s_md_card_stat_dive {
-  background:
-    radial-gradient(circle at 32% 28%, #fff 0%, #c8f0f2 16%, #1f8a8e 50%, #0a3a3c 100%);
+  background: radial-gradient(circle at 32% 28%, #fff 0%, #c8f0f2 18%, #1f8a8e 52%, #0a3a3c 100%);
 }
 .s_md_card_stat_hsa img,
 .s_md_card_stat_dive img {
   filter: brightness(0) invert(1);
-  opacity: 0.95;
 }
 
-/* ——— Brevet colors ——— */
-.s_md_brevet-1 {
-  --md-brevet: #2f9e4f;
-  --md-brevet-hi: #7dff9a;
-  --md-brevet-lo: #145c2a;
-}
-.s_md_brevet-2 {
-  --md-brevet: #2b6cb0;
-  --md-brevet-hi: #7ec8ff;
-  --md-brevet-lo: #143a6a;
-}
-.s_md_brevet-3 {
-  --md-brevet: #6b46c1;
-  --md-brevet-hi: #c4a0ff;
-  --md-brevet-lo: #3a1a7a;
-}
-.s_md_brevet-4 {
-  --md-brevet: #c53030;
-  --md-brevet-hi: #ff8a8a;
-  --md-brevet-lo: #6a1010;
-}
-.s_md_brevet-am {
-  --md-brevet: #b87333;
-  --md-brevet-hi: #ffc078;
-  --md-brevet-lo: #5a3510;
-}
-.s_md_brevet-mc {
-  --md-brevet: #8a9399;
-  --md-brevet-hi: #e0e6ea;
-  --md-brevet-lo: #3a4044;
-}
-.s_md_brevet-mf {
-  --md-brevet: #d4a017;
-  --md-brevet-hi: #ffe08a;
-  --md-brevet-lo: #6a5008;
-}
-.s_md_brevet-mn {
-  --md-brevet: #7b2cbf;
-  --md-brevet-hi: #ff9f43;
-  --md-brevet-lo: #1dd1a1;
-}
+/* Brevet colors */
+.s_md_brevet-1 { --md-brevet: #2f9e4f; --md-brevet-hi: #7dff9a; --md-brevet-lo: #145c2a; }
+.s_md_brevet-2 { --md-brevet: #2b6cb0; --md-brevet-hi: #7ec8ff; --md-brevet-lo: #143a6a; }
+.s_md_brevet-3 { --md-brevet: #6b46c1; --md-brevet-hi: #c4a0ff; --md-brevet-lo: #3a1a7a; }
+.s_md_brevet-4 { --md-brevet: #c53030; --md-brevet-hi: #ff8a8a; --md-brevet-lo: #6a1010; }
+.s_md_brevet-am { --md-brevet: #b87333; --md-brevet-hi: #ffc078; --md-brevet-lo: #5a3510; }
+.s_md_brevet-mc { --md-brevet: #8a9399; --md-brevet-hi: #e0e6ea; --md-brevet-lo: #3a4044; }
+.s_md_brevet-mf { --md-brevet: #d4a017; --md-brevet-hi: #ffe08a; --md-brevet-lo: #6a5008; }
+.s_md_brevet-mn { --md-brevet: #7b2cbf; --md-brevet-hi: #ff9f43; --md-brevet-lo: #1dd1a1; }
+.s_md_brevet-nb { --md-brevet: #3a3a3a; --md-brevet-hi: #888; --md-brevet-lo: #111; }
+.s_md_brevet-hsa { --md-brevet: #e67e22; --md-brevet-hi: #ffc078; --md-brevet-lo: #7a3a10; }
 .s_md_brevet-mn .s_md_card_gem {
   background:
     linear-gradient(145deg, rgba(255, 255, 255, 0.55) 0%, transparent 35%),
     conic-gradient(from 200deg, #e74c3c, #f1c40f, #2ecc71, #3498db, #9b59b6, #e74c3c);
-}
-.s_md_brevet-nb {
-  --md-brevet: #3a3a3a;
-  --md-brevet-hi: #888;
-  --md-brevet-lo: #111;
-}
-.s_md_brevet-hsa {
-  --md-brevet: #e67e22;
-  --md-brevet-hi: #ffc078;
-  --md-brevet-lo: #7a3a10;
 }
 
 .s_md_brevet-1 .s_md_card_shell,
@@ -443,13 +359,7 @@
 .s_md_brevet-mf .s_md_card_shell,
 .s_md_brevet-mn .s_md_card_shell,
 .s_md_brevet-hsa .s_md_card_shell {
-  box-shadow:
-    0 0 0 1px #f7f1e4,
-    0 0 0 3px var(--md-brevet-hi),
-    0 0 0 5px var(--md-parchment-edge),
-    0 0 0 6px #efe2c0,
-    0 12px 26px rgba(60, 45, 20, 0.28),
-    inset 0 2px 0 rgba(255, 255, 255, 0.75);
+  border-color: var(--md-brevet-hi);
 }
 
 /* Specialty pills */
@@ -462,11 +372,9 @@
   font-size: 0.65rem;
   font-weight: 700;
   line-height: 1.15;
-  letter-spacing: 0.02em;
-  background: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.65);
   color: #3a2a18;
-  border: 1px solid rgba(90, 60, 20, 0.18);
-  box-shadow: 0 1px 1px rgba(255, 255, 255, 0.4) inset;
+  border: 1px solid rgba(90, 60, 20, 0.16);
 }
 .s_md_spec-cfps { background: #f5c6c8; color: #7a1a1e; }
 .s_md_spec-ve { background: #c9d8f5; color: #1d3557; }
@@ -479,12 +387,8 @@
 .s_md_cat-hsa { background: #ffd4a8; color: #7a3a10; }
 .s_md_spec_pills_lg .s_md_spec_pill { font-size: 0.8rem; padding: 0.25rem 0.6rem; }
 
-/* ——— Horizontal attendees ——— */
-.s_md_attendee_list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.55rem;
-}
+/* Attendees */
+.s_md_attendee_list { display: flex; flex-direction: column; gap: 0.55rem; }
 .s_md_attendee {
   display: grid;
   grid-template-columns: 52px 1fr 48px;
@@ -492,14 +396,16 @@
   gap: 0.75rem;
   padding: 0.5rem 0.7rem;
   border-radius: 14px;
-  background: linear-gradient(90deg, #f4f1ea, #e8e2d6);
-  border: 1px solid var(--md-parchment-edge);
-  color: var(--md-ink);
+  background: linear-gradient(90deg, #f7f3ea, #e8e0d2);
+  border: 1px solid #c4a66a;
+  color: #1c1610;
+  text-decoration: none !important;
   transition: transform 0.15s ease, border-color 0.15s ease;
 }
 .s_md_attendee:hover {
   transform: translateX(3px);
-  border-color: var(--md-brevet, #888);
+  border-color: var(--md-brevet);
+  color: #1c1610;
 }
 .s_md_attendee_nolink { pointer-events: none; }
 .s_md_attendee_face {
@@ -513,11 +419,7 @@
   place-items: center;
   font-weight: 700;
 }
-.s_md_attendee_face img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+.s_md_attendee_face img { width: 100%; height: 100%; object-fit: cover; }
 .s_md_attendee_name {
   font-weight: 600;
   font-size: 0.98rem;
@@ -531,9 +433,7 @@
   display: grid;
   place-items: center;
   clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
-  background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.45) 0%, transparent 40%),
-    linear-gradient(160deg, var(--md-brevet-hi), var(--md-brevet), var(--md-brevet-lo));
+  background: linear-gradient(160deg, var(--md-brevet-hi), var(--md-brevet), var(--md-brevet-lo));
   color: #fff;
   font-size: 0.68rem;
   font-weight: 800;
