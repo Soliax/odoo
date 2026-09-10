@@ -1,0 +1,31 @@
+{
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/Scripts/python.exe",
+  "python.analysis.extraPaths": [
+    "${workspaceFolder}/odoo",
+    "${workspaceFolder}/custom_addons",
+    "${workspaceFolder}/tutorials"
+  ],
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": false,
+  "python.linting.flake8Enabled": true,
+  "python.linting.flake8Args": [
+    "--ignore=E501,E301,E302,W503",
+    "--max-line-length=100"
+  ],
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/*.pyc": true
+  },
+  "files.watcherExclude": {
+    "**/.venv/**": true,
+    "**/odoo/.git/**": true,
+    "**/tutorials/.git/**": true
+  },
+  "[python]": {
+    "editor.formatOnSave": false,
+    "editor.tabSize": 4
+  },
+  "[xml]": {
+    "editor.tabSize": 4
+  }
+}

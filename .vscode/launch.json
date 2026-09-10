@@ -1,0 +1,68 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Odoo: start (dev)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/odoo/odoo-bin",
+      "args": [
+        "-c",
+        "${workspaceFolder}/odoo.conf",
+        "-d",
+        "odoo19-dev",
+        "--dev=all"
+      ],
+      "cwd": "${workspaceFolder}/odoo",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}/odoo"
+      }
+    },
+    {
+      "name": "Odoo: update module",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/odoo/odoo-bin",
+      "args": [
+        "-c",
+        "${workspaceFolder}/odoo.conf",
+        "-d",
+        "odoo19-dev",
+        "-u",
+        "${input:moduleName}",
+        "--stop-after-init"
+      ],
+      "cwd": "${workspaceFolder}/odoo",
+      "console": "integratedTerminal",
+      "justMyCode": false
+    },
+    {
+      "name": "Odoo: install module",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/odoo/odoo-bin",
+      "args": [
+        "-c",
+        "${workspaceFolder}/odoo.conf",
+        "-d",
+        "odoo19-dev",
+        "-i",
+        "${input:moduleName}",
+        "--stop-after-init"
+      ],
+      "cwd": "${workspaceFolder}/odoo",
+      "console": "integratedTerminal",
+      "justMyCode": false
+    }
+  ],
+  "inputs": [
+    {
+      "id": "moduleName",
+      "type": "promptString",
+      "description": "Technical name of the Odoo module",
+      "default": "my_module"
+    }
+  ]
+}
