@@ -6,9 +6,20 @@ import { rpc } from "@web/core/network/rpc";
 
 export class MdEventAttendeesSnippet extends Interaction {
     static selector = ".s_md_event_attendees";
+    dynamicContent = {
+        ".s_md_attendee": {
+            "t-on-click": this.onAttendeeClick,
+        },
+    };
 
     setup() {
         this.rpc = rpc;
+    }
+
+    get isEditor() {
+        return Boolean(
+            this.el.closest(".o_editable, .o_wysiwyg_loader, #wrapwrap.o_editable, .o_builder_page")
+        );
     }
 
     async willStart() {
@@ -20,7 +31,6 @@ export class MdEventAttendeesSnippet extends Interaction {
         if (fromData) {
             return fromData;
         }
-        // On an event page: /event/<id> or /event/<slug>-<id>
         const path = window.location.pathname || "";
         const match = path.match(/\/event\/(?:[^/]*-)?(\d+)(?:\/|$)/);
         return match ? parseInt(match[1], 10) : 0;
@@ -34,7 +44,6 @@ export class MdEventAttendeesSnippet extends Interaction {
         }
         const eventId = this.resolveEventId();
         if (!eventId && !this.el.dataset.eventId) {
-            // Keep placeholder in editor when no event selected
             return;
         }
         try {
@@ -46,15 +55,29 @@ export class MdEventAttendeesSnippet extends Interaction {
             if (result.error === "login_required") {
                 content.innerHTML =
                     '<div class="alert alert-warning mb-0">Connectez-vous pour voir les participants.</div>';
+                if (countEl) {
+                    countEl.textContent = "";
+                }
                 return;
             }
             content.innerHTML = result.html || "";
+            content.classList.add("o_not_editable");
+            content.setAttribute("data-oe-protected", "true");
+            content.setAttribute("contenteditable", "false");
             if (countEl) {
-                countEl.textContent = result.count ? `( ${result.count} )` : "";
+                const n = result.count || 0;
+                countEl.textContent = n ? `(${n})` : "(0)";
             }
         } catch (_e) {
             content.innerHTML =
                 '<div class="alert alert-danger mb-0">Impossible de charger les participants.</div>';
+        }
+    }
+
+    onAttendeeClick(ev) {
+        if (this.isEditor) {
+            ev.preventDefault();
+            ev.stopPropagation();
         }
     }
 }
