@@ -12,9 +12,8 @@ filestore/
 /odoo/
 /tutorials/
 
-# Secrets / local overrides
-odoo.conf
-odoo.conf.local
+# Local import dumps / avatars (dev only — import via UI in prod)
+/data/
 
 # Editors / junk
 .idea/
