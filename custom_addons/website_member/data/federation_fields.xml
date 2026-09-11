@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="field_gender" model="member.field">
+        <field name="name">Sexe</field>
+        <field name="source_model">res.partner</field>
+        <field name="field_name">dive_gender</field>
+        <field name="widget">text</field>
+        <field name="section">identity</field>
+        <field name="sequence">25</field>
+    </record>
+    <record id="field_member_since" model="member.field">
+        <field name="name">Membre depuis</field>
+        <field name="source_model">res.partner</field>
+        <field name="field_name">dive_member_since</field>
+        <field name="widget">date</field>
+        <field name="section">professional</field>
+        <field name="sequence">5</field>
+    </record>
+
+    <record id="field_fed_adip" model="member.field">
+        <field name="name">ADIP</field>
+        <field name="source_model">res.partner</field>
+        <field name="field_name">dive_fed_adip</field>
+        <field name="widget">text</field>
+        <field name="section">federations</field>
+        <field name="sequence">10</field>
+    </record>
+    <record id="field_fed_cedip" model="member.field">
+        <field name="name">CEDIP</field>
+        <field name="source_model">res.partner</field>
+        <field name="field_name">dive_fed_cedip</field>
+        <field name="widget">text</field>
+        <field name="section">federations</field>
+        <field name="sequence">20</field>
+    </record>
+    <record id="field_fed_ida" model="member.field">
+        <field name="name">IDA</field>
+        <field name="source_model">res.partner</field>
+        <field name="field_name">dive_fed_ida</field>
+        <field name="widget">text</field>
+        <field name="section">federations</field>
+        <field name="sequence">30</field>
+    </record>
+    <record id="field_fed_protec" model="member.field">
+        <field name="name">PROTEC</field>
+        <field name="source_model">res.partner</field>
+        <field name="field_name">dive_fed_protec</field>
+        <field name="widget">text</field>
+        <field name="section">federations</field>
+        <field name="sequence">40</field>
+    </record>
+    <record id="field_fed_ssi" model="member.field">
+        <field name="name">SSI</field>
+        <field name="source_model">res.partner</field>
+        <field name="field_name">dive_fed_ssi</field>
+        <field name="widget">text</field>
+        <field name="section">federations</field>
+        <field name="sequence">50</field>
+    </record>
+</odoo>

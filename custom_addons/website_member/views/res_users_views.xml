@@ -17,7 +17,9 @@
                         <group string="Identite">
                             <field name="dive_firstname"/>
                             <field name="dive_lastname"/>
+                            <field name="dive_gender"/>
                             <field name="dive_birthday"/>
+                            <field name="dive_member_since"/>
                             <field name="dive_profession"/>
                             <field name="dive_is_plongeur"/>
                             <field name="dive_is_hsa"/>
@@ -68,6 +70,17 @@
                             <field name="dive_other_brevets"/>
                         </group>
                     </group>
+                    <group string="Autres federations">
+                        <group>
+                            <field name="dive_fed_adip"/>
+                            <field name="dive_fed_cedip"/>
+                            <field name="dive_fed_ida"/>
+                        </group>
+                        <group>
+                            <field name="dive_fed_protec"/>
+                            <field name="dive_fed_ssi"/>
+                        </group>
+                    </group>
                 </page>
             </xpath>
         </field>
@@ -84,7 +97,9 @@
                         <group string="Identite">
                             <field name="dive_firstname"/>
                             <field name="dive_lastname"/>
+                            <field name="dive_gender"/>
                             <field name="dive_birthday"/>
+                            <field name="dive_member_since"/>
                             <field name="dive_profession"/>
                             <field name="dive_is_plongeur"/>
                             <field name="dive_is_hsa"/>
@@ -134,6 +149,17 @@
                             <field name="dive_spec_inc" string="INC"/>
                             <field name="dive_spec_fn" string="FN"/>
                             <field name="dive_other_brevets"/>
+                        </group>
+                    </group>
+                    <group string="Autres federations">
+                        <group>
+                            <field name="dive_fed_adip"/>
+                            <field name="dive_fed_cedip"/>
+                            <field name="dive_fed_ida"/>
+                        </group>
+                        <group>
+                            <field name="dive_fed_protec"/>
+                            <field name="dive_fed_ssi"/>
                         </group>
                     </group>
                 </page>

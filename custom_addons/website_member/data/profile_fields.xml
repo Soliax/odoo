@@ -65,7 +65,7 @@
         <field name="sequence">10</field>
     </record>
     <record id="field_function" model="member.field">
-        <field name="name">Fonction</field>
+        <field name="name">Fonction club</field>
         <field name="source_model">res.partner</field>
         <field name="field_name">function</field>
         <field name="widget">text</field>

@@ -44,7 +44,7 @@
                             <div class="s_md_card_oval">
                                 <img t-if="member.image_128"
                                      t-att-src="'/web/image/res.users/%s/image_128' % member.id"
-                                     class="s_md_card_face" alt=""/>
+                                     class="s_md_card_face" alt="" loading="lazy" decoding="async"/>
                                 <div t-else="" class="s_md_card_face s_md_card_face_fallback"
                                      t-esc="(card_name or '?')[:1].upper()"/>
                             </div>
@@ -66,7 +66,15 @@
                               t-esc="spec['short']"/>
                     </t>
                 </div>
-                <h5 class="card-title my-1 s_md_event_card_title" t-esc="card_name"/>
+                <h5 class="card-title my-1 s_md_event_card_title">
+                    <span t-if="member.dive_gender == 'F'"
+                          class="s_md_gender_icon s_md_gender_f fa fa-venus"
+                          title="Femme" aria-label="Femme"/>
+                    <span t-elif="member.dive_gender == 'M'"
+                          class="s_md_gender_icon s_md_gender_m fa fa-mars"
+                          title="Homme" aria-label="Homme"/>
+                    <t t-esc="card_name"/>
+                </h5>
                 <small class="o_not_editable fw-bold s_md_event_card_meta mt-auto">
                     <i class="fa fa-map-marker me-2 text-muted" title="Club"/>
                     <t t-esc="member.partner_id.city or 'Waterloo Diving Club'"/>
@@ -109,7 +117,7 @@
                     <div class="s_md_card_oval">
                         <img t-if="member.image_128"
                              t-att-src="'/web/image/res.users/%s/image_128' % member.id"
-                             class="s_md_card_face" alt=""/>
+                             class="s_md_card_face" alt="" loading="lazy" decoding="async"/>
                         <div t-else="" class="s_md_card_face s_md_card_face_fallback"
                              t-esc="(card_name or '?')[:1].upper()"/>
                     </div>
@@ -131,7 +139,15 @@
                         </div>
                     </div>
                     <div class="s_md_ornament s_md_ornament_name" aria-hidden="true"/>
-                    <span class="s_md_card_name" t-esc="card_name"/>
+                    <span class="s_md_card_name">
+                        <span t-if="member.dive_gender == 'F'"
+                              class="s_md_gender_icon s_md_gender_f fa fa-venus"
+                              title="Femme" aria-label="Femme"/>
+                        <span t-elif="member.dive_gender == 'M'"
+                              class="s_md_gender_icon s_md_gender_m fa fa-mars"
+                              title="Homme" aria-label="Homme"/>
+                        <t t-esc="card_name"/>
+                    </span>
                 </div>
                 <div class="s_md_card_rarity" aria-hidden="true"/>
                 <div class="s_md_card_text">

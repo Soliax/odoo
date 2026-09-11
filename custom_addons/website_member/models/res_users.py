@@ -1,6 +1,13 @@
 ﻿# -*- coding: utf-8 -*-
 from odoo import api, fields, models
 from odoo.osv import expression
+import unicodedata
+
+
+def _fold_name(value):
+    """Case/accent-insensitive key for stable French name sorting."""
+    text = unicodedata.normalize("NFKD", value or "")
+    return "".join(c for c in text if not unicodedata.combining(c)).casefold().strip()
 
 
 class ResUsers(models.Model):
@@ -18,12 +25,19 @@ class ResUsers(models.Model):
 
     dive_firstname = fields.Char(related="partner_id.dive_firstname", readonly=False)
     dive_lastname = fields.Char(related="partner_id.dive_lastname", readonly=False)
+    dive_gender = fields.Selection(related="partner_id.dive_gender", readonly=False)
+    dive_member_since = fields.Date(related="partner_id.dive_member_since", readonly=False)
     dive_phone_home = fields.Char(related="partner_id.dive_phone_home", readonly=False)
     dive_phone_work = fields.Char(related="partner_id.dive_phone_work", readonly=False)
     dive_birthday = fields.Date(related="partner_id.dive_birthday", readonly=False)
     dive_profession = fields.Char(related="partner_id.dive_profession", readonly=False)
     dive_is_plongeur = fields.Boolean(related="partner_id.dive_is_plongeur", readonly=False)
     dive_is_hsa = fields.Boolean(related="partner_id.dive_is_hsa", readonly=False)
+    dive_fed_adip = fields.Char(related="partner_id.dive_fed_adip", readonly=False)
+    dive_fed_cedip = fields.Char(related="partner_id.dive_fed_cedip", readonly=False)
+    dive_fed_ida = fields.Char(related="partner_id.dive_fed_ida", readonly=False)
+    dive_fed_protec = fields.Char(related="partner_id.dive_fed_protec", readonly=False)
+    dive_fed_ssi = fields.Char(related="partner_id.dive_fed_ssi", readonly=False)
     dive_brevet_date_1 = fields.Date(related="partner_id.dive_brevet_date_1", readonly=False)
     dive_brevet_date_2 = fields.Date(related="partner_id.dive_brevet_date_2", readonly=False)
     dive_brevet_date_3 = fields.Date(related="partner_id.dive_brevet_date_3", readonly=False)
@@ -72,6 +86,7 @@ class ResUsers(models.Model):
         brevets=None,
         specialties=None,
         limit=None,
+        sort="brevet_desc",
     ):
         domain = self._members_domain()
         if search:
@@ -137,11 +152,49 @@ class ResUsers(models.Model):
             ])
 
         limit = int(limit) if limit else None
-        return self.sudo().search(
-            domain,
-            order="dive_brevet_rank desc, name asc",
-            limit=limit or None,
-        )
+        sort_key = str(sort or "brevet_desc").strip().lower()
+        members = self.sudo().search(domain)
+
+        if sort_key in ("name_asc", "name_desc"):
+            reverse = sort_key.endswith("desc")
+
+            def _name_key(user):
+                last = _fold_name(user.dive_lastname)
+                first = _fold_name(user.dive_firstname)
+                full = _fold_name(user.name)
+                # Prefer lastname; if missing, use the end of the display name.
+                if not last and full:
+                    parts = full.rsplit(" ", 1)
+                    last = parts[-1] if parts else full
+                    if len(parts) > 1 and not first:
+                        first = parts[0]
+                # Empty / incomplete records go last (ASC) / first (DESC via reverse)
+                if not (last or first or full):
+                    return ("\uffff", "\uffff", "\uffff")
+                return (last or full or "\uffff", first, full)
+
+            members = members.sorted(key=_name_key, reverse=reverse)
+        elif sort_key == "brevet_asc":
+            members = members.sorted(
+                key=lambda u: (
+                    u.dive_brevet_rank or 0,
+                    _fold_name(u.dive_lastname or u.name),
+                    _fold_name(u.dive_firstname),
+                )
+            )
+        else:  # brevet_desc (default)
+            members = members.sorted(
+                key=lambda u: (
+                    -(u.dive_brevet_rank or 0),
+                    _fold_name(u.dive_lastname or u.name),
+                    _fold_name(u.dive_firstname),
+                )
+            )
+
+        if limit:
+            members = members[:limit]
+        return members
+
 
     @api.model
     def get_event_attendee_partners(
@@ -329,7 +382,7 @@ class ResUsers(models.Model):
         sections = []
         for section in [
             "identity", "contact", "address", "professional",
-            "lifras", "brevets", "specialties", "medical", "extra",
+            "lifras", "brevets", "specialties", "federations", "medical", "extra",
         ]:
             if section in by_section and by_section[section]["items"]:
                 sections.append(by_section[section])

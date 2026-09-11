@@ -50,12 +50,24 @@ class ResPartner(models.Model):
 
     dive_firstname = fields.Char(string="Prenom")
     dive_lastname = fields.Char(string="Nom")
+    dive_gender = fields.Selection(
+        [("M", "Homme"), ("F", "Femme")],
+        string="Sexe",
+    )
+    dive_member_since = fields.Date(string="Membre depuis")
     dive_phone_home = fields.Char(string="Telephone domicile")
     dive_phone_work = fields.Char(string="Telephone professionnel")
     dive_birthday = fields.Date(string="Date de naissance")
     dive_profession = fields.Char(string="Profession")
     dive_is_plongeur = fields.Boolean(string="Plongeur", default=True)
     dive_is_hsa = fields.Boolean(string="HSA (Hockey subaquatique)", default=False)
+
+    # Other federations / certifications (free text; empty in legacy export for now)
+    dive_fed_adip = fields.Char(string="ADIP")
+    dive_fed_cedip = fields.Char(string="CEDIP")
+    dive_fed_ida = fields.Char(string="IDA")
+    dive_fed_protec = fields.Char(string="PROTEC")
+    dive_fed_ssi = fields.Char(string="SSI")
 
     # Obtention dates for each LIFRAS brevet (filled date = earned)
     dive_brevet_date_1 = fields.Date(string="1*")

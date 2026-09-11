@@ -39,7 +39,15 @@
                             </div>
                         </div>
                         <div class="col">
-                            <h1 class="display-6 text-white mb-2" t-esc="card_name"/>
+                            <h1 class="display-6 text-white mb-2">
+                                <span t-if="member.dive_gender == 'F'"
+                                      class="s_md_gender_icon s_md_gender_f fa fa-venus me-2"
+                                      title="Femme" aria-label="Femme"/>
+                                <span t-elif="member.dive_gender == 'M'"
+                                      class="s_md_gender_icon s_md_gender_m fa fa-mars me-2"
+                                      title="Homme" aria-label="Homme"/>
+                                <t t-esc="card_name"/>
+                            </h1>
                             <p t-if="member.dive_brevet_label" class="s_md_profile_brevet text-white mb-4"
                                t-esc="member.dive_brevet_label"/>
                             <div t-if="categories" class="s_md_profile_group mb-3">
