@@ -2,29 +2,18 @@
 <odoo>
     <template id="s_md_members" name="Members">
         <section class="s_md_members pt48 pb48"
-                 data-show-filters="1"
-                 data-show-specialties="1"
+                 data-md-options="1"
+                 data-show-brevets-filters="1"
+                 data-show-specialties-filters="1"
+                 data-show-categories-filters="1"
+                 data-tcg-visual="0"
                  data-columns="4"
                  data-limit="0"
-                 data-category=""
-                 data-border-card="special_1"
-                 data-border-oval="circle_7"
-                 data-border-name="plaque"
-                 data-border-specs="plaque"
-                 data-border-stat="circle_7"
-                 data-frame-scale-x="100"
-                 data-frame-scale-y="100"
-                 data-frame-inset="normal"
-                 data-frame-fit="stretch"
-                 data-oval-scale="100"
                  data-snippet="s_md_members"
                  data-name="Members">
             <div class="container">
-                <div class="s_md_members_title mb-4">
-                    <h2 class="h3 mb-1">Membres</h2>
-                    <p class="text-muted mb-0">Annuaire du club</p>
-                </div>
-                <div class="s_md_members_content o_not_editable" data-oe-protected="true" contenteditable="false">
+                <div class="s_md_members_content o_not_editable"
+                     data-oe-protected="true" contenteditable="false">
                     <div class="s_md_snippet_placeholder text-center text-muted py-5">
                         Les cartes membres se chargent ici…
                     </div>
@@ -33,45 +22,93 @@
         </section>
     </template>
 
-    <template id="s_md_members_content" name="Members Snippet Content">
-        <t t-if="show_filters">
-            <form class="s_md_filters_bar s_md_filters_bar_snippet mb-4" data-md-filters="1">
-                <input type="search" name="search" class="form-control s_md_filter_search"
-                       placeholder="Nom..." t-att-value="search" autocomplete="off"/>
-                <select name="brevet" class="form-select s_md_filter_select">
-                    <option value="">Brevet</option>
-                    <t t-foreach="brevet_choices" t-as="opt">
-                        <option t-att-value="opt[0]"
-                                t-att-selected="brevet == opt[0] and 'selected' or None"
-                                t-esc="opt[1]"/>
-                    </t>
-                </select>
-                <select name="specialty" class="form-select s_md_filter_select">
-                    <option value="">Specialite</option>
-                    <t t-foreach="specialty_choices" t-as="opt">
-                        <option t-att-value="opt[0]"
-                                t-att-selected="specialty == opt[0] and 'selected' or None"
-                                t-esc="opt[1]"/>
-                    </t>
-                </select>
-                <select name="category" class="form-select s_md_filter_select">
-                    <option value="" t-att-selected="not category and 'selected' or None">Categorie</option>
-                    <option value="plongeur" t-att-selected="category == 'plongeur' and 'selected' or None">Plongeur</option>
-                    <option value="hsa" t-att-selected="category == 'hsa' and 'selected' or None">HSA</option>
-                </select>
-            </form>
-        </t>
+    <!-- Events-like topbar: title left, filters + search right -->
+    <template id="s_md_members_filters" name="Members Filters Bar">
+        <form class="s_md_filters s_md_filters_bar mb-3" data-md-filters="1">
+            <div class="s_md_filters_bar_row d-flex d-print-none align-items-center flex-wrap gap-2">
+                <h1 class="s_md_filters_title me-auto mb-0 h4-fs">Members</h1>
+                <div t-if="show_brevets_filters" class="dropdown">
+                    <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown"
+                            data-bs-auto-close="outside" aria-expanded="false">
+                        Brevets
+                        <span class="badge bg-primary ms-1 s_md_filter_count d-none" data-md-count="brevet"/>
+                    </button>
+                    <div class="dropdown-menu p-2 s_md_filter_dropdown">
+                        <t t-foreach="brevet_choices" t-as="opt">
+                            <label class="s_md_filter_check">
+                                <input type="checkbox" name="brevet" t-att-value="opt[0]"/>
+                                <span t-esc="opt[1]"/>
+                            </label>
+                        </t>
+                    </div>
+                </div>
+                <div t-if="show_specialties_filters" class="dropdown">
+                    <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown"
+                            data-bs-auto-close="outside" aria-expanded="false">
+                        Spécialités
+                        <span class="badge bg-primary ms-1 s_md_filter_count d-none" data-md-count="specialty"/>
+                    </button>
+                    <div class="dropdown-menu p-2 s_md_filter_dropdown">
+                        <t t-foreach="specialty_choices" t-as="opt">
+                            <label class="s_md_filter_check">
+                                <input type="checkbox" name="specialty" t-att-value="opt[0]"/>
+                                <span t-esc="opt[1]"/>
+                            </label>
+                        </t>
+                    </div>
+                </div>
+                <div t-if="show_categories_filters" class="dropdown">
+                    <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown"
+                            data-bs-auto-close="outside" aria-expanded="false">
+                        Catégories
+                        <span class="badge bg-primary ms-1 s_md_filter_count d-none" data-md-count="category"/>
+                    </button>
+                    <div class="dropdown-menu p-2 s_md_filter_dropdown">
+                        <label class="s_md_filter_check">
+                            <input type="checkbox" name="category" value="plongeur"/>
+                            <span>Plongeur</span>
+                        </label>
+                        <label class="s_md_filter_check">
+                            <input type="checkbox" name="category" value="hsa"/>
+                            <span>HSA</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="s_md_filters_search input-group">
+                    <input type="search" name="search" class="form-control s_md_filter_search"
+                           placeholder="Rechercher un membre..." autocomplete="off"/>
+                    <span class="input-group-text s_md_filters_search_icon" aria-hidden="true">
+                        <i class="oi oi-search"/>
+                    </span>
+                </div>
+            </div>
+        </form>
+    </template>
+
+    <template id="s_md_members_results" name="Members Results">
         <t t-if="not members">
             <div class="alert alert-light border text-center py-4 mb-0">
                 Aucun membre ne correspond a ces filtres.
             </div>
         </t>
-        <div t-else="" t-attf-class="s_md_tcg_grid s_md_cols_#{columns}">
+        <div t-elif="tcg_visual" t-attf-class="s_md_tcg_grid s_md_cols_#{columns}">
             <t t-foreach="members" t-as="member">
                 <t t-call="website_member.md_tcg_card">
-                    <t t-set="show_specialties" t-value="show_specialties"/>
+                    <t t-set="show_specialties" t-value="True"/>
                 </t>
             </t>
+        </div>
+        <div t-else="" t-attf-class="s_md_event_grid s_md_cols_#{columns}">
+            <t t-foreach="members" t-as="member">
+                <t t-call="website_member.md_event_card"/>
+            </t>
+        </div>
+    </template>
+
+    <template id="s_md_members_content" name="Members Snippet Content">
+        <t t-call="website_member.s_md_members_filters"/>
+        <div class="s_md_members_results">
+            <t t-call="website_member.s_md_members_results"/>
         </div>
     </template>
 </odoo>
