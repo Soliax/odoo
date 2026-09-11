@@ -14,11 +14,19 @@ export class MdMembersSnippet extends Interaction {
         "[data-md-filters] input[name='search']": {
             "t-on-keydown": this.onSearchKeydown,
         },
+        ".s_md_card[data-href]": {
+            "t-on-click": this.onCardActivate,
+            "t-on-keydown": this.onCardKeydown,
+        },
     };
 
     setup() {
         this.rpc = rpc;
         this._searchTimer = null;
+    }
+
+    get isEditor() {
+        return Boolean(this.el.closest(".o_editable, .o_wysiwyg_loader, #wrapwrap.o_editable"));
     }
 
     async willStart() {
@@ -59,6 +67,10 @@ export class MdMembersSnippet extends Interaction {
                 return;
             }
             content.innerHTML = result.html || "";
+            // Keep the editor selectable on the section, not on individual cards
+            content.classList.add("o_not_editable");
+            content.setAttribute("data-oe-protected", "true");
+            content.setAttribute("contenteditable", "false");
         } catch (_e) {
             content.innerHTML =
                 '<div class="alert alert-danger mb-0">Impossible de charger les membres.</div>';
@@ -77,6 +89,24 @@ export class MdMembersSnippet extends Interaction {
         }
         clearTimeout(this._searchTimer);
         this._searchTimer = setTimeout(() => this.loadMembers(), 350);
+    }
+
+    onCardActivate(ev) {
+        if (this.isEditor) {
+            return;
+        }
+        const card = ev.currentTarget;
+        const href = card?.dataset?.href;
+        if (href) {
+            window.location.href = href;
+        }
+    }
+
+    onCardKeydown(ev) {
+        if (ev.key === "Enter" || ev.key === " ") {
+            ev.preventDefault();
+            this.onCardActivate(ev);
+        }
     }
 }
 

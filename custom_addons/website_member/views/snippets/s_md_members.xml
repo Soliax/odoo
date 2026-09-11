@@ -7,6 +7,16 @@
                  data-columns="4"
                  data-limit="0"
                  data-category=""
+                 data-border-card="special_1"
+                 data-border-oval="circle_7"
+                 data-border-name="plaque"
+                 data-border-specs="plaque"
+                 data-border-stat="circle_7"
+                 data-frame-scale-x="100"
+                 data-frame-scale-y="100"
+                 data-frame-inset="normal"
+                 data-frame-fit="stretch"
+                 data-oval-scale="100"
                  data-snippet="s_md_members"
                  data-name="Members">
             <div class="container">
@@ -14,7 +24,7 @@
                     <h2 class="h3 mb-1">Membres</h2>
                     <p class="text-muted mb-0">Annuaire du club</p>
                 </div>
-                <div class="s_md_members_content">
+                <div class="s_md_members_content o_not_editable" data-oe-protected="true" contenteditable="false">
                     <div class="s_md_snippet_placeholder text-center text-muted py-5">
                         Les cartes membres se chargent ici…
                     </div>

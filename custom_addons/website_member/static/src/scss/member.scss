@@ -82,15 +82,180 @@
   .s_md_cols_2 { grid-template-columns: 1fr; max-width: 300px; margin-inline: auto; }
 }
 
-/* ========== CARD ========== */
+/* Snippet data-border-* -> FRAME urls for card/name/specs (card aspect), borders/ for circles */
+.s_md_members,
+.o_website_member,
+.s_md_tcg_grid {
+  --md-border-card: url("/website_member/static/src/svg/frames/card_special_1.svg");
+  --md-border-card-bl: url("/website_member/static/src/svg/frames/card_special_bottom_left.svg");
+  --md-border-card-tr: url("/website_member/static/src/svg/frames/card_special_top_right.svg");
+  --md-border-oval: url("/website_member/static/src/svg/borders/circle_7.svg");
+  --md-border-name: url("/website_member/static/src/svg/frames/name_plaque.svg");
+  --md-border-specs: url("/website_member/static/src/svg/frames/specs_plaque.svg");
+  --md-border-stat: url("/website_member/static/src/svg/borders/circle_7.svg");
+  --md-border-gem: url("/website_member/static/src/svg/borders/heptagon_1.svg");
+  --md-card-frame-scale-x: 1;
+  --md-card-frame-scale-y: 1;
+  --md-card-frame-grow-x: 0.04;
+  --md-card-frame-grow-y: 0.05;
+  --md-card-frame-fit: 100% 100%;
+  --md-oval-scale: 1;
+  --md-card-special-corners: 1;
+}
+.s_md_members[data-border-card="square_1"] {
+  --md-border-card: url("/website_member/static/src/svg/frames/card_square_1.svg");
+  --md-card-special-corners: 0;
+}
+.s_md_members[data-border-card="square_2"] {
+  --md-border-card: url("/website_member/static/src/svg/frames/card_square_2.svg");
+  --md-card-special-corners: 0;
+}
+.s_md_members[data-border-card="square_3"] {
+  --md-border-card: url("/website_member/static/src/svg/frames/card_square_3.svg");
+  --md-card-special-corners: 0;
+}
+.s_md_members[data-border-card="square_4"] {
+  --md-border-card: url("/website_member/static/src/svg/frames/card_square_4.svg");
+  --md-card-special-corners: 0;
+}
+.s_md_members[data-border-card="square_5"] {
+  --md-border-card: url("/website_member/static/src/svg/frames/card_square_5.svg");
+  --md-card-special-corners: 0;
+}
+.s_md_members[data-border-card="square_6"] {
+  --md-border-card: url("/website_member/static/src/svg/frames/card_square_6.svg");
+  --md-card-special-corners: 0;
+}
+.s_md_members[data-border-card="square_7"] {
+  --md-border-card: url("/website_member/static/src/svg/frames/card_square_7.svg");
+  --md-card-special-corners: 0;
+}
+.s_md_members[data-border-card="square_8"] {
+  --md-border-card: url("/website_member/static/src/svg/frames/card_square_8.svg");
+  --md-card-special-corners: 0;
+}
+.s_md_members[data-border-card="special_1"] {
+  --md-border-card: url("/website_member/static/src/svg/frames/card_special_1.svg");
+  --md-border-card-bl: url("/website_member/static/src/svg/frames/card_special_bottom_left.svg");
+  --md-border-card-tr: url("/website_member/static/src/svg/frames/card_special_top_right.svg");
+  --md-card-special-corners: 1;
+}
+.s_md_members[data-border-card="octagon_1"] {
+  --md-border-card: url("/website_member/static/src/svg/frames/card_octagon_1.svg");
+  --md-card-special-corners: 0;
+}
+.s_md_members[data-border-oval="circle_1"] { --md-border-oval: url("/website_member/static/src/svg/borders/circle_1.svg"); }
+.s_md_members[data-border-oval="circle_2"] { --md-border-oval: url("/website_member/static/src/svg/borders/circle_2.svg"); }
+.s_md_members[data-border-oval="circle_3"] { --md-border-oval: url("/website_member/static/src/svg/borders/circle_3.svg"); }
+.s_md_members[data-border-oval="circle_4"] { --md-border-oval: url("/website_member/static/src/svg/borders/circle_4.svg"); }
+.s_md_members[data-border-oval="circle_5"] { --md-border-oval: url("/website_member/static/src/svg/borders/circle_5.svg"); }
+.s_md_members[data-border-oval="circle_6"] { --md-border-oval: url("/website_member/static/src/svg/borders/circle_6.svg"); }
+.s_md_members[data-border-oval="circle_7"] { --md-border-oval: url("/website_member/static/src/svg/borders/circle_7.svg"); }
+.s_md_members[data-border-oval="circle_8"] { --md-border-oval: url("/website_member/static/src/svg/borders/circle_8.svg"); }
+.s_md_members[data-border-oval="circle_9"] { --md-border-oval: url("/website_member/static/src/svg/borders/circle_9.svg"); }
+.s_md_members[data-border-oval="circle_10"] { --md-border-oval: url("/website_member/static/src/svg/borders/circle_10.svg"); }
+.s_md_members[data-frame-scale-x="85"] { --md-card-frame-scale-x: 0.85; }
+.s_md_members[data-frame-scale-x="90"] { --md-card-frame-scale-x: 0.9; }
+.s_md_members[data-frame-scale-x="95"] { --md-card-frame-scale-x: 0.95; }
+.s_md_members[data-frame-scale-x="100"] { --md-card-frame-scale-x: 1.0; }
+.s_md_members[data-frame-scale-x="105"] { --md-card-frame-scale-x: 1.05; }
+.s_md_members[data-frame-scale-x="110"] { --md-card-frame-scale-x: 1.1; }
+.s_md_members[data-frame-scale-x="115"] { --md-card-frame-scale-x: 1.15; }
+.s_md_members[data-frame-scale-x="120"] { --md-card-frame-scale-x: 1.2; }
+.s_md_members[data-frame-scale-y="85"] { --md-card-frame-scale-y: 0.85; }
+.s_md_members[data-frame-scale-y="90"] { --md-card-frame-scale-y: 0.9; }
+.s_md_members[data-frame-scale-y="95"] { --md-card-frame-scale-y: 0.95; }
+.s_md_members[data-frame-scale-y="100"] { --md-card-frame-scale-y: 1.0; }
+.s_md_members[data-frame-scale-y="105"] { --md-card-frame-scale-y: 1.05; }
+.s_md_members[data-frame-scale-y="110"] { --md-card-frame-scale-y: 1.1; }
+.s_md_members[data-frame-scale-y="115"] { --md-card-frame-scale-y: 1.15; }
+.s_md_members[data-frame-scale-y="120"] { --md-card-frame-scale-y: 1.2; }
+.s_md_members[data-frame-inset="tight"] { --md-card-frame-grow-x: 0.02; --md-card-frame-grow-y: 0.02; }
+.s_md_members[data-frame-inset="normal"] { --md-card-frame-grow-x: 0.06; --md-card-frame-grow-y: 0.08; }
+.s_md_members[data-frame-inset="loose"] { --md-card-frame-grow-x: 0.12; --md-card-frame-grow-y: 0.14; }
+.s_md_members[data-frame-inset="wide"] { --md-card-frame-grow-x: 0.18; --md-card-frame-grow-y: 0.2; }
+.s_md_members[data-frame-fit="stretch"] { --md-card-frame-fit: 100% 100%; }
+.s_md_members[data-frame-fit="contain"] { --md-card-frame-fit: contain; }
+.s_md_members[data-frame-fit="cover"] { --md-card-frame-fit: cover; }
+/* Legacy Fit Width/Height sliced ornate frames into side scraps — treat as stretch */
+.s_md_members[data-frame-fit="width"],
+.s_md_members[data-frame-fit="height"] { --md-card-frame-fit: 100% 100%; }
+.s_md_members[data-oval-scale="85"] { --md-oval-scale: 0.85; }
+.s_md_members[data-oval-scale="90"] { --md-oval-scale: 0.9; }
+.s_md_members[data-oval-scale="95"] { --md-oval-scale: 0.95; }
+.s_md_members[data-oval-scale="100"] { --md-oval-scale: 1.0; }
+.s_md_members[data-oval-scale="105"] { --md-oval-scale: 1.05; }
+.s_md_members[data-oval-scale="110"] { --md-oval-scale: 1.1; }
+.s_md_members[data-oval-scale="115"] { --md-oval-scale: 1.15; }
+.s_md_members[data-border-name="plaque"] { --md-border-name: url("/website_member/static/src/svg/frames/name_plaque.svg"); }
+.s_md_members[data-border-name="plaque_ornate"] { --md-border-name: url("/website_member/static/src/svg/frames/name_plaque_ornate.svg"); }
+.s_md_members[data-border-name="square_1"] { --md-border-name: url("/website_member/static/src/svg/frames/name_square_1.svg"); }
+.s_md_members[data-border-name="square_2"] { --md-border-name: url("/website_member/static/src/svg/frames/name_square_2.svg"); }
+.s_md_members[data-border-name="square_3"] { --md-border-name: url("/website_member/static/src/svg/frames/name_square_3.svg"); }
+.s_md_members[data-border-name="square_4"] { --md-border-name: url("/website_member/static/src/svg/frames/name_square_4.svg"); }
+.s_md_members[data-border-name="square_5"] { --md-border-name: url("/website_member/static/src/svg/frames/name_square_5.svg"); }
+.s_md_members[data-border-name="square_6"] { --md-border-name: url("/website_member/static/src/svg/frames/name_square_6.svg"); }
+.s_md_members[data-border-name="square_7"] { --md-border-name: url("/website_member/static/src/svg/frames/name_square_7.svg"); }
+.s_md_members[data-border-name="square_8"] { --md-border-name: url("/website_member/static/src/svg/frames/name_square_8.svg"); }
+.s_md_members[data-border-name="special_1"] { --md-border-name: url("/website_member/static/src/svg/frames/name_special_1.svg"); }
+.s_md_members[data-border-name="octagon_1"] { --md-border-name: url("/website_member/static/src/svg/frames/name_octagon_1.svg"); }
+.s_md_members[data-border-specs="plaque"] { --md-border-specs: url("/website_member/static/src/svg/frames/specs_plaque.svg"); }
+.s_md_members[data-border-specs="plaque_ornate"] { --md-border-specs: url("/website_member/static/src/svg/frames/specs_plaque_ornate.svg"); }
+.s_md_members[data-border-specs="square_1"] { --md-border-specs: url("/website_member/static/src/svg/frames/specs_square_1.svg"); }
+.s_md_members[data-border-specs="square_2"] { --md-border-specs: url("/website_member/static/src/svg/frames/specs_square_2.svg"); }
+.s_md_members[data-border-specs="square_3"] { --md-border-specs: url("/website_member/static/src/svg/frames/specs_square_3.svg"); }
+.s_md_members[data-border-specs="square_4"] { --md-border-specs: url("/website_member/static/src/svg/frames/specs_square_4.svg"); }
+.s_md_members[data-border-specs="square_5"] { --md-border-specs: url("/website_member/static/src/svg/frames/specs_square_5.svg"); }
+.s_md_members[data-border-specs="square_6"] { --md-border-specs: url("/website_member/static/src/svg/frames/specs_square_6.svg"); }
+.s_md_members[data-border-specs="square_7"] { --md-border-specs: url("/website_member/static/src/svg/frames/specs_square_7.svg"); }
+.s_md_members[data-border-specs="square_8"] { --md-border-specs: url("/website_member/static/src/svg/frames/specs_square_8.svg"); }
+.s_md_members[data-border-specs="special_1"] { --md-border-specs: url("/website_member/static/src/svg/frames/specs_special_1.svg"); }
+.s_md_members[data-border-specs="octagon_1"] { --md-border-specs: url("/website_member/static/src/svg/frames/specs_octagon_1.svg"); }
+.s_md_members[data-border-stat="circle_1"] { --md-border-stat: url("/website_member/static/src/svg/borders/circle_1.svg"); }
+.s_md_members[data-border-stat="circle_2"] { --md-border-stat: url("/website_member/static/src/svg/borders/circle_2.svg"); }
+.s_md_members[data-border-stat="circle_3"] { --md-border-stat: url("/website_member/static/src/svg/borders/circle_3.svg"); }
+.s_md_members[data-border-stat="circle_4"] { --md-border-stat: url("/website_member/static/src/svg/borders/circle_4.svg"); }
+.s_md_members[data-border-stat="circle_5"] { --md-border-stat: url("/website_member/static/src/svg/borders/circle_5.svg"); }
+.s_md_members[data-border-stat="circle_6"] { --md-border-stat: url("/website_member/static/src/svg/borders/circle_6.svg"); }
+.s_md_members[data-border-stat="circle_7"] { --md-border-stat: url("/website_member/static/src/svg/borders/circle_7.svg"); }
+.s_md_members[data-border-stat="circle_8"] { --md-border-stat: url("/website_member/static/src/svg/borders/circle_8.svg"); }
+.s_md_members[data-border-stat="circle_9"] { --md-border-stat: url("/website_member/static/src/svg/borders/circle_9.svg"); }
+.s_md_members[data-border-stat="circle_10"] { --md-border-stat: url("/website_member/static/src/svg/borders/circle_10.svg"); }
+
+/* ========== CARD ==========
+   Borders from snippet data-border-* (not brevet).
+   Card/oval/stat: original borders/*.svg
+   Name/specs defaults: stroke plaques in frames/
+*/
 .s_md_card {
   display: block;
   color: var(--md-ink);
   padding: 14px 12px 18px;
   overflow: visible;
   text-decoration: none !important;
-  --md-frame: url("/website_member/static/src/svg/borders/square_3.svg");
-  --md-oval-frame: url("/website_member/static/src/svg/borders/circle_5.svg");
+  cursor: pointer;
+
+  --md-gold-fill: linear-gradient(
+    145deg,
+    #fff6d6 0%,
+    #e8c878 22%,
+    #b8924a 48%,
+    #7a5a28 72%,
+    #d4b76a 88%,
+    #f0e0b0 100%
+  );
+  /* All SVG ornaments follow brevet (hi / mid / lo) */
+  --md-brevet-fill: linear-gradient(
+    145deg,
+    #ffffff 0%,
+    var(--md-brevet-hi) 18%,
+    var(--md-brevet) 48%,
+    var(--md-brevet-lo) 78%,
+    var(--md-brevet-hi) 100%
+  );
+  --md-parchment-fill:
+    url("/website_member/static/src/img/parchment-noise.svg"),
+    linear-gradient(180deg, #fff8e6 0%, #f3e6c8 42%, #e0c892 100%);
 }
 .s_md_card:hover { color: var(--md-ink); }
 
@@ -98,7 +263,7 @@
 .s_md_card_shell {
   position: relative;
   aspect-ratio: 0.7;
-  border-radius: 14px;
+  border-radius: 8px;
   overflow: visible;
   background-color: #efe6d4;
   background-image:
@@ -124,85 +289,206 @@
   max-width: 42vw;
 }
 
-/* SVG ornamental border (black path masked → metallic gold) */
-.s_md_card_frame {
+/* SVG ornament via CSS mask (use flat border SVGs only — nested remasters break masks) */
+.s_md_ornament {
   position: absolute;
-  z-index: 4;
-  inset: -7% -6%;
+  inset: 0;
   pointer-events: none;
-  background:
-    linear-gradient(
-      145deg,
-      #fff6d6 0%,
-      #e8c878 22%,
-      #b8924a 48%,
-      #7a5a28 72%,
-      #d4b76a 88%,
-      #f0e0b0 100%
-    );
-  -webkit-mask: var(--md-frame) center / 100% 100% no-repeat;
-  mask: var(--md-frame) center / 100% 100% no-repeat;
-  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.25));
+  background: var(--md-ornament-fill, var(--md-brevet-fill));
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-mode: alpha;
+  mask-mode: alpha;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.28));
+}
+.s_md_ornament_card {
+  /* Above panels/gem; below portrait + category icons */
+  z-index: 4;
+  inset: auto;
+  left: 50%;
+  top: 50%;
+  width: #{"calc((100% + (100% * var(--md-card-frame-grow-x, 0.04))) * var(--md-card-frame-scale-x, 1) * 0.9)"};
+  height: #{"calc((100% + (100% * var(--md-card-frame-grow-y, 0.05))) * var(--md-card-frame-scale-y, 1) * 0.9)"};
+  transform: translate(-50%, -50%);
+  transform-origin: center center;
+  --md-ornament-fill: var(--md-brevet-fill);
+  -webkit-mask-image: var(--md-border-card);
+  mask-image: var(--md-border-card);
+  -webkit-mask-size: var(--md-card-frame-fit, 100% 100%);
+  mask-size: var(--md-card-frame-fit, 100% 100%);
+  -webkit-mask-position: center;
+  mask-position: center;
   opacity: 0.95;
 }
+/* special_1: full-card frame box (correct corner mapping) + mask at 0.6 in the corner */
+.s_md_ornament_card_bl,
+.s_md_ornament_card_tr {
+  z-index: 4;
+  inset: auto;
+  left: 50%;
+  top: 50%;
+  width: #{"calc((100% + (100% * var(--md-card-frame-grow-x, 0.04))) * var(--md-card-frame-scale-x, 1) * 1.05)"};
+  height: #{"calc((100% + (100% * var(--md-card-frame-grow-y, 0.05))) * var(--md-card-frame-scale-y, 1) * 1.05)"};
+  transform: translate(-50%, -50%);
+  --md-ornament-fill: var(--md-brevet-fill);
+  /* 0.6 so ornaments stay in the corner without covering the card face */
+  -webkit-mask-size: 60% 60%;
+  mask-size: 60% 60%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  opacity: 0.95;
+  display: none;
+  pointer-events: none;
+}
+.s_md_ornament_card_bl {
+  -webkit-mask-image: url("/website_member/static/src/svg/frames/card_special_bottom_left.svg");
+  mask-image: url("/website_member/static/src/svg/frames/card_special_bottom_left.svg");
+  -webkit-mask-position: bottom left;
+  mask-position: bottom left;
+}
+.s_md_ornament_card_tr {
+  -webkit-mask-image: url("/website_member/static/src/svg/frames/card_special_top_right.svg");
+  mask-image: url("/website_member/static/src/svg/frames/card_special_top_right.svg");
+  -webkit-mask-position: top right;
+  mask-position: top right;
+}
+.s_md_members[data-border-card="special_1"] .s_md_card_shell .s_md_ornament_card,
+.o_website_member .s_md_card_shell .s_md_ornament_card {
+  display: none !important;
+}
+.s_md_members[data-border-card="special_1"] .s_md_card_shell .s_md_ornament_card_bl,
+.s_md_members[data-border-card="special_1"] .s_md_card_shell .s_md_ornament_card_tr,
+.o_website_member .s_md_card_shell .s_md_ornament_card_bl,
+.o_website_member .s_md_card_shell .s_md_ornament_card_tr {
+  display: block;
+}
+.s_md_members[data-border-card^="square_"] .s_md_card_shell .s_md_ornament_card,
+.s_md_members[data-border-card="octagon_1"] .s_md_card_shell .s_md_ornament_card {
+  display: block;
+}
+.s_md_members[data-border-card^="square_"] .s_md_card_shell .s_md_ornament_card_bl,
+.s_md_members[data-border-card^="square_"] .s_md_card_shell .s_md_ornament_card_tr,
+.s_md_members[data-border-card="octagon_1"] .s_md_card_shell .s_md_ornament_card_bl,
+.s_md_members[data-border-card="octagon_1"] .s_md_card_shell .s_md_ornament_card_tr {
+  display: none !important;
+}
 
-/* Hex gem — half outside top-left */
+.s_md_ornament_oval {
+  z-index: 2;
+  inset: auto;
+  left: 50%;
+  top: 50%;
+  width: #{"calc(108% * var(--md-oval-scale, 1))"};
+  height: #{"calc(108% * var(--md-oval-scale, 1))"};
+  transform: translate(-50%, -50%);
+  transform-origin: center center;
+  --md-ornament-fill: var(--md-brevet-fill);
+  -webkit-mask-image: var(--md-border-oval);
+  mask-image: var(--md-border-oval);
+  opacity: 0.92;
+}
+.s_md_ornament_gem {
+  z-index: 2;
+  inset: 0;
+  --md-ornament-fill: var(--md-brevet-fill);
+  -webkit-mask-image: var(--md-border-gem);
+  mask-image: var(--md-border-gem);
+  opacity: 0.95;
+}
+.s_md_ornament_name,
+.s_md_ornament_specs {
+  z-index: 0;
+  inset: -2%;
+  --md-ornament-fill: var(--md-brevet-fill);
+  opacity: 0.95;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+.s_md_ornament_name {
+  -webkit-mask-image: var(--md-border-name);
+  mask-image: var(--md-border-name);
+}
+.s_md_ornament_specs {
+  -webkit-mask-image: var(--md-border-specs);
+  mask-image: var(--md-border-specs);
+}
+.s_md_ornament_stat {
+  z-index: 2;
+  /* Slightly smaller than portrait ratio so it reads as a thin border */
+  inset: auto;
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  --md-ornament-fill: var(--md-brevet-fill);
+  -webkit-mask-image: var(--md-border-oval);
+  mask-image: var(--md-border-oval);
+  opacity: 0.92;
+}
+
+/* Heptagon brevet gem: behind card border, overhang still visible outside */
 .s_md_card_gem {
   position: absolute;
-  z-index: 8;
+  z-index: 2;
   top: -14px;
   left: -14px;
-  width: 56px;
-  height: 62px;
+  width: 58px;
+  height: 58px;
   display: grid;
   place-items: center;
-  clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
+  overflow: visible;
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.72rem;
+  letter-spacing: -0.03em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+}
+.s_md_card_gem_fill {
+  position: absolute;
+  z-index: 1;
+  inset: 10%;
+  clip-path: polygon(
+    50% 0%,
+    10.91% 18.83%,
+    1.25% 61.13%,
+    28.31% 95.05%,
+    71.69% 95.05%,
+    98.75% 61.13%,
+    89.09% 18.83%
+  );
   background:
     linear-gradient(125deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.2) 24%, transparent 42%),
     linear-gradient(160deg, var(--md-brevet-hi) 0%, var(--md-brevet) 48%, var(--md-brevet-lo) 100%);
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
-  color: #fff;
-  font-weight: 800;
-  font-size: 0.84rem;
-  letter-spacing: -0.03em;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
 }
-.s_md_card_gem > span { line-height: 1; }
+.s_md_card_gem > span {
+  position: relative;
+  z-index: 3;
+  line-height: 1;
+}
 
-/* Portrait oval + gold wings */
+/* Portrait above card border */
 .s_md_card_art {
   position: absolute;
-  z-index: 2;
+  z-index: 6;
   top: 7%;
   left: 50%;
   transform: translateX(-50%);
-  width: 78%;
-  height: 40%;
+  width: 54%;
+  aspect-ratio: 1;
 }
 .s_md_card_oval_wrap {
   position: absolute;
-  inset: 0 6% 0 6%;
-}
-.s_md_card_oval_ring {
-  position: absolute;
-  z-index: 3;
-  inset: -10% -8%;
-  pointer-events: none;
-  background:
-    linear-gradient(
-      145deg,
-      #fff6d6 0%,
-      #e8c878 28%,
-      #a07838 58%,
-      #f0e0b0 100%
-    );
-  -webkit-mask: var(--md-oval-frame) center / 100% 100% no-repeat;
-  mask: var(--md-oval-frame) center / 100% 100% no-repeat;
-  opacity: 0.92;
+  inset: 0;
 }
 .s_md_card_oval {
   position: absolute;
-  inset: 8% 12%;
+  inset: 10%;
   border-radius: 50%;
   overflow: hidden;
   background: #2a241c;
@@ -223,56 +509,39 @@
   background: linear-gradient(160deg, #4a3f32, #1a1612);
 }
 
-.s_md_card_wing {
+/* Name + specialties: spaced parchment panels, frames sized to the panel */
+/* Name + specialties behind card border */
+.s_md_card_panels {
   position: absolute;
-  top: 12%;
-  width: 22%;
-  height: 55%;
-  pointer-events: none;
-  background: linear-gradient(200deg, #ffe9a8 0%, #d4b76a 45%, #8a6418 100%);
-  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.35));
-  clip-path: polygon(40% 0%, 100% 18%, 80% 100%, 0% 70%, 18% 28%);
+  z-index: 1;
+  left: 9%;
+  right: 9%;
+  top: 50%;
+  bottom: 12%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  min-height: 0;
 }
-.s_md_card_wing_l { left: -2%; transform: scaleX(-1); }
-.s_md_card_wing_r { right: -2%; }
-
-/* Curved parchment name banner */
+.s_md_card_banner,
+.s_md_card_text {
+  position: relative;
+  border: none;
+  overflow: hidden;
+  background-color: #f3e6c8;
+  background-image: var(--md-parchment-fill);
+  background-size: 110px 110px, auto;
+  background-blend-mode: multiply, normal;
+  box-shadow: 0 2px 6px rgba(60, 40, 10, 0.18);
+}
 .s_md_card_banner {
-  position: absolute;
-  z-index: 5;
-  top: 47%;
-  left: 3%;
-  right: 3%;
-  height: 11%;
-  min-height: 34px;
+  flex: 0 0 auto;
+  min-height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 1.1rem;
-  background: linear-gradient(180deg, #fff8e6 0%, #f3e6c8 40%, #e0c892 100%);
-  border: 1px solid #c4a66a;
-  border-radius: 8px;
-  /* slight curve via clip — avoid SCSS "/" division in border-radius */
-  clip-path: polygon(3% 18%, 6% 0%, 94% 0%, 97% 18%, 100% 50%, 97% 82%, 94% 100%, 6% 100%, 3% 82%, 0% 50%);
-  box-shadow:
-    0 3px 8px rgba(60, 40, 10, 0.28),
-    inset 0 1px 0 rgba(255, 255, 255, 0.75);
+  padding: 0.55rem 1rem;
 }
-/* scroll rolls on the sides */
-.s_md_card_banner::before,
-.s_md_card_banner::after {
-  content: "";
-  position: absolute;
-  top: -2px;
-  bottom: -2px;
-  width: 12px;
-  border-radius: 6px;
-  background: linear-gradient(90deg, #a07a3a, #efe0bf 45%, #b89555);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
-}
-.s_md_card_banner::before { left: -6px; }
-.s_md_card_banner::after { right: -6px; }
-
 .s_md_card_name {
   position: relative;
   z-index: 1;
@@ -288,42 +557,23 @@
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
 }
 
-/* Rarity gem under banner */
 .s_md_card_rarity {
-  position: absolute;
-  z-index: 6;
-  top: 56%;
-  left: 50%;
+  position: relative;
+  z-index: 1;
+  flex: 0 0 auto;
+  align-self: center;
   width: 14px;
-  height: 18px;
-  transform: translate(-50%, -30%);
+  height: 14px;
+  margin: -0.55rem 0;
   clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
   background: linear-gradient(145deg, #fff 0%, var(--md-brevet) 45%, var(--md-brevet-lo) 100%);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
 }
 
-/* Parchment specialties box */
 .s_md_card_text {
-  position: absolute;
-  z-index: 3;
-  left: 8%;
-  right: 8%;
-  top: 58%;
-  bottom: 12%;
-  border-radius: 6px;
-  background: linear-gradient(180deg, #f7edd4 0%, #e2cfa5 100%);
-  border: 1px solid #c4a66a;
-  box-shadow: inset 0 0 0 1px rgba(255, 248, 230, 0.55);
-  padding: 0.7rem 0.4rem 0.4rem;
-  overflow: hidden;
-}
-.s_md_card_text::before {
-  content: "";
-  position: absolute;
-  inset: 18% 22%;
-  opacity: 0.07;
-  background: radial-gradient(circle, #3a2a10 0 32%, transparent 33%);
-  pointer-events: none;
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 0.7rem 0.55rem 0.5rem;
 }
 .s_md_card_pills {
   position: relative;
@@ -337,83 +587,80 @@
   overflow: hidden;
 }
 
-/* Bottom icons — half outside */
+/* Bottom icons above card border — ring sized like portrait (face ~inner hole) */
 .s_md_card_stat {
   position: absolute;
   z-index: 7;
-  bottom: -14px;
-  width: 48px;
-  height: 48px;
+  bottom: -10px;
+  width: 42px;
+  height: 42px;
+  border-radius: 0;
+  overflow: visible;
+  display: block;
+  background: transparent;
+  box-shadow: none;
+}
+.s_md_card_stat_face {
+  position: absolute;
+  z-index: 1;
+  inset: 14%;
   border-radius: 50%;
+  overflow: hidden;
   display: grid;
   place-items: center;
   background: radial-gradient(circle at 32% 28%, #fff 0%, #ffe9a8 18%, #d4b76a 50%, #8a6418 100%);
-  box-shadow:
-    0 0 0 2px #f7edd4,
-    0 0 0 3px #6a5a40,
-    0 4px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
 }
-.s_md_card_stat img {
+.s_md_card_stat_face img {
   width: 62%;
   height: 62%;
   object-fit: contain;
 }
-.s_md_card_stat_hsa { left: -10px; }
-.s_md_card_stat_dive { right: -10px; }
-.s_md_card_stat_hsa {
+.s_md_card_stat_hsa { left: -8px; }
+.s_md_card_stat_dive { right: -8px; }
+.s_md_card_stat_hsa .s_md_card_stat_face {
   background: radial-gradient(circle at 32% 28%, #fff 0%, #ffd4a8 18%, #e07a28 52%, #7a3a10 100%);
 }
-.s_md_card_stat_dive {
+.s_md_card_stat_dive .s_md_card_stat_face {
   background: radial-gradient(circle at 32% 28%, #fff 0%, #c8f0f2 18%, #1f8a8e 52%, #0a3a3c 100%);
 }
-.s_md_card_stat_hsa img,
-.s_md_card_stat_dive img {
+.s_md_card_stat_hsa .s_md_card_stat_face img,
+.s_md_card_stat_dive .s_md_card_stat_face img {
   filter: brightness(0) invert(1);
 }
 
-/* Brevet colors + ornamental SVG frames */
+/* Brevet colors only (borders are configuration, not rank) */
 .s_md_brevet-1 {
   --md-brevet: #2f9e4f; --md-brevet-hi: #7dff9a; --md-brevet-lo: #145c2a;
-  --md-frame: url("/website_member/static/src/svg/borders/square_8.svg");
 }
 .s_md_brevet-2 {
   --md-brevet: #2b6cb0; --md-brevet-hi: #7ec8ff; --md-brevet-lo: #143a6a;
-  --md-frame: url("/website_member/static/src/svg/borders/square_7.svg");
 }
 .s_md_brevet-3 {
   --md-brevet: #6b46c1; --md-brevet-hi: #c4a0ff; --md-brevet-lo: #3a1a7a;
-  --md-frame: url("/website_member/static/src/svg/borders/square_4.svg");
 }
 .s_md_brevet-4 {
   --md-brevet: #c53030; --md-brevet-hi: #ff8a8a; --md-brevet-lo: #6a1010;
-  --md-frame: url("/website_member/static/src/svg/borders/square_6.svg");
 }
 .s_md_brevet-am {
   --md-brevet: #b87333; --md-brevet-hi: #ffc078; --md-brevet-lo: #5a3510;
-  --md-frame: url("/website_member/static/src/svg/borders/square_5.svg");
 }
 .s_md_brevet-mc {
   --md-brevet: #8a9399; --md-brevet-hi: #e0e6ea; --md-brevet-lo: #3a4044;
-  --md-frame: url("/website_member/static/src/svg/borders/square_1.svg");
 }
 .s_md_brevet-mf {
   --md-brevet: #d4a017; --md-brevet-hi: #ffe08a; --md-brevet-lo: #6a5008;
-  --md-frame: url("/website_member/static/src/svg/borders/octagon_1.svg");
 }
 .s_md_brevet-mn {
   --md-brevet: #7b2cbf; --md-brevet-hi: #ff9f43; --md-brevet-lo: #1dd1a1;
-  --md-frame: url("/website_member/static/src/svg/borders/special_1.svg");
-  --md-oval-frame: url("/website_member/static/src/svg/borders/circle_10.svg");
 }
 .s_md_brevet-nb {
   --md-brevet: #3a3a3a; --md-brevet-hi: #888; --md-brevet-lo: #111;
-  --md-frame: url("/website_member/static/src/svg/borders/square_3.svg");
 }
 .s_md_brevet-hsa {
   --md-brevet: #e67e22; --md-brevet-hi: #ffc078; --md-brevet-lo: #7a3a10;
-  --md-frame: url("/website_member/static/src/svg/borders/square_2.svg");
 }
-.s_md_brevet-mn .s_md_card_gem {
+.s_md_brevet-mn .s_md_card_gem_fill {
   background:
     linear-gradient(145deg, rgba(255, 255, 255, 0.55) 0%, transparent 35%),
     conic-gradient(from 200deg, #e74c3c, #f1c40f, #2ecc71, #3498db, #9b59b6, #e74c3c);

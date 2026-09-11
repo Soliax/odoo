@@ -6,19 +6,22 @@
         <t t-set="brevet_short" t-value="member.dive_brevet_short or 'NB'"/>
         <t t-set="card_name" t-value="member.get_directory_card_name()"/>
         <t t-set="specialties" t-value="member.get_dive_specialties() if show_specialties is not False else []"/>
-        <a t-att-href="'/membres/%s' % member.id"
-           t-attf-class="s_md_card s_md_#{brevet_css} text-decoration-none">
+        <div t-att-data-href="'/membres/%s' % member.id"
+             t-attf-class="s_md_card s_md_#{brevet_css}"
+             role="link" tabindex="0">
             <div class="s_md_card_shell">
-                <div class="s_md_card_frame" aria-hidden="true"/>
+                <div class="s_md_ornament s_md_ornament_card" aria-hidden="true"/>
+                <div class="s_md_ornament s_md_ornament_card_bl" aria-hidden="true"/>
+                <div class="s_md_ornament s_md_ornament_card_tr" aria-hidden="true"/>
                 <div class="s_md_card_gem" t-att-title="member.dive_brevet_label or brevet_short">
+                    <div class="s_md_card_gem_fill" aria-hidden="true"/>
+                    <div class="s_md_ornament s_md_ornament_gem" aria-hidden="true"/>
                     <span t-esc="brevet_short"/>
                 </div>
 
                 <div class="s_md_card_art">
-                    <div class="s_md_card_wing s_md_card_wing_l" aria-hidden="true"/>
-                    <div class="s_md_card_wing s_md_card_wing_r" aria-hidden="true"/>
                     <div class="s_md_card_oval_wrap">
-                        <div class="s_md_card_oval_ring" aria-hidden="true"/>
+                        <div class="s_md_ornament s_md_ornament_oval" aria-hidden="true"/>
                         <div class="s_md_card_oval">
                             <img t-if="member.image_128"
                                  t-att-src="'/web/image/res.users/%s/image_128' % member.id"
@@ -29,29 +32,38 @@
                     </div>
                 </div>
 
-                <div class="s_md_card_banner">
-                    <span class="s_md_card_name" t-esc="card_name"/>
-                </div>
-                <div class="s_md_card_rarity" aria-hidden="true"/>
-
-                <div class="s_md_card_text">
-                    <div t-if="specialties" class="s_md_card_pills">
-                        <t t-foreach="specialties" t-as="spec">
-                            <span t-attf-class="s_md_spec_pill s_md_#{spec['css']}"
-                                  t-att-title="('%s — %s') % (spec['label'], spec['date'])"
-                                  t-esc="spec['short']"/>
-                        </t>
+                <div class="s_md_card_panels">
+                    <div class="s_md_card_banner">
+                        <div class="s_md_ornament s_md_ornament_name" aria-hidden="true"/>
+                        <span class="s_md_card_name" t-esc="card_name"/>
+                    </div>
+                    <div class="s_md_card_rarity" aria-hidden="true"/>
+                    <div class="s_md_card_text">
+                        <div class="s_md_ornament s_md_ornament_specs" aria-hidden="true"/>
+                        <div t-if="specialties" class="s_md_card_pills">
+                            <t t-foreach="specialties" t-as="spec">
+                                <span t-attf-class="s_md_spec_pill s_md_#{spec['css']}"
+                                      t-att-title="('%s - %s') % (spec['label'], spec['date'])"
+                                      t-esc="spec['short']"/>
+                            </t>
+                        </div>
                     </div>
                 </div>
 
                 <div t-if="member.dive_is_hsa" class="s_md_card_stat s_md_card_stat_hsa" title="HSA">
-                    <img src="/website_member/static/src/img/icons/hsa.png" alt="HSA"/>
+                    <div class="s_md_ornament s_md_ornament_stat" aria-hidden="true"/>
+                    <div class="s_md_card_stat_face">
+                        <img src="/website_member/static/src/img/icons/hsa.png" alt="HSA"/>
+                    </div>
                 </div>
                 <div t-if="member.dive_is_plongeur" class="s_md_card_stat s_md_card_stat_dive" title="Plongeur">
-                    <img src="/website_member/static/src/img/icons/diving.png" alt="Plongeur"/>
+                    <div class="s_md_ornament s_md_ornament_stat" aria-hidden="true"/>
+                    <div class="s_md_card_stat_face">
+                        <img src="/website_member/static/src/img/icons/diving.png" alt="Plongeur"/>
+                    </div>
                 </div>
             </div>
-        </a>
+        </div>
     </template>
 
     <!-- Horizontal attendee row (expects card dict with partner) -->

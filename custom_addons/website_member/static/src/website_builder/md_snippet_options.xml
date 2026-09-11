@@ -34,6 +34,120 @@
             </BuilderSelect>
         </BuilderRow>
     </BuilderContext>
+
+    <!-- Border picks are CSS-only: no RPC reload (keeps the editor stable) -->
+    <BuilderRow label.translate="Card Border">
+        <BuilderSelect dataAttributeAction="'borderCard'">
+            <BuilderSelectItem dataAttributeActionValue="'square_1'">Square 1</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'square_2'">Square 2</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'square_3'">Square 3</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'square_4'">Square 4</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'square_5'">Square 5</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'square_6'">Square 6</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'square_7'">Square 7</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'square_8'">Square 8</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'special_1'">Special 1</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'octagon_1'">Octagon</BuilderSelectItem>
+        </BuilderSelect>
+    </BuilderRow>
+    <BuilderRow label.translate="Card Frame Width">
+        <BuilderSelect dataAttributeAction="'frameScaleX'">
+            <BuilderSelectItem dataAttributeActionValue="'85'">85%</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'90'">90%</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'95'">95%</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'100'">100%</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'105'">105%</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'110'">110%</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'115'">115%</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'120'">120%</BuilderSelectItem>
+        </BuilderSelect>
+    </BuilderRow>
+    <BuilderRow label.translate="Card Frame Height">
+        <BuilderSelect dataAttributeAction="'frameScaleY'">
+            <BuilderSelectItem dataAttributeActionValue="'85'">85%</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'90'">90%</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'95'">95%</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'100'">100%</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'105'">105%</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'110'">110%</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'115'">115%</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'120'">120%</BuilderSelectItem>
+        </BuilderSelect>
+    </BuilderRow>
+    <BuilderRow label.translate="Card Frame Inset">
+        <BuilderSelect dataAttributeAction="'frameInset'">
+            <BuilderSelectItem dataAttributeActionValue="'tight'">Tight</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'normal'">Normal</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'loose'">Loose</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'wide'">Wide</BuilderSelectItem>
+        </BuilderSelect>
+    </BuilderRow>
+    <BuilderRow label.translate="Card Frame Fit">
+        <BuilderSelect dataAttributeAction="'frameFit'">
+            <BuilderSelectItem dataAttributeActionValue="'stretch'">Stretch</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'contain'">Contain</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'cover'">Cover</BuilderSelectItem>
+        </BuilderSelect>
+    </BuilderRow>
+
+    <BuilderRow label.translate="Portrait Border">
+        <BuilderSelect dataAttributeAction="'borderOval'">
+            <BuilderSelectItem dataAttributeActionValue="'circle_1'">Circle 1</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'circle_2'">Circle 2</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'circle_3'">Circle 3</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'circle_4'">Circle 4</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'circle_5'">Circle 5</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'circle_6'">Circle 6</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'circle_7'">Circle 7</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'circle_8'">Circle 8</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'circle_9'">Circle 9</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'circle_10'">Circle 10</BuilderSelectItem>
+        </BuilderSelect>
+    </BuilderRow>
+    <BuilderRow label.translate="Portrait Size">
+        <BuilderSelect dataAttributeAction="'ovalScale'">
+            <BuilderSelectItem dataAttributeActionValue="'85'">85%</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'90'">90%</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'95'">95%</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'100'">100%</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'105'">105%</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'110'">110%</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'115'">115%</BuilderSelectItem>
+        </BuilderSelect>
+    </BuilderRow>
+
+    <BuilderRow label.translate="Name Border">
+        <BuilderSelect dataAttributeAction="'borderName'">
+            <BuilderSelectItem dataAttributeActionValue="'plaque'">Plaque</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'plaque_ornate'">Plaque Ornate</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'square_1'">Square 1</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'square_2'">Square 2</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'square_3'">Square 3</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'square_4'">Square 4</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'square_5'">Square 5</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'square_6'">Square 6</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'square_7'">Square 7</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'square_8'">Square 8</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'special_1'">Special 1</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'octagon_1'">Octagon</BuilderSelectItem>
+        </BuilderSelect>
+    </BuilderRow>
+    <BuilderRow label.translate="Specialties Border">
+        <BuilderSelect dataAttributeAction="'borderSpecs'">
+            <BuilderSelectItem dataAttributeActionValue="'plaque'">Plaque</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'plaque_ornate'">Plaque Ornate</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'square_1'">Square 1</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'square_2'">Square 2</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'square_3'">Square 3</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'square_4'">Square 4</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'square_5'">Square 5</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'square_6'">Square 6</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'square_7'">Square 7</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'square_8'">Square 8</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'special_1'">Special 1</BuilderSelectItem>
+            <BuilderSelectItem dataAttributeActionValue="'octagon_1'">Octagon</BuilderSelectItem>
+        </BuilderSelect>
+    </BuilderRow>
 </t>
 
 <t t-name="website_member.MdAttendeesOption">
