@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_member_import_wizard" model="ir.ui.view">
+        <field name="name">member.import.wizard.form</field>
+        <field name="model">member.import.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Import members">
+                <group>
+                    <field name="export_file" filename="export_filename"/>
+                    <field name="export_filename" invisible="1"/>
+                    <field name="default_password" password="True"/>
+                    <field name="use_random_avatars"/>
+                </group>
+                <div class="text-muted mb-3">
+                    Upload the Community Builder JSON export (<code>users_export.txt</code>).
+                    Existing members are updated (matched by email / login); new ones get a login
+                    with the default password.
+                </div>
+                <group string="Result" invisible="not result_log">
+                    <field name="result_log" nolabel="1" colspan="2"/>
+                </group>
+                <footer>
+                    <button name="action_import" type="object" string="Import" class="btn-primary"
+                            invisible="result_log"/>
+                    <button string="Close" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_member_import_wizard" model="ir.actions.act_window">
+        <field name="name">Import CB members</field>
+        <field name="res_model">member.import.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_member_import"
+              name="Import members"
+              parent="website.menu_website_configuration"
+              action="action_member_import_wizard"
+              sequence="90"
+              groups="website_member.group_member_directory_manager"/>
+</odoo>

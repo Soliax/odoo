@@ -1,3 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_member_directory_field_user,member.field.user,model_member_field,base.group_user,1,0,0,0
 access_member_directory_field_manager,member.field.manager,model_member_field,website_member.group_member_directory_manager,1,1,1,1
+access_member_import_wizard_manager,member.import.wizard.manager,model_member_import_wizard,website_member.group_member_directory_manager,1,1,1,1

@@ -1,17 +1,18 @@
 # -*- coding: utf-8 -*-
 {
     "name": "Members",
-    "version": "19.0.3.10.2",
+    "version": "19.0.3.11.1",
     "category": "Website",
     "summary": "Club members TCG cards + event participant website blocks",
     "description": """
 Members website blocks
 ======================
 * Members block: TCG-style cards with brevet gem, photo, specialties, HSA/dive icons
-* Multiselect filters: name, brevet, specialty, category
+* Multiselect filters + sort by name/brevet
 * Event Participants: compact TCG rows (portrait, brevet heptagon, ticket bubble)
 * Event page Style toggle for Participants
 * Club Plongee fields on contacts/users
+* CB JSON member import wizard
 """,
     "author": "Independent Developer",
     "license": "LGPL-3",
@@ -22,9 +23,11 @@ Members website blocks
         "data/profile_fields.xml",
         "data/specialty_fields.xml",
         "data/brevet_fields.xml",
+        "data/federation_fields.xml",
         "views/member_field_views.xml",
         "views/res_users_views.xml",
         "views/res_config_settings_views.xml",
+        "views/member_import_views.xml",
         "views/templates.xml",
         "views/event_templates.xml",
         "views/snippets/s_md_members.xml",

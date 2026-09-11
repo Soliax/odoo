@@ -13,6 +13,17 @@
                     <setting string="Anonymous visitors" help="What happens when a guest opens /membres.">
                         <field name="member_deny_redirect"/>
                     </setting>
+                    <setting string="Import members"
+                             help="Import the Community Builder JSON export (users_export.txt). Upserts by email/login."
+                             groups="website_member.group_member_directory_manager">
+                        <div class="content-group">
+                            <button name="%(website_member.action_member_import_wizard)d"
+                                    type="action"
+                                    string="Upload CB export"
+                                    class="btn btn-primary"
+                                    icon="oi-upload"/>
+                        </div>
+                    </setting>
                 </block>
             </xpath>
         </field>
