@@ -127,7 +127,7 @@ class ResPartner(models.Model):
             self._sync_brevet_from_dates()
         return res
 
-    @api.depends("dive_brevet", "dive_is_hsa", "dive_is_plongeur")
+    @api.depends("dive_brevet")
     def _compute_dive_brevet_meta(self):
         selection = dict(DIVE_BREVET_SELECTION)
         for partner in self:
@@ -137,12 +137,8 @@ class ResPartner(models.Model):
                 partner.dive_brevet_short = DIVE_BREVET_SHORT.get(brevet, "")
                 partner.dive_brevet_rank = DIVE_BREVET_RANK.get(brevet, 0)
                 partner.dive_brevet_css = "brevet-%s" % brevet
-            elif partner.dive_is_hsa and not partner.dive_is_plongeur:
-                partner.dive_brevet_label = "HSA - Hockey subaquatique"
-                partner.dive_brevet_short = "HSA"
-                partner.dive_brevet_rank = 0
-                partner.dive_brevet_css = "brevet-hsa"
             else:
+                # No LIFRAS brevet → NB. HSA is a category, never a brevet.
                 partner.dive_brevet_label = "NB - Non Brevete"
                 partner.dive_brevet_short = "NB"
                 partner.dive_brevet_rank = 0
