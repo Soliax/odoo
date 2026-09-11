@@ -224,41 +224,50 @@ export class MdMembersSnippet extends Interaction {
         const opts = this.getOptions();
         delete opts.full;
         try {
-            const result = await this.rpc("/membres/snippet/members", opts);
-            if (result.error === "login_required") {
-                content.innerHTML =
-                    '<div class="alert alert-warning mb-0">Connectez-vous pour voir les membres.</div>';
-                return;
-            }
-            if (full || !content.querySelector(".s_md_members_results")) {
-                content.innerHTML = result.html || "";
-                this.applyFilterStateToDom();
-            } else {
-                const results = content.querySelector(".s_md_members_results");
-                // Never inject full payload (filters + results) into the results
-                // host — that duplicates the filter bar. Prefer results_html;
-                // otherwise extract the results node from html.
-                let chunk = result.results_html;
-                if (chunk == null && result.html) {
-                    const tmp = document.createElement("div");
-                    tmp.innerHTML = result.html;
-                    const node = tmp.querySelector(".s_md_members_results");
-                    chunk = node ? node.innerHTML : "";
+            // waitFor so Colibri refreshNodes runs after DOM swap (pager/cards).
+            const result = await this.waitFor(this.rpc("/membres/snippet/members", opts));
+            const applyDom = this.protectSyncAfterAsync(() => {
+                if (result.error === "login_required") {
+                    content.innerHTML =
+                        '<div class="alert alert-warning mb-0">Connectez-vous pour voir les membres.</div>';
+                    return;
                 }
-                if (results) {
-                    results.innerHTML = chunk || "";
-                } else {
+                if (full || !content.querySelector(".s_md_members_results")) {
                     content.innerHTML = result.html || "";
                     this.applyFilterStateToDom();
+                } else {
+                    const results = content.querySelector(".s_md_members_results");
+                    // Never inject full payload (filters + results) into the results
+                    // host — that duplicates the filter bar. Prefer results_html;
+                    // otherwise extract the results node from html.
+                    let chunk = result.results_html;
+                    if (chunk == null && result.html) {
+                        const tmp = document.createElement("div");
+                        tmp.innerHTML = result.html;
+                        const node = tmp.querySelector(".s_md_members_results");
+                        chunk = node ? node.innerHTML : "";
+                    }
+                    if (results) {
+                        results.innerHTML = chunk || "";
+                    } else {
+                        content.innerHTML = result.html || "";
+                        this.applyFilterStateToDom();
+                    }
+                    this.syncFilterBadges();
                 }
-                this.syncFilterBadges();
-            }
-            content.classList.add("o_not_editable");
-            content.setAttribute("data-oe-protected", "true");
-            content.setAttribute("contenteditable", "false");
+                content.classList.add("o_not_editable");
+                content.setAttribute("data-oe-protected", "true");
+                content.setAttribute("contenteditable", "false");
+                // Re-bind t-on-* on replaced pager/card nodes (innerHTML bypasses t-out).
+                this.__colibri__.refreshNodes();
+            });
+            applyDom();
         } catch (_e) {
             content.innerHTML =
                 '<div class="alert alert-danger mb-0">Impossible de charger les membres.</div>';
+            if (this.isReady && !this.isDestroyed) {
+                this.__colibri__.refreshNodes();
+            }
         } finally {
             this._loading = false;
             if (this._pendingReload) {
@@ -294,7 +303,7 @@ export class MdMembersSnippet extends Interaction {
         }
     }
 
-    onPageClick(ev) {
+    async onPageClick(ev) {
         const btn = ev.currentTarget;
         const page = parseInt(btn.value || btn.getAttribute("value") || "1", 10);
         if (!page || page < 1) {
@@ -302,7 +311,7 @@ export class MdMembersSnippet extends Interaction {
         }
         this.snapshotFilters();
         this._filterState.page = page;
-        this.loadMembers({ full: false });
+        await this.loadMembers({ full: false });
     }
 
     onCardMouseDown(ev) {
