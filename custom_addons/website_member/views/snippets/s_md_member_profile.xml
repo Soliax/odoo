@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="s_md_member_profile" name="Member Profile">
+        <section class="s_md_member_profile"
+                 data-md-options="1"
+                 data-show-fields="1"
+                 data-show-events="1"
+                 data-snippet="s_md_member_profile"
+                 data-name="Member Profile">
+            <div class="s_md_member_profile_content o_not_editable"
+                 data-oe-protected="true" contenteditable="false">
+                <div class="s_md_snippet_placeholder text-center text-muted py-5">
+                    Le profil membre se charge ici…
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <template id="s_md_member_profile_content" name="Member Profile Content">
+        <t t-set="brevet_css" t-value="member.dive_brevet_css or 'brevet-nb'"/>
+        <t t-set="card_name" t-value="member.partner_id.get_dive_display_name()"/>
+        <div t-attf-class="s_md_profile_inner s_md_#{brevet_css}">
+            <section t-attf-class="s_md_profile_hero s_md_#{brevet_css}">
+                <div class="container">
+                    <a href="/membres" class="s_md_back mb-4 d-inline-flex">&amp;larr; Retour aux membres</a>
+                    <div class="row align-items-center g-4">
+                        <div class="col-auto">
+                            <div class="s_md_profile_avatar">
+                                <div class="s_md_card_oval_wrap">
+                                    <div class="s_md_ornament s_md_ornament_oval" aria-hidden="true"/>
+                                    <div class="s_md_card_oval">
+                                        <img t-if="member.image_256"
+                                             t-att-src="'/web/image/res.users/%s/image_256' % member.id"
+                                             class="s_md_card_face" alt=""/>
+                                        <div t-else="" class="s_md_card_face s_md_card_face_fallback"
+                                             t-esc="(card_name or '?')[:1].upper()"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <h1 class="display-6 text-white mb-2" t-esc="card_name"/>
+                            <p t-if="member.dive_brevet_label" class="s_md_profile_brevet text-white mb-4"
+                               t-esc="member.dive_brevet_label"/>
+                            <div t-if="categories" class="s_md_profile_group mb-3">
+                                <h2 class="s_md_profile_group_title">Catégories</h2>
+                                <div class="s_md_cat_pills">
+                                    <t t-foreach="categories" t-as="cat">
+                                        <span t-attf-class="s_md_cat_pill s_md_#{cat['css']}"
+                                              t-att-title="cat['label']"
+                                              t-esc="cat['short']"/>
+                                    </t>
+                                </div>
+                            </div>
+                            <div t-if="specialties" class="s_md_profile_group">
+                                <h2 class="s_md_profile_group_title">Spécialités</h2>
+                                <div class="s_md_spec_pills s_md_spec_pills_lg">
+                                    <t t-foreach="specialties" t-as="spec">
+                                        <span t-attf-class="s_md_spec_pill s_md_#{spec['css']}"
+                                              t-att-title="spec['label']">
+                                            <t t-esc="spec['short']"/>
+                                            <small class="ms-1 opacity-75" t-esc="spec['date']"/>
+                                        </span>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section t-if="show_fields or show_events" class="s_md_grid_section">
+                <div class="container">
+                    <t t-if="show_fields">
+                        <t t-if="not sections">
+                            <div class="alert alert-light border">
+                                Aucune information supplementaire a afficher pour ce membre.
+                            </div>
+                        </t>
+                        <div t-else="" class="row g-4">
+                            <t t-foreach="sections" t-as="section">
+                                <div class="col-12 col-lg-6">
+                                    <div class="s_md_section_card">
+                                        <h2 class="h5 s_md_section_title" t-esc="section['label']"/>
+                                        <dl class="s_md_fields mb-0">
+                                            <t t-foreach="section['items']" t-as="item">
+                                                <div class="s_md_field">
+                                                    <dt t-esc="item['label']"/>
+                                                    <dd>
+                                                        <t t-set="data" t-value="item['data']"/>
+                                                        <t t-if="data['type'] == 'email'">
+                                                            <a t-att-href="'mailto:%s' % data['value']"
+                                                               t-esc="data['value']"/>
+                                                        </t>
+                                                        <t t-elif="data['type'] == 'phone'">
+                                                            <a t-att-href="'tel:%s' % data['value']"
+                                                               t-esc="data['value']"/>
+                                                        </t>
+                                                        <t t-elif="data['type'] == 'brevet'">
+                                                            <span class="s_md_rank_code"
+                                                                  t-esc="data.get('short') or data['value']"/>
+                                                            <span class="ms-2" t-esc="data['value']"/>
+                                                        </t>
+                                                        <t t-elif="data['type'] == 'address'">
+                                                            <span style="white-space: pre-line;"
+                                                                  t-esc="data['value']"/>
+                                                        </t>
+                                                        <t t-elif="data['type'] == 'html'">
+                                                            <div t-out="data['value']"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <span t-esc="data['value']"/>
+                                                        </t>
+                                                    </dd>
+                                                </div>
+                                            </t>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </t>
+
+                    <div t-if="show_events" class="s_md_member_events mt-4">
+                        <div class="s_md_section_card">
+                            <h2 class="h5 s_md_section_title">
+                                Événements
+                                <span t-if="member_events" class="text-muted fw-normal small ms-1"
+                                      t-esc="'(%s)' % len(member_events)"/>
+                            </h2>
+                            <t t-if="not member_events">
+                                <p class="text-muted mb-0">
+                                    Aucune inscription à un événement pour ce membre.
+                                </p>
+                            </t>
+                            <ul t-else="" class="s_md_event_list list-unstyled mb-0">
+                                <t t-foreach="member_events" t-as="row">
+                                    <li t-attf-class="s_md_event_item #{'s_md_event_item_past' if row.get('is_past') else ''}">
+                                        <a t-if="row.get('url')" t-att-href="row['url']"
+                                           class="s_md_event_link">
+                                            <span class="s_md_event_name" t-esc="row['name']"/>
+                                        </a>
+                                        <span t-else="" class="s_md_event_name" t-esc="row['name']"/>
+                                        <div class="s_md_event_meta">
+                                            <time t-if="row.get('date_begin')"
+                                                  t-esc="row['date_begin']"
+                                                  t-options="{'widget': 'datetime', 'format': 'medium'}"/>
+                                            <span class="s_md_event_status" t-esc="row['status_label']"/>
+                                            <span t-if="row.get('ticket_count', 1) > 1"
+                                                  class="s_md_event_tickets"
+                                                  t-esc="'%s inscriptions' % row['ticket_count']"/>
+                                        </div>
+                                    </li>
+                                </t>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </template>
+</odoo>
