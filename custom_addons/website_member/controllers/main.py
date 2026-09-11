@@ -211,14 +211,36 @@ class MemberDirectoryController(http.Controller):
         if columns not in ("2", "3", "4"):
             columns = "4"
 
-        members = request.env["res.users"].get_members(
+        try:
+            page_size = int(kwargs.get("limit") if kwargs.get("limit") not in (None, "") else 24)
+        except (TypeError, ValueError):
+            page_size = 24
+        try:
+            page = max(1, int(kwargs.get("page") or 1))
+        except (TypeError, ValueError):
+            page = 1
+
+        all_members = request.env["res.users"].get_members(
             search=search or None,
             categories=categories or None,
             brevets=brevets or None,
             specialties=specialties or None,
-            limit=limit,
+            limit=None,
             sort=sort,
         )
+        total = len(all_members)
+        if page_size <= 0:
+            page_size = total or 1
+            page = 1
+            page_count = 1
+            members = all_members
+        else:
+            page_count = max(1, (total + page_size - 1) // page_size) if total else 1
+            if page > page_count:
+                page = page_count
+            offset = (page - 1) * page_size
+            members = all_members[offset: offset + page_size]
+
         values = {
             "members": members,
             "search": search,
@@ -231,6 +253,10 @@ class MemberDirectoryController(http.Controller):
             "tcg_visual": tcg_visual,
             "columns": columns,
             "sort": sort,
+            "page": page,
+            "page_size": page_size,
+            "page_count": page_count,
+            "total": total,
             "brevet_choices": DIVE_BREVET_SELECTION + [
                 ("nb", "NB"),
             ],

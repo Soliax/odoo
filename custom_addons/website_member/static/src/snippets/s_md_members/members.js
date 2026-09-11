@@ -33,6 +33,9 @@ export class MdMembersSnippet extends Interaction {
             "t-on-keydown": this.onSearchKeydown,
             "t-on-input": this.onSearchInput,
         },
+        ".s_md_members_pager button[name='page']": {
+            "t-on-click.stop.prevent": this.onPageClick,
+        },
         ".s_md_card, .s_md_event_card": {
             "t-on-click": this.onCardClick,
             "t-on-mousedown": this.onCardMouseDown,
@@ -53,6 +56,7 @@ export class MdMembersSnippet extends Interaction {
             category: [],
             search: "",
             sort: "brevet_desc",
+            page: 1,
         };
     }
 
@@ -116,12 +120,14 @@ export class MdMembersSnippet extends Interaction {
 
     snapshotFilters() {
         const form = this.el.querySelector("[data-md-filters]");
+        const prevPage = (this._filterState && this._filterState.page) || 1;
         const next = {
             brevet: [],
             specialty: [],
             category: [],
             search: "",
             sort: "brevet_desc",
+            page: prevPage,
         };
         if (form) {
             for (const key of MULTI_KEYS) {
@@ -188,12 +194,13 @@ export class MdMembersSnippet extends Interaction {
             show_categories_filters: FLAG_ON(ds.showCategoriesFilters) ? "1" : "0",
             tcg_visual: FLAG_ON(ds.tcgVisual) ? "1" : "0",
             columns: ds.columns || "4",
-            limit: ds.limit || "0",
+            limit: ds.limit || "24",
             brevet: (filters.brevet || []).join(","),
             specialty: (filters.specialty || []).join(","),
             category: (filters.category || []).join(","),
             search: filters.search || "",
             sort: filters.sort || "brevet_desc",
+            page: filters.page || 1,
             ...extra,
         };
     }
@@ -265,12 +272,14 @@ export class MdMembersSnippet extends Interaction {
 
     onFilterChange() {
         this.snapshotFilters();
+        this._filterState.page = 1;
         clearTimeout(this._filterTimer);
         this._filterTimer = setTimeout(() => this.loadMembers({ full: false }), 80);
     }
 
     onSearchInput() {
         this.snapshotFilters();
+        this._filterState.page = 1;
         clearTimeout(this._searchTimer);
         this._searchTimer = setTimeout(() => this.loadMembers({ full: false }), 350);
     }
@@ -279,9 +288,21 @@ export class MdMembersSnippet extends Interaction {
         if (ev.key === "Enter") {
             ev.preventDefault();
             this.snapshotFilters();
+            this._filterState.page = 1;
             clearTimeout(this._searchTimer);
             this.loadMembers({ full: false });
         }
+    }
+
+    onPageClick(ev) {
+        const btn = ev.currentTarget;
+        const page = parseInt(btn.value || btn.getAttribute("value") || "1", 10);
+        if (!page || page < 1) {
+            return;
+        }
+        this.snapshotFilters();
+        this._filterState.page = page;
+        this.loadMembers({ full: false });
     }
 
     onCardMouseDown(ev) {

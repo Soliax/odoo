@@ -8,7 +8,7 @@
                  data-show-categories-filters="1"
                  data-tcg-visual="0"
                  data-columns="4"
-                 data-limit="0"
+                 data-limit="24"
                  data-snippet="s_md_members"
                  data-name="Members">
             <div class="container">
@@ -119,18 +119,38 @@
                 Aucun membre ne correspond a ces filtres.
             </div>
         </t>
-        <div t-elif="tcg_visual" t-attf-class="s_md_tcg_grid s_md_cols_#{columns}">
-            <t t-foreach="members" t-as="member">
-                <t t-call="website_member.md_tcg_card">
-                    <t t-set="show_specialties" t-value="True"/>
+        <t t-else="">
+            <div t-if="tcg_visual" t-attf-class="s_md_tcg_grid s_md_cols_#{columns}">
+                <t t-foreach="members" t-as="member">
+                    <t t-call="website_member.md_tcg_card">
+                        <t t-set="show_specialties" t-value="True"/>
+                    </t>
                 </t>
-            </t>
-        </div>
-        <div t-else="" t-attf-class="s_md_event_grid s_md_cols_#{columns}">
-            <t t-foreach="members" t-as="member">
-                <t t-call="website_member.md_event_card"/>
-            </t>
-        </div>
+            </div>
+            <div t-else="" t-attf-class="s_md_event_grid s_md_cols_#{columns}">
+                <t t-foreach="members" t-as="member">
+                    <t t-call="website_member.md_event_card"/>
+                </t>
+            </div>
+            <nav t-if="page_count and page_count > 1"
+                 class="s_md_members_pager d-flex justify-content-center align-items-center gap-2 mt-4"
+                 aria-label="Pagination membres">
+                <button type="button" class="btn btn-light"
+                        name="page" t-att-value="page - 1"
+                        t-att-disabled="page &lt;= 1 and 'disabled' or None">
+                    &amp;larr;
+                </button>
+                <span class="text-muted small">
+                    Page <t t-esc="page"/> / <t t-esc="page_count"/>
+                    (<t t-esc="total"/> membres)
+                </span>
+                <button type="button" class="btn btn-light"
+                        name="page" t-att-value="page + 1"
+                        t-att-disabled="page &gt;= page_count and 'disabled' or None">
+                    &amp;rarr;
+                </button>
+            </nav>
+        </t>
     </template>
 
     <template id="s_md_members_content" name="Members Snippet Content">

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": "Members",
-    "version": "19.0.3.11.1",
+    "version": "19.0.3.12.0",
     "category": "Website",
     "summary": "Club members TCG cards + event participant website blocks",
     "description": """
