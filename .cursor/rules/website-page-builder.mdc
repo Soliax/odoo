@@ -1,0 +1,22 @@
+---
+description: Custom website features must stay editable in the Odoo page builder
+alwaysApply: true
+---
+
+# Website page-builder first
+
+Non-developers edit the site in Website → Edit. Custom code must not lock them out.
+
+## Rules
+
+1. **Real pages / drop zones** — Public pages use `#wrap` with `oe_structure` (see `website_member.members_list`, `website_member.member_profile`, `website_wdc.formation`). Editors must be able to add, move, and remove blocks.
+2. **Dynamic data = snippets** — Directory, profile, attendees, etc. live in `data-snippet` blocks with protected inner content (`o_not_editable` + RPC/JS). Do not hardcode member/event HTML into a non-editable controller-only QWeb page.
+3. **Configurable in the builder** — Expose useful toggles/options on the snippet (filters, TCG visual, show fields/events, …). Prefer options over new code for layout/content switches.
+4. **Shared layout for dynamic URLs** — `/membres/<id>` shares one editable template; per-URL uniqueness comes from the snippet + URL/options, not one-off coded pages.
+5. **Save-safe** — `clean_for_save` must reset dynamic inner HTML to a placeholder so COW views stay small and reload works after publish.
+
+## Anti-patterns
+
+- Controller-only pages with no `oe_structure` / no `website.page` when a static URL exists
+- Putting the whole page body in `o_not_editable` so nothing else can be dropped
+- Features that only work by editing Python/XML (when a builder option would do)
