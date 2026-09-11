@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="equipment_category_bottles" model="maintenance.equipment.category">
+        <field name="name">Bouteilles plongée</field>
+        <field name="note">Belgique: réépreuve visuelle tous les 30 mois; hydraulique (+ visuelle) tous les 5 ans.</field>
+    </record>
+    <record id="equipment_category_regulators" model="maintenance.equipment.category">
+        <field name="name">Détendeurs</field>
+        <field name="note">Entretien professionnel annuel (pratique fabricant / club).</field>
+    </record>
+    <record id="equipment_category_bcds" model="maintenance.equipment.category">
+        <field name="name">Gilets / Stabs</field>
+        <field name="note">Entretien annuel (pratique club).</field>
+    </record>
+    <record id="equipment_category_other" model="maintenance.equipment.category">
+        <field name="name">Autre matériel</field>
+        <field name="note">Contrôle annuel recommandé.</field>
+    </record>
+</odoo>

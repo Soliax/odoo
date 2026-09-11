@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_dive_gear_import_wizard" model="ir.ui.view">
+        <field name="name">dive.gear.import.wizard.form</field>
+        <field name="model">dive.gear.import.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Import matériel club">
+                <group>
+                    <field name="material_path"/>
+                    <field name="clear_existing"/>
+                </group>
+                <div class="text-muted mb-3">
+                    Importe les CSV du dossier <code>data/material</code> vers Inventaire (articles + n° série)
+                    et Maintenance (équipements + demandes dues). Intervalles BE:
+                    bouteilles visuelle 30 mois / hydraulique 5 ans; détendeurs &amp; gilets annuel.
+                </div>
+                <group string="Résultat" invisible="not result_log">
+                    <field name="result_log" nolabel="1" colspan="2"/>
+                </group>
+                <footer>
+                    <button name="action_import" type="object" string="Importer" class="btn-primary"
+                            invisible="result_log"/>
+                    <button string="Fermer" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_dive_gear_import_wizard" model="ir.actions.act_window">
+        <field name="name">Importer matériel CSV</field>
+        <field name="res_model">dive.gear.import.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_dive_gear_import"
+              name="Importer CSV"
+              parent="menu_dive_gear_root"
+              action="action_dive_gear_import_wizard"
+              sequence="90"
+              groups="stock.group_stock_manager"/>
+</odoo>

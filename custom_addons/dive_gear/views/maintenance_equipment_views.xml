@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_maintenance_equipment_form_dive" model="ir.ui.view">
+        <field name="name">maintenance.equipment.form.dive.gear</field>
+        <field name="model">maintenance.equipment</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group string="Matériel plongée" invisible="not dive_gear_kind">
+                    <group>
+                        <field name="dive_gear_kind"/>
+                        <field name="dive_club_number"/>
+                        <field name="dive_manufacturer_ref"/>
+                        <field name="dive_brand"/>
+                        <field name="dive_size"/>
+                        <field name="dive_capacity_l"/>
+                        <field name="dive_location_label"/>
+                        <field name="dive_condition"/>
+                        <field name="dive_present"/>
+                    </group>
+                    <group>
+                        <field name="dive_product_id"/>
+                        <field name="dive_lot_id"/>
+                        <field name="dive_manufacture_date"/>
+                        <field name="dive_last_service_date"/>
+                        <field name="dive_next_service_date"/>
+                        <field name="dive_last_visual_date"/>
+                        <field name="dive_next_visual_date"/>
+                        <field name="dive_last_hydro_date"/>
+                        <field name="dive_next_hydro_date"/>
+                        <field name="dive_maintenance_due"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_maintenance_equipment_tree_dive" model="ir.ui.view">
+        <field name="name">maintenance.equipment.list.dive.gear</field>
+        <field name="model">maintenance.equipment</field>
+        <field name="arch" type="xml">
+            <list string="Matériel plongée"
+                  decoration-danger="dive_maintenance_due">
+                <field name="name"/>
+                <field name="dive_gear_kind"/>
+                <field name="serial_no"/>
+                <field name="dive_club_number"/>
+                <field name="dive_brand"/>
+                <field name="dive_location_label"/>
+                <field name="dive_next_visual_date"/>
+                <field name="dive_next_hydro_date"/>
+                <field name="dive_next_service_date"/>
+                <field name="dive_maintenance_due"/>
+                <field name="dive_present"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_dive_equipment" model="ir.actions.act_window">
+        <field name="name">Matériel plongée</field>
+        <field name="res_model">maintenance.equipment</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('dive_gear_kind', '!=', False)]</field>
+        <field name="context">{'search_default_dive_maintenance_due': 1}</field>
+    </record>
+
+    <menuitem id="menu_dive_gear_root"
+              name="Matériel club"
+              parent="maintenance.menu_maintenance_title"
+              sequence="50"/>
+    <menuitem id="menu_dive_equipment"
+              name="Équipements"
+              parent="menu_dive_gear_root"
+              action="action_dive_equipment"
+              sequence="10"/>
+</odoo>

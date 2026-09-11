@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="product_category_club_gear" model="product.category">
+        <field name="name">Matériel club</field>
+    </record>
+    <record id="product_category_bottles" model="product.category">
+        <field name="name">Bouteilles</field>
+        <field name="parent_id" ref="product_category_club_gear"/>
+    </record>
+    <record id="product_category_regulators" model="product.category">
+        <field name="name">Détendeurs</field>
+        <field name="parent_id" ref="product_category_club_gear"/>
+    </record>
+    <record id="product_category_bcds" model="product.category">
+        <field name="name">Gilets</field>
+        <field name="parent_id" ref="product_category_club_gear"/>
+    </record>
+    <record id="product_category_other" model="product.category">
+        <field name="name">Autres</field>
+        <field name="parent_id" ref="product_category_club_gear"/>
+    </record>
+</odoo>
