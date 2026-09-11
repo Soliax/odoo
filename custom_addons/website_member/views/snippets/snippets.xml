@@ -5,7 +5,12 @@
             <t t-snippet="website_member.s_md_members"
                string="Members"
                group="people">
-                <keywords>membres members divers brevets club directory annuaire</keywords>
+                <keywords>membres members divers brevets club annuaire</keywords>
+            </t>
+            <t t-snippet="website_member.s_md_member_profile"
+               string="Member Profile"
+               group="people">
+                <keywords>profil profile membre member fiche</keywords>
             </t>
             <t t-snippet="website_member.s_md_event_attendees"
                string="Event Participants"

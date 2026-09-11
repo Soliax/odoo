@@ -17,7 +17,7 @@ class MemberDirectoryController(http.Controller):
         if deny == "forbidden":
             return request.render(
                 "website_member.members_forbidden",
-                {"page_name": "member_directory"},
+                {"page_name": "members"},
             )
         redirect = "/membres"
         if request.httprequest.path:
@@ -35,25 +35,70 @@ class MemberDirectoryController(http.Controller):
             "Meet the team",
         )
 
+    def _parse_list(self, value):
+        """Normalize multi-select values from GET/JSON into a clean list."""
+        if value is None or value is False:
+            return []
+        if isinstance(value, (list, tuple, set)):
+            items = list(value)
+        else:
+            items = str(value).replace(";", ",").split(",")
+        out = []
+        for item in items:
+            # JSON-RPC may wrap a lone value oddly; flatten one level.
+            if isinstance(item, (list, tuple)):
+                for sub in item:
+                    v = str(sub or "").strip().lower()
+                    if v and v not in out and v != "all":
+                        out.append(v)
+                continue
+            v = str(item or "").strip().lower()
+            if v and v not in out and v != "all":
+                out.append(v)
+        return out
+
     def _parse_filters(self, kwargs):
         search = (kwargs.get("search") or "").strip()
-        category = (kwargs.get("category") or "").strip().lower()
-        if category not in ("", "plongeur", "hsa"):
-            category = ""
-        brevet = (kwargs.get("brevet") or "").strip().lower()
-        specialty = (kwargs.get("specialty") or "").strip().lower()
+        # Support both single legacy params and multi-select lists
+        categories = self._parse_list(
+            kwargs.get("category") if "category" in kwargs else kwargs.get("categories")
+        )
+        categories = [c for c in categories if c in ("plongeur", "hsa")]
+        brevets = self._parse_list(
+            kwargs.get("brevet") if "brevet" in kwargs else kwargs.get("brevets")
+        )
+        specialties = self._parse_list(
+            kwargs.get("specialty") if "specialty" in kwargs else kwargs.get("specialties")
+        )
         try:
             limit = int(kwargs.get("limit") or 0) or None
         except (TypeError, ValueError):
             limit = None
-        return search, category, brevet, specialty, limit
+        return search, categories, brevets, specialties, limit
 
     def _user_profile_url(self, partner):
+        """Same detail page as the members directory (/membres/<user_id>)."""
         user = request.env["res.users"].sudo().search(
-            [("partner_id", "=", partner.id), ("share", "=", False)],
+            [
+                ("partner_id", "=", partner.id),
+                ("share", "=", False),
+                ("active", "=", True),
+                ("members_published", "=", True),
+            ],
             limit=1,
         )
         return "/membres/%s" % user.id if user else False
+
+    def _user_image_url(self, partner):
+        user = request.env["res.users"].sudo().search(
+            [("partner_id", "=", partner.id), ("share", "=", False), ("active", "=", True)],
+            limit=1,
+        )
+        if user and user.image_128:
+            return "/web/image/res.users/%s/image_128" % user.id
+        if partner.image_128:
+            return "/web/image/res.partner/%s/image_128" % partner.id
+        return False
 
     @http.route(
         ["/membres", "/members"],
@@ -62,40 +107,15 @@ class MemberDirectoryController(http.Controller):
         website=True,
         sitemap=False,
     )
-    def members_list(self, search="", category="", brevet="", specialty="", **kwargs):
+    def members_list(self, search="", **kwargs):
         denied = self._ensure_access()
         if denied:
             return denied
 
-        search, category, brevet, specialty, _limit = self._parse_filters({
-            "search": search,
-            "category": category,
-            "brevet": brevet,
-            "specialty": specialty,
-        })
-        members = request.env["res.users"].get_directory_members(
-            search=search or None,
-            category=category or None,
-            brevet=brevet or None,
-            specialty=specialty or None,
-        )
         return request.render(
             "website_member.members_list",
             {
-                "members": members,
-                "search": search,
-                "category": category,
-                "brevet": brevet,
-                "specialty": specialty,
-                "brevet_choices": DIVE_BREVET_SELECTION + [
-                    ("nb", "NB"),
-                    ("hsa", "HSA"),
-                ],
-                "specialty_choices": [
-                    (code, short) for code, short, _full, _f in DIVE_SPECIALTIES
-                ],
-                "intro": self._get_intro(),
-                "page_name": "member_directory",
+                "page_name": "members",
             },
         )
 
@@ -113,22 +133,57 @@ class MemberDirectoryController(http.Controller):
 
         Users = request.env["res.users"].sudo()
         member = Users.browse(user_id)
-        allowed = Users.get_directory_members()
+        allowed = Users.get_members()
         if not member.exists() or member not in allowed:
             raise MissingError("This member profile is not available.")
 
-        sections = member.get_directory_profile_fields(request.env.user)
+        # Editable shell (#wrap.oe_structure); dynamic body loads via snippet RPC.
         return request.render(
             "website_member.member_profile",
             {
                 "member": member,
-                "partner": member.partner_id,
-                "sections": sections,
-                "specialties": member.get_dive_specialties(),
-                "categories": member.get_dive_categories(),
-                "page_name": "member_directory",
+                "page_name": "members",
             },
         )
+
+    @http.route(
+        ["/membres/snippet/profile", "/members/snippet/profile"],
+        type="jsonrpc",
+        auth="public",
+        website=True,
+    )
+    def snippet_profile(self, **kwargs):
+        if request.env.user._is_public():
+            return {"html": "", "error": "login_required"}
+
+        try:
+            user_id = int(kwargs.get("user_id") or 0)
+        except (TypeError, ValueError):
+            user_id = 0
+
+        def _flag(key, default="1"):
+            return str(kwargs.get(key, default)) not in ("0", "false", "False", "")
+
+        Users = request.env["res.users"].sudo()
+        member = Users.browse(user_id)
+        allowed = Users.get_members()
+        if not user_id or not member.exists() or member not in allowed:
+            return {"html": "", "error": "not_found"}
+
+        html = request.env["ir.ui.view"]._render_template(
+            "website_member.s_md_member_profile_content",
+            {
+                "member": member,
+                "partner": member.partner_id,
+                "sections": member.get_member_profile_fields(request.env.user),
+                "specialties": member.get_dive_specialties(),
+                "categories": member.get_dive_categories(),
+                "member_events": member.get_member_events(),
+                "show_fields": _flag("show_fields"),
+                "show_events": _flag("show_events"),
+            },
+        )
+        return {"html": html}
 
     @http.route(
         ["/membres/snippet/members", "/members/snippet/members"],
@@ -140,41 +195,50 @@ class MemberDirectoryController(http.Controller):
         if request.env.user._is_public():
             return {"html": "", "error": "login_required"}
 
-        search, category, brevet, specialty, limit = self._parse_filters(kwargs)
-        show_filters = str(kwargs.get("show_filters", "1")) not in ("0", "false", "False")
-        show_specialties = str(kwargs.get("show_specialties", "1")) not in ("0", "false", "False")
+        search, categories, brevets, specialties, limit = self._parse_filters(kwargs)
+
+        def _flag(key, default="1"):
+            return str(kwargs.get(key, default)) not in ("0", "false", "False", "")
+
+        show_brevets_filters = _flag("show_brevets_filters")
+        show_specialties_filters = _flag("show_specialties_filters")
+        show_categories_filters = _flag("show_categories_filters")
+        tcg_visual = _flag("tcg_visual", default="0")
         columns = kwargs.get("columns") or "4"
         if columns not in ("2", "3", "4"):
             columns = "4"
 
-        members = request.env["res.users"].get_directory_members(
+        members = request.env["res.users"].get_members(
             search=search or None,
-            category=category or None,
-            brevet=brevet or None,
-            specialty=specialty or None,
+            categories=categories or None,
+            brevets=brevets or None,
+            specialties=specialties or None,
             limit=limit,
         )
-        html = request.env["ir.ui.view"]._render_template(
-            "website_member.s_md_members_content",
-            {
-                "members": members,
-                "search": search,
-                "category": category,
-                "brevet": brevet,
-                "specialty": specialty,
-                "show_filters": show_filters,
-                "show_specialties": show_specialties,
-                "columns": columns,
-                "brevet_choices": DIVE_BREVET_SELECTION + [
-                    ("nb", "NB"),
-                    ("hsa", "HSA"),
-                ],
-                "specialty_choices": [
-                    (code, short) for code, short, _full, _f in DIVE_SPECIALTIES
-                ],
-            },
+        values = {
+            "members": members,
+            "search": search,
+            "categories": categories or [],
+            "brevets": brevets or [],
+            "specialties_filter": specialties or [],
+            "show_brevets_filters": show_brevets_filters,
+            "show_specialties_filters": show_specialties_filters,
+            "show_categories_filters": show_categories_filters,
+            "tcg_visual": tcg_visual,
+            "columns": columns,
+            "brevet_choices": DIVE_BREVET_SELECTION + [
+                ("nb", "NB"),
+            ],
+            "specialty_choices": [
+                (code, short) for code, short, _full, _f in DIVE_SPECIALTIES
+            ],
+        }
+        View = request.env["ir.ui.view"]
+        html = str(View._render_template("website_member.s_md_members_content", values))
+        results_html = str(
+            View._render_template("website_member.s_md_members_results", values)
         )
-        return {"html": html}
+        return {"html": html, "results_html": results_html}
 
     @http.route(
         ["/membres/snippet/attendees", "/members/snippet/attendees"],
@@ -198,19 +262,23 @@ class MemberDirectoryController(http.Controller):
             "0", "false", "False",
         )
 
-        partners = request.env["res.users"].get_event_attendee_partners(
+        cards_data = request.env["res.users"].get_event_attendee_cards(
             event_id=event_id,
             limit=limit,
             published_only=published_only,
         )
         cards = []
-        for partner in partners:
+        for row in cards_data:
+            partner = row["partner"]
             cards.append({
                 "partner": partner,
                 "name": partner.get_dive_display_name(),
                 "brevet_css": partner.dive_brevet_css or "brevet-nb",
                 "brevet_short": partner.dive_brevet_short or "NB",
+                "brevet_label": partner.dive_brevet_label or "",
                 "profile_url": self._user_profile_url(partner),
+                "image_url": self._user_image_url(partner),
+                "ticket_count": row["ticket_count"],
             })
         html = request.env["ir.ui.view"]._render_template(
             "website_member.s_md_attendees_content",
@@ -219,4 +287,6 @@ class MemberDirectoryController(http.Controller):
                 "event_id": event_id,
             },
         )
-        return {"html": html, "count": len(cards)}
+        # Count people (tickets), not unique contact cards.
+        people_count = sum(int(card.get("ticket_count") or 1) for card in cards)
+        return {"html": html, "count": people_count}

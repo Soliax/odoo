@@ -5,11 +5,11 @@ from odoo import fields, models
 class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
 
-    member_directory_intro = fields.Char(
-        string="Directory Intro",
+    member_intro = fields.Char(
+        string="Members Intro",
         config_parameter="website_member.intro",
     )
-    member_directory_deny_redirect = fields.Selection(
+    member_deny_redirect = fields.Selection(
         [
             ("login", "Redirect to login"),
             ("forbidden", "Show access denied"),

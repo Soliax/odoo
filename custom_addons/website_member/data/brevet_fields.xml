@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <!-- Profile page: brevet obtention dates -->
-    <record id="field_brevet_date_1" model="member.directory.field">
+    <record id="field_brevet_date_1" model="member.field">
         <field name="name">1*</field>
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_brevet_date_1</field>
@@ -9,7 +9,7 @@
         <field name="section">brevets</field>
         <field name="sequence">10</field>
     </record>
-    <record id="field_brevet_date_2" model="member.directory.field">
+    <record id="field_brevet_date_2" model="member.field">
         <field name="name">2*</field>
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_brevet_date_2</field>
@@ -17,7 +17,7 @@
         <field name="section">brevets</field>
         <field name="sequence">20</field>
     </record>
-    <record id="field_brevet_date_3" model="member.directory.field">
+    <record id="field_brevet_date_3" model="member.field">
         <field name="name">3*</field>
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_brevet_date_3</field>
@@ -25,7 +25,7 @@
         <field name="section">brevets</field>
         <field name="sequence">30</field>
     </record>
-    <record id="field_brevet_date_4" model="member.directory.field">
+    <record id="field_brevet_date_4" model="member.field">
         <field name="name">4*</field>
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_brevet_date_4</field>
@@ -33,7 +33,7 @@
         <field name="section">brevets</field>
         <field name="sequence">40</field>
     </record>
-    <record id="field_brevet_date_am" model="member.directory.field">
+    <record id="field_brevet_date_am" model="member.field">
         <field name="name">AM</field>
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_brevet_date_am</field>
@@ -41,7 +41,7 @@
         <field name="section">brevets</field>
         <field name="sequence">50</field>
     </record>
-    <record id="field_brevet_date_mc" model="member.directory.field">
+    <record id="field_brevet_date_mc" model="member.field">
         <field name="name">MC</field>
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_brevet_date_mc</field>
@@ -49,7 +49,7 @@
         <field name="section">brevets</field>
         <field name="sequence">60</field>
     </record>
-    <record id="field_brevet_date_mf" model="member.directory.field">
+    <record id="field_brevet_date_mf" model="member.field">
         <field name="name">MF</field>
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_brevet_date_mf</field>
@@ -57,7 +57,7 @@
         <field name="section">brevets</field>
         <field name="sequence">70</field>
     </record>
-    <record id="field_brevet_date_mn" model="member.directory.field">
+    <record id="field_brevet_date_mn" model="member.field">
         <field name="name">MN</field>
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_brevet_date_mn</field>
@@ -67,7 +67,7 @@
     </record>
 
     <!-- Move Autres Brevets under Specialites on the public profile -->
-    <record id="field_other_brevets" model="member.directory.field">
+    <record id="field_other_brevets" model="member.field">
         <field name="name">Autres Brevets</field>
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_other_brevets</field>

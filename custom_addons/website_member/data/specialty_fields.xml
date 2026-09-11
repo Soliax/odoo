@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="field_spec_cfps" model="member.directory.field">
+    <record id="field_spec_cfps" model="member.field">
         <field name="name">CFPS</field>
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_spec_cfps</field>
@@ -8,7 +8,7 @@
         <field name="section">specialties</field>
         <field name="sequence">10</field>
     </record>
-    <record id="field_spec_ve" model="member.directory.field">
+    <record id="field_spec_ve" model="member.field">
         <field name="name">VE (Vetement Etanche)</field>
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_spec_ve</field>
@@ -16,7 +16,7 @@
         <field name="section">specialties</field>
         <field name="sequence">20</field>
     </record>
-    <record id="field_spec_pn" model="member.directory.field">
+    <record id="field_spec_pn" model="member.field">
         <field name="name">PN (Plongeur Nitrox)</field>
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_spec_pn</field>
@@ -24,7 +24,7 @@
         <field name="section">specialties</field>
         <field name="sequence">30</field>
     </record>
-    <record id="field_spec_pnc" model="member.directory.field">
+    <record id="field_spec_pnc" model="member.field">
         <field name="name">PNC (Plongeur Nitrox Confirme)</field>
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_spec_pnc</field>
@@ -32,7 +32,7 @@
         <field name="section">specialties</field>
         <field name="sequence">40</field>
     </record>
-    <record id="field_spec_in" model="member.directory.field">
+    <record id="field_spec_in" model="member.field">
         <field name="name">IN (Instructeur Nitrox)</field>
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_spec_in</field>
@@ -40,7 +40,7 @@
         <field name="section">specialties</field>
         <field name="sequence">50</field>
     </record>
-    <record id="field_spec_inc" model="member.directory.field">
+    <record id="field_spec_inc" model="member.field">
         <field name="name">INC (Instructeur Nitrox Confirme)</field>
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_spec_inc</field>
@@ -48,7 +48,7 @@
         <field name="section">specialties</field>
         <field name="sequence">60</field>
     </record>
-    <record id="field_spec_fn" model="member.directory.field">
+    <record id="field_spec_fn" model="member.field">
         <field name="name">FN (Formateur Nitrox)</field>
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_spec_fn</field>

@@ -280,8 +280,8 @@ def _upsert_demo_diver(env, data):
         user.partner_id.write(partner_vals)
         user.write({
             "name": name,
-            "directory_published": True,
-            "directory_subtitle": data.get("function"),
+            "members_published": True,
+            "members_subtitle": data.get("function"),
             "password": "diverdemo",
         })
         return user
@@ -293,9 +293,79 @@ def _upsert_demo_diver(env, data):
         "password": "diverdemo",
         "partner_id": partner.id,
         "group_ids": [(6, 0, [env.ref("base.group_user").id])],
-        "directory_published": True,
-        "directory_subtitle": data.get("function"),
+        "members_published": True,
+        "members_subtitle": data.get("function"),
     })
+
+
+def _clean_legacy_member_markup(env):
+    """Strip obsolete builder attrs from saved website pages (cannot delete pages)."""
+    import re
+
+    pattern = re.compile(
+        r'\sdata-border-(?:card|oval|name|specs|stat|gem)="[^"]*"'
+        r'|\sdata-frame-(?:fit|scale-x|scale-y|grow-x|grow-y)="[^"]*"'
+        r'|\sdata-oval-scale="[^"]*"'
+        r'|\sdata-card-special-corners="[^"]*"',
+        re.I,
+    )
+    views = env["ir.ui.view"].sudo().search([
+        "|", "|",
+        ("arch_db", "ilike", "data-border-"),
+        ("arch_db", "ilike", "data-frame-"),
+        ("arch_db", "ilike", "s_md_members"),
+    ])
+    for view in views:
+        arch = view.arch_db or ""
+        cleaned = pattern.sub("", arch)
+        if cleaned != arch:
+            view.write({"arch_db": cleaned})
+
+
+def _seed_demo_event_registrations(env):
+    """Link a few demo divers to existing events so profile pages show history."""
+    if "event.registration" not in env or "event.event" not in env:
+        return
+    Event = env["event.event"].sudo()
+    Registration = env["event.registration"].sudo()
+    Users = env["res.users"].sudo()
+    events = Event.search([], order="date_begin desc", limit=5)
+    if not events:
+        return
+    pairs = [
+        ("diver.mc", 0, "open"),
+        ("diver.mc", 1, "done"),
+        ("diver.2star", 0, "open"),
+        ("diver.am", 0, "open"),
+        ("diver.mn", 1, "done"),
+        ("diver.hsa", 0, "open"),
+    ]
+    for login, event_idx, state in pairs:
+        if event_idx >= len(events):
+            continue
+        user = Users.search([("login", "=", login)], limit=1)
+        if not user:
+            continue
+        event = events[event_idx]
+        existing = Registration.search([
+            ("event_id", "=", event.id),
+            ("partner_id", "=", user.partner_id.id),
+        ], limit=1)
+        if existing:
+            if existing.state != state:
+                existing.write({"state": state})
+            continue
+        Registration.with_context(
+            mail_create_nolog=True,
+            mail_notrack=True,
+            tracking_disable=True,
+        ).create({
+            "event_id": event.id,
+            "partner_id": user.partner_id.id,
+            "name": user.partner_id.name,
+            "email": user.partner_id.email,
+            "state": state,
+        })
 
 
 def post_init_hook(env):
@@ -304,3 +374,5 @@ def post_init_hook(env):
     other = env.ref("website_member.field_other_brevets", raise_if_not_found=False)
     if other:
         other.write({"section": "specialties", "sequence": 90})
+    _clean_legacy_member_markup(env)
+    _seed_demo_event_registrations(env)

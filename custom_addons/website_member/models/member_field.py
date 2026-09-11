@@ -3,9 +3,9 @@ from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 
 
-class MemberDirectoryField(models.Model):
-    _name = "member.directory.field"
-    _description = "Member Directory Profile Field"
+class MemberField(models.Model):
+    _name = "member.field"
+    _description = "Member Profile Field"
     _order = "section_sequence, sequence, id"
 
     name = fields.Char(string="Label", required=True, translate=True)
@@ -62,7 +62,7 @@ class MemberDirectoryField(models.Model):
     )
     group_ids = fields.Many2many(
         "res.groups",
-        "member_directory_field_group_rel",
+        "member_field_group_rel",
         "field_id",
         "group_id",
         string="Allowed Groups",
@@ -135,9 +135,6 @@ class MemberDirectoryField(models.Model):
             return {"type": "many2one", "value": raw.display_name, "id": raw.id}
 
         if field.type in ("boolean",) or self.widget == "boolean":
-            if raw is False and self.widget != "boolean":
-                # still show False for boolean widget
-                pass
             return {"type": "text", "value": self.env._("Oui") if raw else self.env._("Non")}
 
         if field.type in ("html",):

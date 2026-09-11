@@ -1,16 +1,17 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 from odoo import api, fields, models
+from odoo.osv import expression
 
 
 class ResUsers(models.Model):
     _inherit = "res.users"
 
-    directory_published = fields.Boolean(
+    members_published = fields.Boolean(
         string="Show on Members page",
         default=True,
         help="If enabled, this internal user appears on the website Members page.",
     )
-    directory_subtitle = fields.Char(
+    members_subtitle = fields.Char(
         string="Card subtitle",
         help="Optional short line under the name on member cards.",
     )
@@ -52,24 +53,27 @@ class ResUsers(models.Model):
     dive_cfps_end = fields.Date(related="partner_id.dive_cfps_end", readonly=False)
 
     @api.model
-    def _directory_domain(self):
+    def _members_domain(self):
         return [
             ("share", "=", False),
             ("active", "=", True),
-            ("directory_published", "=", True),
+            ("members_published", "=", True),
             ("id", "!=", self.env.ref("base.user_root").id),
         ]
 
     @api.model
-    def get_directory_members(
+    def get_members(
         self,
         search=None,
         category=None,
         brevet=None,
         specialty=None,
+        categories=None,
+        brevets=None,
+        specialties=None,
         limit=None,
     ):
-        domain = self._directory_domain()
+        domain = self._members_domain()
         if search:
             domain += [
                 "|", "|", "|",
@@ -78,41 +82,60 @@ class ResUsers(models.Model):
                 ("dive_firstname", "ilike", search),
                 ("dive_lastname", "ilike", search),
             ]
-        if category == "plongeur":
-            domain.append(("dive_is_plongeur", "=", True))
-        elif category == "hsa":
-            domain.append(("dive_is_hsa", "=", True))
-        if brevet:
-            brevet = brevet.strip().lower()
-            if brevet == "nb":
-                domain += [
-                    ("dive_brevet", "=", False),
-                    "|",
-                    ("dive_is_plongeur", "=", True),
-                    ("dive_is_hsa", "=", False),
-                ]
-            elif brevet == "hsa":
-                domain += [
-                    ("dive_brevet", "=", False),
-                    ("dive_is_hsa", "=", True),
-                    ("dive_is_plongeur", "=", False),
-                ]
+
+        # Multi-select OR within each dimension; AND across dimensions
+        cats = list(categories or [])
+        if category and category not in cats:
+            cats.append(category)
+        cats = [c for c in cats if c in ("plongeur", "hsa")]
+        if len(cats) == 1:
+            if cats[0] == "plongeur":
+                domain.append(("dive_is_plongeur", "=", True))
             else:
-                domain.append(("dive_brevet", "=", brevet))
-        if specialty:
-            specialty = specialty.strip().lower()
-            field_map = {
-                "cfps": "dive_spec_cfps",
-                "ve": "dive_spec_ve",
-                "pn": "dive_spec_pn",
-                "pnc": "dive_spec_pnc",
-                "in": "dive_spec_in",
-                "inc": "dive_spec_inc",
-                "fn": "dive_spec_fn",
-            }
-            fname = field_map.get(specialty)
-            if fname:
-                domain.append((fname, "!=", False))
+                domain.append(("dive_is_hsa", "=", True))
+        elif len(cats) > 1:
+            domain += [
+                "|",
+                ("dive_is_plongeur", "=", True),
+                ("dive_is_hsa", "=", True),
+            ]
+
+        brev = [str(b).strip().lower() for b in (brevets or []) if b]
+        if brevet and str(brevet).strip().lower() not in brev:
+            brev.append(str(brevet).strip().lower())
+        if brev:
+            brevet_leaves = []
+            for code in brev:
+                if code == "nb":
+                    brevet_leaves.append([
+                        ("dive_brevet", "=", False),
+                        "|",
+                        ("dive_is_plongeur", "=", True),
+                        ("dive_is_hsa", "=", False),
+                    ])
+                else:
+                    brevet_leaves.append([("dive_brevet", "=", code)])
+            domain = expression.AND([domain, expression.OR(brevet_leaves)])
+
+        specs = [str(s).strip().lower() for s in (specialties or []) if s]
+        if specialty and str(specialty).strip().lower() not in specs:
+            specs.append(str(specialty).strip().lower())
+        field_map = {
+            "cfps": "dive_spec_cfps",
+            "ve": "dive_spec_ve",
+            "pn": "dive_spec_pn",
+            "pnc": "dive_spec_pnc",
+            "in": "dive_spec_in",
+            "inc": "dive_spec_inc",
+            "fn": "dive_spec_fn",
+        }
+        spec_fields = [field_map[s] for s in specs if s in field_map]
+        if spec_fields:
+            domain = expression.AND([
+                domain,
+                expression.OR([[(f, "!=", False)] for f in spec_fields]),
+            ])
+
         limit = int(limit) if limit else None
         return self.sudo().search(
             domain,
@@ -125,19 +148,45 @@ class ResUsers(models.Model):
         self, event_id, limit=None, states=None, published_only=True
     ):
         """Partners registered on an event, ordered by brevet rank."""
+        cards = self.get_event_attendee_cards(
+            event_id=event_id,
+            limit=limit,
+            states=states,
+            published_only=published_only,
+        )
+        return self.env["res.partner"].browse([c["partner"].id for c in cards])
+
+    @api.model
+    def get_event_attendee_cards(
+        self, event_id, limit=None, states=None, published_only=True
+    ):
+        """Attendee rows with ticket/inscription counts per partner."""
         if not event_id or "event.registration" not in self.env:
-            return self.env["res.partner"]
+            return []
         states = states or ["open", "done"]
-        regs = self.env["event.registration"].sudo().search([
-            ("event_id", "=", int(event_id)),
-            ("state", "in", list(states)),
-            ("partner_id", "!=", False),
-        ])
-        partners = regs.mapped("partner_id")
+        Registration = self.env["event.registration"].sudo()
+        groups = Registration.read_group(
+            [
+                ("event_id", "=", int(event_id)),
+                ("state", "in", list(states)),
+                ("partner_id", "!=", False),
+            ],
+            ["partner_id"],
+            ["partner_id"],
+            lazy=False,
+        )
+        counts = {
+            g["partner_id"][0]: g["__count"]
+            for g in groups
+            if g.get("partner_id")
+        }
+        if not counts:
+            return []
+        partners = self.env["res.partner"].sudo().browse(list(counts.keys()))
         if published_only:
             published = self.sudo().search([
                 ("partner_id", "in", partners.ids),
-                ("directory_published", "=", True),
+                ("members_published", "=", True),
                 ("share", "=", False),
                 ("active", "=", True),
             ]).mapped("partner_id")
@@ -147,11 +196,17 @@ class ResUsers(models.Model):
         )
         if limit:
             partners = partners[: int(limit)]
-        return partners
+        return [
+            {"partner": partner, "ticket_count": counts.get(partner.id, 1)}
+            for partner in partners
+        ]
 
-    def get_directory_card_name(self):
+    def get_member_card_name(self):
         self.ensure_one()
         return self.partner_id.get_dive_display_name()
+
+    # Alias kept so partially-upgraded DBs / stale workers never break cards
+    get_directory_card_name = get_member_card_name
 
     def get_dive_specialties(self):
         self.ensure_one()
@@ -165,9 +220,91 @@ class ResUsers(models.Model):
         self.ensure_one()
         return self.partner_id.get_dive_brevet_dates()
 
-    def get_directory_profile_fields(self, viewer):
+    def get_member_events(self, states=None):
+        """Events this member is or was registered to (grouped by event)."""
         self.ensure_one()
-        Field = self.env["member.directory.field"].sudo()
+        if "event.registration" not in self.env:
+            return []
+        states = list(states or ("open", "done"))
+        partner = self.partner_id
+        if partner.email:
+            domain = [
+                ("state", "in", states),
+                ("active", "=", True),
+                "|",
+                ("partner_id", "=", partner.id),
+                "&",
+                ("partner_id", "=", False),
+                ("email", "=ilike", partner.email),
+            ]
+        else:
+            domain = [
+                ("state", "in", states),
+                ("active", "=", True),
+                ("partner_id", "=", partner.id),
+            ]
+
+        Registration = self.env["event.registration"].sudo()
+        rows = Registration._read_group(
+            domain,
+            groupby=["event_id", "state"],
+            aggregates=["__count"],
+        )
+        if not rows:
+            return []
+
+        by_event = {}
+        for event, state, count in rows:
+            if not event:
+                continue
+            row = by_event.setdefault(event.id, {
+                "event": event,
+                "ticket_count": 0,
+                "states": set(),
+            })
+            row["ticket_count"] += count
+            row["states"].add(state)
+
+        events = self.env["event.event"].sudo().browse(list(by_event.keys()))
+        events = events.sorted(
+            key=lambda e: e.date_begin or fields.Datetime.from_string("1970-01-01 00:00:00"),
+            reverse=True,
+        )
+        state_labels = {
+            "open": "Inscrit",
+            "done": "Participé",
+            "draft": "En attente",
+            "cancel": "Annulé",
+        }
+        now = fields.Datetime.now()
+        result = []
+        for event in events:
+            info = by_event[event.id]
+            if "done" in info["states"]:
+                status = "done"
+            elif "open" in info["states"]:
+                status = "open"
+            else:
+                status = next(iter(info["states"]), "open")
+            url = False
+            if "website_url" in event._fields and event.website_url:
+                url = event.website_url
+            result.append({
+                "event": event,
+                "name": event.name,
+                "date_begin": event.date_begin,
+                "date_end": event.date_end,
+                "url": url,
+                "ticket_count": info["ticket_count"],
+                "status": status,
+                "status_label": state_labels.get(status, status),
+                "is_past": bool(event.date_end and event.date_end < now),
+            })
+        return result
+
+    def get_member_profile_fields(self, viewer):
+        self.ensure_one()
+        Field = self.env["member.field"].sudo()
         fields_conf = Field.search([("active", "=", True)])
         by_section = {}
         for conf in fields_conf:
@@ -197,3 +334,6 @@ class ResUsers(models.Model):
             if section in by_section and by_section[section]["items"]:
                 sections.append(by_section[section])
         return sections
+
+    get_directory_profile_fields = get_member_profile_fields
+    get_directory_members = get_members

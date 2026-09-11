@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="view_member_directory_field_tree" model="ir.ui.view">
-        <field name="name">member.directory.field.list</field>
-        <field name="model">member.directory.field</field>
+        <field name="name">member.field.list</field>
+        <field name="model">member.field</field>
         <field name="arch" type="xml">
             <list editable="bottom">
                 <field name="sequence" widget="handle"/>
@@ -18,8 +18,8 @@
     </record>
 
     <record id="view_member_directory_field_form" model="ir.ui.view">
-        <field name="name">member.directory.field.form</field>
-        <field name="model">member.directory.field</field>
+        <field name="name">member.field.form</field>
+        <field name="model">member.field</field>
         <field name="arch" type="xml">
             <form>
                 <sheet>
@@ -45,7 +45,7 @@
 
     <record id="action_member_directory_field" model="ir.actions.act_window">
         <field name="name">Profile Fields</field>
-        <field name="res_model">member.directory.field</field>
+        <field name="res_model">member.field</field>
         <field name="view_mode">list,form</field>
     </record>
 
