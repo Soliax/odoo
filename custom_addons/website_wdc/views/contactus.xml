@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Keep default Odoo contact form; French mockup copy only. -->
+    <template id="contactus" inherit_id="website.contactus" name="WDC Contact">
+        <xpath expr="//section[hasclass('s_title')]//h1" position="replace">
+            <h1>Contact</h1>
+        </xpath>
+        <xpath expr="//section[hasclass('s_text_block')]//p[hasclass('lead')]" position="replace">
+            <p class="lead">
+                Une question sur le club, la formation, le HSA ou une inscription&#160;?<br/>
+                Écrivez-nous — nous vous répondrons dès que possible.
+            </p>
+        </xpath>
+    </template>
+</odoo>

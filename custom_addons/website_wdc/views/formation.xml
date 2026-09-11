@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="formation" name="Formation">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure">
+
+                <section class="s_cover parallax s_parallax_is_fixed o_cc o_cc5 pt96 pb96"
+                         data-snippet="s_cover" data-name="Cover"
+                         data-scroll-background-ratio="1">
+                    <span class="s_parallax_bg oe_img_bg"
+                          style="background-image: url('/website_wdc/static/src/img/art/picture_3.jpg'); background-position: 50% 50%;"/>
+                    <div class="o_we_bg_filter bg-black-50"/>
+                    <div class="container s_allow_columns">
+                        <h1 class="display-3 text-center">Formation</h1>
+                        <p class="lead text-center">
+                            Brevets LIFRAS, spécialisations et entraînements — en un seul endroit.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="s_text_block pt64 pb32" data-snippet="s_text_block" data-name="Intro">
+                    <div class="container s_allow_columns">
+                        <div class="row">
+                            <div class="col-lg-8 offset-lg-2">
+                                <p class="lead text-center">
+                                    Cette page regroupe ce qui était dispersé dans plusieurs articles Joomla
+                                    (1★→4★, AM, spécialisations, Nitrox…). Le détail opérationnel
+                                    (cahiers, examens, horaires piscine) viendra plus tard dans le portail membres.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="s_features pt32 pb48" data-snippet="s_features" data-name="Brevets">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12 text-center mb-4">
+                                <h2>Parcours brevets</h2>
+                            </div>
+                            <div class="col-lg-4 pt16 pb16 text-center">
+                                <i class="fa fa-2x fa-certificate rounded-circle bg-primary m-3"/>
+                                <h3>1★ → 4★</h3>
+                                <p>Du premier brevet aux plongeurs autonomes expérimentés.</p>
+                            </div>
+                            <div class="col-lg-4 pt16 pb16 text-center">
+                                <i class="fa fa-2x fa-graduation-cap rounded-circle bg-primary m-3"/>
+                                <h3>Assistant moniteur</h3>
+                                <p>Accompagnement, pédagogie et encadrement de palanquée.</p>
+                            </div>
+                            <div class="col-lg-4 pt16 pb16 text-center">
+                                <i class="fa fa-2x fa-star rounded-circle bg-primary m-3"/>
+                                <h3>Moniteurs</h3>
+                                <p>Club, fédéral, national — selon le parcours LIFRAS.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="s_text_image pt48 pb48" data-snippet="s_text_image" data-name="Spécialités">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-lg-6 pt16 pb16">
+                                <img src="/website_wdc/static/src/img/art/picture_4.jpg"
+                                     class="img img-fluid mx-auto" alt="Spécialités"/>
+                            </div>
+                            <div class="col-lg-6 pt16 pb16">
+                                <h2>Spécialités</h2>
+                                <p>
+                                    CFPS, Vêtement étanche, Nitrox, Nitrox confirmé, Initiation Nitrox,
+                                    et autres modules selon le calendrier du club.
+                                </p>
+                                <p>
+                                    Les sessions concrètes sont publiées dans
+                                    <a href="/event">Événements</a>.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="s_call_to_action pt48 pb48 o_cc o_cc2"
+                         data-snippet="s_call_to_action" data-name="CTA">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-lg-9">
+                                <h3>Envie de vous former au WDC&#160;?</h3>
+                                <p class="mb-0">Contactez-nous ou venez un mardi soir à la piscine.</p>
+                            </div>
+                            <div class="col-lg-3">
+                                <p class="text-end mb-0">
+                                    <a href="/contactus" class="btn btn-primary">Contact</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </t>
+    </template>
+
+    <record id="formation_page" model="website.page">
+        <field name="name">Formation</field>
+        <field name="url">/formation</field>
+        <field name="view_id" ref="formation"/>
+        <field name="is_published" eval="True"/>
+        <field name="website_indexed" eval="True"/>
+        <field name="track" eval="True"/>
+    </record>
+</odoo>

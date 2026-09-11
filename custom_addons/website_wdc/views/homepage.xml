@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Editable homepage mockup: standard website snippets only (Website Builder). -->
+    <template id="homepage" inherit_id="website.homepage" name="WDC Home" priority="99">
+        <xpath expr="//div[@id='wrap']" position="replace">
+            <div id="wrap" class="oe_structure">
+
+                <section class="s_cover parallax s_parallax_is_fixed o_cc o_cc5 pt168 pb168"
+                         data-snippet="s_cover" data-name="Cover"
+                         data-scroll-background-ratio="1">
+                    <span class="s_parallax_bg oe_img_bg"
+                          style="background-image: url('/website_wdc/static/src/img/art/picture_1.jpg'); background-position: 50% 40%;"/>
+                    <div class="o_we_bg_filter bg-black-50"/>
+                    <div class="container s_allow_columns">
+                        <h1 class="display-3 text-center">Waterloo Diving Club</h1>
+                        <p class="lead text-center">
+                            Grand bleu, azur, épaves, croisières, amitié… rejoignez notre passion.
+                        </p>
+                        <p class="text-center">
+                            <a href="/contactus" class="btn btn-primary mb-2">Nous contacter</a>
+                            <a href="/membres" class="btn btn-outline-primary mb-2">Voir les membres</a>
+                        </p>
+                    </div>
+                </section>
+
+                <section class="s_text_block pt64 pb48" data-snippet="s_text_block" data-name="Bienvenue">
+                    <div class="container s_allow_columns">
+                        <div class="row">
+                            <div class="col-lg-8 offset-lg-2 text-center">
+                                <h2>Bienvenue sur le site du WDC</h2>
+                                <p class="lead">
+                                    Ces mots vous font rêver&#160;? Alors rejoignez-nous au
+                                    <strong>Waterloo Diving Club</strong>.
+                                    Promis, nous vous ferons vivre notre (et votre) passion…
+                                </p>
+                                <p>La plongée au WDC est accessible dès 14&#160;ans.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="s_text_image pt48 pb48" data-snippet="s_text_image" data-name="Plongée">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-lg-6 pt16 pb16">
+                                <img src="/website_wdc/static/src/img/art/picture_2.jpg"
+                                     class="img img-fluid mx-auto" alt="Plongée"/>
+                            </div>
+                            <div class="col-lg-6 pt16 pb16">
+                                <h2>Plongée</h2>
+                                <p>
+                                    Brevets, carrières, croisières, épaves et voyages —
+                                    de l’apprentissage aux grands bleus.
+                                </p>
+                                <p>
+                                    <a href="/formation" class="btn btn-primary">Voir la formation</a>
+                                    <a href="/event" class="btn btn-outline-primary">Événements</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="s_image_text pt48 pb48" data-snippet="s_image_text" data-name="HSA">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-lg-6 pt16 pb16">
+                                <h2>Hockey subaquatique</h2>
+                                <p>
+                                    Esprit d’équipe, intensité et fun — le HSA du WDC pour ceux
+                                    qui aiment jouer sous l’eau.
+                                </p>
+                                <p>
+                                    <a href="/membres?category=hsa" class="btn btn-primary">Membres HSA</a>
+                                </p>
+                            </div>
+                            <div class="col-lg-6 pt16 pb16">
+                                <img src="/website_wdc/static/src/img/art/picture_5.jpg"
+                                     class="img img-fluid mx-auto" alt="Hockey subaquatique"/>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="s_call_to_action pt48 pb48 o_cc o_cc2"
+                         data-snippet="s_call_to_action" data-name="Pratique">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-9">
+                                <h3>Nous trouver</h3>
+                                <p>
+                                    <strong>33 Rue Théophile Delbar, 1410 Waterloo</strong><br/>
+                                    Tous les mardis à 20h15 à la piscine de Waterloo
+                                    (ou vers 22h00 à la cafétéria).
+                                </p>
+                            </div>
+                            <div class="col-lg-3">
+                                <p class="text-end">
+                                    <a href="/contactus" class="btn btn-primary">Écrire au club</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="s_text_block pt24 pb24" data-snippet="s_text_block" data-name="Crédit">
+                    <div class="container">
+                        <p class="text-center text-muted small mb-0">Photos © Anton L.</p>
+                    </div>
+                </section>
+
+            </div>
+        </xpath>
+    </template>
+</odoo>
