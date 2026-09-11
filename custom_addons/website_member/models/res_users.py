@@ -162,16 +162,10 @@ class ResUsers(models.Model):
                 last = _fold_name(user.dive_lastname)
                 first = _fold_name(user.dive_firstname)
                 full = _fold_name(user.name)
-                # Prefer lastname; if missing, use the end of the display name.
-                if not last and full:
-                    parts = full.rsplit(" ", 1)
-                    last = parts[-1] if parts else full
-                    if len(parts) > 1 and not first:
-                        first = parts[0]
-                # Empty / incomplete records go last (ASC) / first (DESC via reverse)
-                if not (last or first or full):
-                    return ("\uffff", "\uffff", "\uffff")
-                return (last or full or "\uffff", first, full)
+                # Incomplete club profiles (no dive first/last) sort last.
+                if not last and not first:
+                    return ("\uffff", "\uffff", full or "\uffff")
+                return (last or "\uffff", first, full)
 
             members = members.sorted(key=_name_key, reverse=reverse)
         elif sort_key == "brevet_asc":

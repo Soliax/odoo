@@ -74,6 +74,34 @@
                         </label>
                     </div>
                 </div>
+                <div class="dropdown">
+                    <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                        Trier
+                    </button>
+                    <div class="dropdown-menu p-2 s_md_filter_dropdown s_md_sort_dropdown">
+                        <label class="s_md_filter_check">
+                            <input type="radio" name="sort" value="name_asc"
+                                   t-att-checked="sort == 'name_asc'"/>
+                            <span>Nom de famille A → Z</span>
+                        </label>
+                        <label class="s_md_filter_check">
+                            <input type="radio" name="sort" value="name_desc"
+                                   t-att-checked="sort == 'name_desc'"/>
+                            <span>Nom de famille Z → A</span>
+                        </label>
+                        <label class="s_md_filter_check">
+                            <input type="radio" name="sort" value="brevet_asc"
+                                   t-att-checked="sort == 'brevet_asc'"/>
+                            <span>Brevet ↑ (NB → MN)</span>
+                        </label>
+                        <label class="s_md_filter_check">
+                            <input type="radio" name="sort" value="brevet_desc"
+                                   t-att-checked="(not sort) or sort == 'brevet_desc'"/>
+                            <span>Brevet ↓ (MN → NB)</span>
+                        </label>
+                    </div>
+                </div>
                 <div class="s_md_filters_search input-group">
                     <input type="search" name="search" class="form-control s_md_filter_search"
                            placeholder="Rechercher un membre..." autocomplete="off"/>

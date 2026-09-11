@@ -52,6 +52,7 @@ export class MdMembersSnippet extends Interaction {
             specialty: [],
             category: [],
             search: "",
+            sort: "brevet_desc",
         };
     }
 
@@ -120,6 +121,7 @@ export class MdMembersSnippet extends Interaction {
             specialty: [],
             category: [],
             search: "",
+            sort: "brevet_desc",
         };
         if (form) {
             for (const key of MULTI_KEYS) {
@@ -129,6 +131,8 @@ export class MdMembersSnippet extends Interaction {
             }
             const searchInput = form.querySelector(`input[name="search"]`);
             next.search = searchInput ? String(searchInput.value || "") : "";
+            const sortInput = form.querySelector(`input[name="sort"]:checked`);
+            next.sort = sortInput ? String(sortInput.value || "brevet_desc") : "brevet_desc";
         }
         this._filterState = next;
         this.syncFilterBadges();
@@ -167,6 +171,10 @@ export class MdMembersSnippet extends Interaction {
         if (searchInput) {
             searchInput.value = state.search || "";
         }
+        const sortValue = state.sort || "brevet_desc";
+        for (const input of form.querySelectorAll(`input[name="sort"]`)) {
+            input.checked = String(input.value || "") === sortValue;
+        }
         this.syncFilterBadges();
     }
 
@@ -185,6 +193,7 @@ export class MdMembersSnippet extends Interaction {
             specialty: (filters.specialty || []).join(","),
             category: (filters.category || []).join(","),
             search: filters.search || "",
+            sort: filters.sort || "brevet_desc",
             ...extra,
         };
     }

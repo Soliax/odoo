@@ -74,7 +74,10 @@ class MemberDirectoryController(http.Controller):
             limit = int(kwargs.get("limit") or 0) or None
         except (TypeError, ValueError):
             limit = None
-        return search, categories, brevets, specialties, limit
+        sort = str(kwargs.get("sort") or "brevet_desc").strip().lower()
+        if sort not in ("name_asc", "name_desc", "brevet_asc", "brevet_desc"):
+            sort = "brevet_desc"
+        return search, categories, brevets, specialties, limit, sort
 
     def _user_profile_url(self, partner):
         """Same detail page as the members directory (/membres/<user_id>)."""
@@ -195,7 +198,7 @@ class MemberDirectoryController(http.Controller):
         if request.env.user._is_public():
             return {"html": "", "error": "login_required"}
 
-        search, categories, brevets, specialties, limit = self._parse_filters(kwargs)
+        search, categories, brevets, specialties, limit, sort = self._parse_filters(kwargs)
 
         def _flag(key, default="1"):
             return str(kwargs.get(key, default)) not in ("0", "false", "False", "")
@@ -214,6 +217,7 @@ class MemberDirectoryController(http.Controller):
             brevets=brevets or None,
             specialties=specialties or None,
             limit=limit,
+            sort=sort,
         )
         values = {
             "members": members,
@@ -226,6 +230,7 @@ class MemberDirectoryController(http.Controller):
             "show_categories_filters": show_categories_filters,
             "tcg_visual": tcg_visual,
             "columns": columns,
+            "sort": sort,
             "brevet_choices": DIVE_BREVET_SELECTION + [
                 ("nb", "NB"),
             ],
