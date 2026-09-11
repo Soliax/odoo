@@ -86,7 +86,8 @@
 .s_md_members,
 .o_website_member,
 .s_md_tcg_grid {
-  --md-border-card: url("/website_member/static/src/svg/frames/card_special_1.svg");
+  /* special_1 uses the two corner SVGs only (no full card_special_1.svg) */
+  --md-border-card: url("/website_member/static/src/svg/frames/card_square_3.svg");
   --md-border-card-bl: url("/website_member/static/src/svg/frames/card_special_bottom_left.svg");
   --md-border-card-tr: url("/website_member/static/src/svg/frames/card_special_top_right.svg");
   --md-border-oval: url("/website_member/static/src/svg/borders/circle_7.svg");
@@ -135,7 +136,7 @@
   --md-card-special-corners: 0;
 }
 .s_md_members[data-border-card="special_1"] {
-  --md-border-card: url("/website_member/static/src/svg/frames/card_special_1.svg");
+  /* Corners only — files: card_special_bottom_left.svg + card_special_top_right.svg */
   --md-border-card-bl: url("/website_member/static/src/svg/frames/card_special_bottom_left.svg");
   --md-border-card-tr: url("/website_member/static/src/svg/frames/card_special_top_right.svg");
   --md-card-special-corners: 1;
@@ -324,20 +325,21 @@
   mask-position: center;
   opacity: 0.95;
 }
-/* special_1: full-card frame box (correct corner mapping) + mask at 0.6 in the corner */
+/* special_1 corners: full-card box + mask pinned at 60% in the corner */
 .s_md_ornament_card_bl,
 .s_md_ornament_card_tr {
   z-index: 4;
   inset: auto;
+  top: auto;
+  left: auto;
   left: 50%;
   top: 50%;
-  width: #{"calc((100% + (100% * var(--md-card-frame-grow-x, 0.04))) * var(--md-card-frame-scale-x, 1) * 1.05)"};
-  height: #{"calc((100% + (100% * var(--md-card-frame-grow-y, 0.05))) * var(--md-card-frame-scale-y, 1) * 1.05)"};
+  width: #{"calc((100% + (100% * var(--md-card-frame-grow-x, 0.04))) * var(--md-card-frame-scale-x, 1) * 1)"};
+  height: #{"calc((100% + (100% * var(--md-card-frame-grow-y, 0.05))) * var(--md-card-frame-scale-y, 1) * 1)"};
   transform: translate(-50%, -50%);
   --md-ornament-fill: var(--md-brevet-fill);
-  /* 0.6 so ornaments stay in the corner without covering the card face */
-  -webkit-mask-size: 60% 60%;
-  mask-size: 60% 60%;
+  -webkit-mask-size: 40% 40%;
+  mask-size: 40% 40%;
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
   opacity: 0.95;
@@ -401,7 +403,7 @@
 }
 .s_md_ornament_name,
 .s_md_ornament_specs {
-  z-index: 0;
+  z-index: 2;
   inset: -2%;
   --md-ornament-fill: var(--md-brevet-fill);
   opacity: 0.95;
@@ -418,14 +420,12 @@
 }
 .s_md_ornament_stat {
   z-index: 2;
-  /* Slightly smaller than portrait ratio so it reads as a thin border */
   inset: auto;
   left: 50%;
   top: 50%;
   width: 100%;
   height: 100%;
   transform: translate(-50%, -50%);
-  --md-ornament-fill: var(--md-brevet-fill);
   -webkit-mask-image: var(--md-border-oval);
   mask-image: var(--md-border-oval);
   opacity: 0.92;
@@ -509,11 +509,10 @@
   background: linear-gradient(160deg, #4a3f32, #1a1612);
 }
 
-/* Name + specialties: spaced parchment panels, frames sized to the panel */
-/* Name + specialties behind card border */
+/* Name + specialties above card corner frame */
 .s_md_card_panels {
   position: absolute;
-  z-index: 1;
+  z-index: 5;
   left: 9%;
   right: 9%;
   top: 50%;
@@ -526,8 +525,8 @@
 .s_md_card_banner,
 .s_md_card_text {
   position: relative;
+  z-index: 1;
   border: none;
-  overflow: hidden;
   background-color: #f3e6c8;
   background-image: var(--md-parchment-fill);
   background-size: 110px 110px, auto;
@@ -541,12 +540,17 @@
   align-items: center;
   justify-content: center;
   padding: 0.55rem 1rem;
+  /* Allow HSA / dive seals to sit just above the name frame */
+  overflow: visible;
+}
+.s_md_card_text {
+  overflow: hidden;
 }
 .s_md_card_name {
   position: relative;
   z-index: 1;
   font-weight: 800;
-  font-size: clamp(0.78rem, 2vw, 0.95rem);
+  font-size: clamp(0.65rem, 2vw, 0.75rem);
   color: #1c1610;
   line-height: 1.15;
   text-align: center;
@@ -554,6 +558,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 100%;
+  /* Keep letters clear of the HSA / dive seals on the corners */
+  padding-inline: 1.6rem;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
 }
 
@@ -587,18 +593,21 @@
   overflow: hidden;
 }
 
-/* Bottom icons above card border — ring sized like portrait (face ~inner hole) */
+/* Category seals: perched on the top corners of the name frame, clear of the text */
 .s_md_card_stat {
   position: absolute;
   z-index: 7;
-  bottom: -10px;
-  width: 42px;
-  height: 42px;
+  bottom: auto;
+  top: 0;
+  width: 34px;
+  height: 34px;
   border-radius: 0;
   overflow: visible;
   display: block;
   background: transparent;
   box-shadow: none;
+  /* Sit mostly above the frame; only a small bite on the top edge */
+  transform: translateY(calc(-150% + 8px));
 }
 .s_md_card_stat_face {
   position: absolute;
@@ -608,25 +617,58 @@
   overflow: hidden;
   display: grid;
   place-items: center;
-  background: radial-gradient(circle at 32% 28%, #fff 0%, #ffe9a8 18%, #d4b76a 50%, #8a6418 100%);
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+  background-color: #f3e6c8;
+  background-image:
+    url("/website_member/static/src/img/parchment-noise.svg"),
+    linear-gradient(160deg, var(--md-cat-hi) 0%, var(--md-cat) 48%, var(--md-cat-lo) 100%);
+  background-size: 80px 80px, auto;
+  background-blend-mode: multiply, normal;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.28);
 }
 .s_md_card_stat_face img {
   width: 62%;
   height: 62%;
   object-fit: contain;
+  filter: brightness(0) invert(1);
 }
-.s_md_card_stat_hsa { left: -8px; }
-.s_md_card_stat_dive { right: -8px; }
+.s_md_card_stat_hsa {
+  left: 2px;
+  right: auto;
+}
+.s_md_card_stat_dive {
+  right: 2px;
+  left: auto;
+}
 .s_md_card_stat_hsa .s_md_card_stat_face {
-  background: radial-gradient(circle at 32% 28%, #fff 0%, #ffd4a8 18%, #e07a28 52%, #7a3a10 100%);
+  --md-cat: #e83e8c;
+  --md-cat-hi: #ff9ec8;
+  --md-cat-lo: #9b1b5a;
 }
 .s_md_card_stat_dive .s_md_card_stat_face {
-  background: radial-gradient(circle at 32% 28%, #fff 0%, #c8f0f2 18%, #1f8a8e 52%, #0a3a3c 100%);
+  --md-cat: #1f8a8e;
+  --md-cat-hi: #7ee0e6;
+  --md-cat-lo: #0a4a4c;
 }
-.s_md_card_stat_hsa .s_md_card_stat_face img,
-.s_md_card_stat_dive .s_md_card_stat_face img {
-  filter: brightness(0) invert(1);
+/* Category ring colors (not brevet) */
+.s_md_card_stat_hsa .s_md_ornament_stat {
+  --md-ornament-fill: linear-gradient(
+    145deg,
+    #fff 0%,
+    #ff9ec8 18%,
+    #e83e8c 48%,
+    #9b1b5a 78%,
+    #ff9ec8 100%
+  );
+}
+.s_md_card_stat_dive .s_md_ornament_stat {
+  --md-ornament-fill: linear-gradient(
+    145deg,
+    #fff 0%,
+    #7ee0e6 18%,
+    #1f8a8e 48%,
+    #0a4a4c 78%,
+    #7ee0e6 100%
+  );
 }
 
 /* Brevet colors only (borders are configuration, not rank) */

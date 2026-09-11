@@ -34,6 +34,18 @@
 
                 <div class="s_md_card_panels">
                     <div class="s_md_card_banner">
+                        <div t-if="member.dive_is_hsa" class="s_md_card_stat s_md_card_stat_hsa" title="HSA">
+                            <div class="s_md_ornament s_md_ornament_stat" aria-hidden="true"/>
+                            <div class="s_md_card_stat_face">
+                                <img src="/website_member/static/src/img/icons/hsa.png" alt="HSA"/>
+                            </div>
+                        </div>
+                        <div t-if="member.dive_is_plongeur" class="s_md_card_stat s_md_card_stat_dive" title="Plongeur">
+                            <div class="s_md_ornament s_md_ornament_stat" aria-hidden="true"/>
+                            <div class="s_md_card_stat_face">
+                                <img src="/website_member/static/src/img/icons/diving.png" alt="Plongeur"/>
+                            </div>
+                        </div>
                         <div class="s_md_ornament s_md_ornament_name" aria-hidden="true"/>
                         <span class="s_md_card_name" t-esc="card_name"/>
                     </div>
@@ -47,19 +59,6 @@
                                       t-esc="spec['short']"/>
                             </t>
                         </div>
-                    </div>
-                </div>
-
-                <div t-if="member.dive_is_hsa" class="s_md_card_stat s_md_card_stat_hsa" title="HSA">
-                    <div class="s_md_ornament s_md_ornament_stat" aria-hidden="true"/>
-                    <div class="s_md_card_stat_face">
-                        <img src="/website_member/static/src/img/icons/hsa.png" alt="HSA"/>
-                    </div>
-                </div>
-                <div t-if="member.dive_is_plongeur" class="s_md_card_stat s_md_card_stat_dive" title="Plongeur">
-                    <div class="s_md_ornament s_md_ornament_stat" aria-hidden="true"/>
-                    <div class="s_md_card_stat_face">
-                        <img src="/website_member/static/src/img/icons/diving.png" alt="Plongeur"/>
                     </div>
                 </div>
             </div>
