@@ -4,7 +4,7 @@
         <field name="name">Sexe</field>
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_gender</field>
-        <field name="widget">text</field>
+        <field name="widget_id" ref="widget_text"/>
         <field name="section_id" ref="section_identity"/>
         <field name="sequence">25</field>
     </record>
@@ -12,16 +12,34 @@
         <field name="name">Membre depuis</field>
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_member_since</field>
-        <field name="widget">date</field>
+        <field name="widget_id" ref="widget_date"/>
         <field name="section_id" ref="section_club"/>
         <field name="sequence">10</field>
+    </record>
+    <record id="field_is_plongeur" model="member.field">
+        <field name="name">Plongeur</field>
+        <field name="source_model">res.partner</field>
+        <field name="field_name">dive_is_plongeur</field>
+        <field name="widget_id" ref="widget_boolean"/>
+        <field name="section_id" ref="section_club"/>
+        <field name="show_on_backend" eval="True"/>
+        <field name="sequence">20</field>
+    </record>
+    <record id="field_is_hsa" model="member.field">
+        <field name="name">HSA (Hockey subaquatique)</field>
+        <field name="source_model">res.partner</field>
+        <field name="field_name">dive_is_hsa</field>
+        <field name="widget_id" ref="widget_boolean"/>
+        <field name="section_id" ref="section_club"/>
+        <field name="show_on_backend" eval="True"/>
+        <field name="sequence">30</field>
     </record>
 
     <record id="field_fed_adip" model="member.field">
         <field name="name">ADIP</field>
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_fed_adip</field>
-        <field name="widget">text</field>
+        <field name="widget_id" ref="widget_text"/>
         <field name="section_id" ref="section_federations"/>
         <field name="sequence">10</field>
     </record>
@@ -29,7 +47,7 @@
         <field name="name">CEDIP</field>
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_fed_cedip</field>
-        <field name="widget">text</field>
+        <field name="widget_id" ref="widget_text"/>
         <field name="section_id" ref="section_federations"/>
         <field name="sequence">20</field>
     </record>
@@ -37,7 +55,7 @@
         <field name="name">IDA</field>
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_fed_ida</field>
-        <field name="widget">text</field>
+        <field name="widget_id" ref="widget_text"/>
         <field name="section_id" ref="section_federations"/>
         <field name="sequence">30</field>
     </record>
@@ -45,7 +63,7 @@
         <field name="name">PROTEC</field>
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_fed_protec</field>
-        <field name="widget">text</field>
+        <field name="widget_id" ref="widget_text"/>
         <field name="section_id" ref="section_federations"/>
         <field name="sequence">40</field>
     </record>
@@ -53,7 +71,7 @@
         <field name="name">SSI</field>
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_fed_ssi</field>
-        <field name="widget">text</field>
+        <field name="widget_id" ref="widget_text"/>
         <field name="section_id" ref="section_federations"/>
         <field name="sequence">50</field>
     </record>
@@ -61,7 +79,7 @@
         <field name="name">PADI</field>
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_fed_padi</field>
-        <field name="widget">text</field>
+        <field name="widget_id" ref="widget_text"/>
         <field name="section_id" ref="section_federations"/>
         <field name="sequence">60</field>
     </record>
