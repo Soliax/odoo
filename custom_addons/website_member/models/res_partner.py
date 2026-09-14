@@ -81,7 +81,7 @@ class ResPartner(models.Model):
     dive_brevet_date_mn = fields.Date(string="MN")
 
     dive_brevet = fields.Selection(
-        DIVE_BREVET_SELECTION,
+        selection="_selection_dive_brevet",
         string="Brevet LIFRAS",
     )
     dive_brevet_label = fields.Char(compute="_compute_dive_brevet_meta")
@@ -110,13 +110,49 @@ class ResPartner(models.Model):
     dive_nitrox_basic_date = fields.Date(string="Date Nitrox Basic (legacy)")
     dive_cfps_start = fields.Date(string="Date Debut CFPS (legacy)")
 
+    @api.model
+    def _get_lifras_widget(self):
+        return self.env.ref(
+            "website_member.widget_brevet", raise_if_not_found=False
+        )
+
+    @api.model
+    def _selection_dive_brevet(self):
+        """Pull choices from Profile Widgets → Brevets (LIFRAS) when configured."""
+        widget = self._get_lifras_widget()
+        if widget:
+            pairs = widget.selection_pairs()
+            if pairs:
+                return pairs
+        return list(DIVE_BREVET_SELECTION)
+
+    def _brevet_meta_for(self, code):
+        """Label / short / css / rank for a LIFRAS code (widget options first)."""
+        if not code:
+            return "", "NB", "brevet-nb", 0
+        widget = self._get_lifras_widget()
+        opt = widget.get_option(code) if widget else False
+        if opt:
+            return (
+                opt.name,
+                opt.short_name or opt.name,
+                opt.css_class or ("brevet-%s" % code),
+                opt.sequence or DIVE_BREVET_RANK.get(code, 0),
+            )
+        return (
+            dict(DIVE_BREVET_SELECTION).get(code, code),
+            DIVE_BREVET_SHORT.get(code, code),
+            "brevet-%s" % code,
+            DIVE_BREVET_RANK.get(code, 0),
+        )
+
     def _highest_brevet_from_dates(self):
         self.ensure_one()
         best = False
         best_rank = 0
         for code, fname, _label in DIVE_BREVET_DATES:
             if self[fname]:
-                rank = DIVE_BREVET_RANK[code]
+                _l, _s, _c, rank = self._brevet_meta_for(code)
                 if rank >= best_rank:
                     best_rank = rank
                     best = code
@@ -142,14 +178,14 @@ class ResPartner(models.Model):
 
     @api.depends("dive_brevet")
     def _compute_dive_brevet_meta(self):
-        selection = dict(DIVE_BREVET_SELECTION)
         for partner in self:
             brevet = partner.dive_brevet or False
             if brevet:
-                partner.dive_brevet_label = selection.get(brevet, "")
-                partner.dive_brevet_short = DIVE_BREVET_SHORT.get(brevet, "")
-                partner.dive_brevet_rank = DIVE_BREVET_RANK.get(brevet, 0)
-                partner.dive_brevet_css = "brevet-%s" % brevet
+                label, short, css, rank = partner._brevet_meta_for(brevet)
+                partner.dive_brevet_label = label
+                partner.dive_brevet_short = short
+                partner.dive_brevet_rank = rank
+                partner.dive_brevet_css = css
             else:
                 # No LIFRAS brevet → NB. HSA is a category, never a brevet.
                 partner.dive_brevet_label = "NB - Non Brevete"
@@ -174,17 +210,17 @@ class ResPartner(models.Model):
     def get_dive_brevet_dates(self):
         """Return earned brevets as payloads (date filled => obtained)."""
         self.ensure_one()
-        selection = dict(DIVE_BREVET_SELECTION)
         items = []
         for code, fname, short in DIVE_BREVET_DATES:
             obtained = self[fname]
             if obtained:
+                label, short_lbl, css, _rank = self._brevet_meta_for(code)
                 items.append({
                     "code": code,
-                    "short": short,
-                    "label": selection.get(code, short),
-                    "date": obtained.strftime("%d-%m-%y"),
-                    "css": "brevet-%s" % code,
+                    "short": short_lbl or short,
+                    "label": label or short,
+                    "date": obtained.strftime("%d-%m-%Y"),
+                    "css": css,
                 })
         return items
 
@@ -199,7 +235,7 @@ class ResPartner(models.Model):
                     "code": code,
                     "short": short,
                     "label": full,
-                    "date": obtained.strftime("%d-%m-%y"),
+                    "date": obtained.strftime("%d-%m-%Y"),
                     "css": "spec-%s" % code,
                 })
         return pills

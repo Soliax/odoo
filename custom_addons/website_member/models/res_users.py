@@ -368,8 +368,9 @@ class ResUsers(models.Model):
             )
             by_section[key]["items"].append(
                 {
-                    "label": conf.name,
-                    "widget": conf.widget,
+                    "label": conf.name or conf.field_name or "",
+                    "widget": conf.widget_id.code if conf.widget_id else "text",
+                    "render_type": conf.widget_id.render_type if conf.widget_id else "text",
                     "data": payload,
                 }
             )
