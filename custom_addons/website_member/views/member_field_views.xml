@@ -32,11 +32,77 @@
                                 <field name="sequence" widget="handle"/>
                                 <field name="name"/>
                                 <field name="field_name"/>
-                                <field name="widget"/>
+                                <field name="widget_id"/>
                                 <field name="active"/>
                             </list>
                         </field>
                     </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_member_widget_list" model="ir.ui.view">
+        <field name="name">member.widget.list</field>
+        <field name="model">member.widget</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="render_type"/>
+                <field name="is_system"/>
+                <field name="field_count"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_member_widget_form" model="ir.ui.view">
+        <field name="name">member.widget.form</field>
+        <field name="model">member.widget</field>
+        <field name="arch" type="xml">
+            <form string="Profile Widget">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code" readonly="is_system"/>
+                            <field name="sequence"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="render_type" readonly="is_system"/>
+                            <field name="is_system" readonly="1"/>
+                            <field name="uses_value_list"/>
+                            <field name="field_count"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Value list" name="values"
+                              invisible="not uses_value_list">
+                            <field name="option_ids">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="value"/>
+                                    <field name="short_name"/>
+                                    <field name="css_class"/>
+                                    <field name="active"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Used by fields" name="fields">
+                            <field name="field_ids" readonly="1">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="section_id"/>
+                                    <field name="field_name"/>
+                                    <field name="active"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
@@ -52,8 +118,8 @@
                 <field name="section_id"/>
                 <field name="source_model"/>
                 <field name="field_name"/>
-                <field name="widget"/>
-                <field name="is_custom" optional="show"/>
+                <field name="widget_id"/>
+                <field name="is_custom" optional="show" readonly="1"/>
                 <field name="show_on_backend" optional="show"/>
                 <field name="visibility"/>
                 <field name="active"/>
@@ -77,7 +143,7 @@
                         <group>
                             <field name="source_model"/>
                             <field name="field_name"/>
-                            <field name="widget"/>
+                            <field name="widget_id"/>
                             <field name="is_custom" readonly="1"/>
                             <field name="show_on_backend"/>
                             <field name="visibility"/>
@@ -97,9 +163,11 @@
                 <group>
                     <field name="name"/>
                     <field name="section_id"/>
-                    <field name="field_type"/>
-                    <field name="technical_name"
-                             placeholder="x_dive_spec_pa"/>
+                    <field name="widget_id"
+                           options="{'no_create_edit': False}"/>
+                    <field name="field_type"
+                           help="Inferred from the widget (Select → dropdown, MultiSelect → tags)."/>
+                    <field name="technical_name"/>
                     <field name="sequence"/>
                     <field name="show_on_profile"/>
                     <field name="show_on_backend"/>
@@ -112,16 +180,128 @@
         </field>
     </record>
 
+    <record id="view_member_technical_field_list" model="ir.ui.view">
+        <field name="name">member.field.technical.list</field>
+        <field name="model">member.field</field>
+        <field name="arch" type="xml">
+            <list editable="bottom" create="false" delete="true">
+                <header>
+                    <button name="%(website_member.action_member_field_create_wizard)d"
+                            type="action"
+                            string="New technical field" class="btn-primary"
+                            display="always"/>
+                </header>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="field_name"/>
+                <field name="section_id"/>
+                <field name="widget_id"/>
+                <field name="show_on_backend"/>
+                <field name="visibility"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_member_technical_field_form" model="ir.ui.view">
+        <field name="name">member.field.technical.form</field>
+        <field name="model">member.field</field>
+        <field name="arch" type="xml">
+            <form string="Technical Field" create="false">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_widget" type="object"
+                                class="oe_stat_button" icon="fa-tags"
+                                invisible="not widget_id">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Widget / values</span>
+                            </div>
+                        </button>
+                    </div>
+                    <group>
+                        <group string="Profile">
+                            <field name="name"/>
+                            <field name="section_id"/>
+                            <field name="sequence"/>
+                            <field name="active"/>
+                            <field name="show_on_backend"/>
+                            <field name="visibility"/>
+                            <field name="group_ids" widget="many2many_tags"
+                                     invisible="visibility != 'group'"/>
+                        </group>
+                        <group string="Technical">
+                            <field name="field_name"
+                                     placeholder="dive_brevet_pa"/>
+                            <field name="source_model" readonly="1"/>
+                            <field name="widget_id"/>
+                            <field name="is_custom" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
     <record id="action_member_directory_field" model="ir.actions.act_window">
         <field name="name">Profile Fields</field>
         <field name="res_model">member.field</field>
         <field name="view_mode">list,form</field>
     </record>
 
+    <record id="action_member_technical_field" model="ir.actions.act_window">
+        <field name="name">Technical Fields</field>
+        <field name="res_model">member.field</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('is_custom', '=', True)]</field>
+        <field name="context">{
+            'default_is_custom': True,
+            'default_source_model': 'res.partner',
+            'create': False,
+        }</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No custom technical fields yet.
+            </p>
+            <p>
+                Use « New technical field » on this page to create an x_ contact field,
+                then edit label, technical name, section, widget and visibility here.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_member_technical_field_view_list" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="view_member_technical_field_list"/>
+        <field name="act_window_id" ref="action_member_technical_field"/>
+    </record>
+
+    <record id="action_member_technical_field_view_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_member_technical_field_form"/>
+        <field name="act_window_id" ref="action_member_technical_field"/>
+    </record>
+
     <record id="action_member_section" model="ir.actions.act_window">
         <field name="name">Profile Sections</field>
         <field name="res_model">member.section</field>
         <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="action_member_widget" model="ir.actions.act_window">
+        <field name="name">Profile Widgets</field>
+        <field name="res_model">member.widget</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a widget with a value list (Select / MultiSelect / LIFRAS).
+            </p>
+            <p>
+                Built-in widgets (Text, Date, Brevets LIFRAS…) can be renamed but not deleted.
+                Select, MultiSelect and Brevet LIFRAS expose an editable value list.
+            </p>
+        </field>
     </record>
 
     <record id="action_member_field_create_wizard" model="ir.actions.act_window">
@@ -137,21 +317,27 @@
               sequence="60"
               groups="website_member.group_member_directory_manager"/>
 
-    <menuitem id="menu_member_directory_fields"
-              name="Profile Fields"
-              parent="menu_member_directory_root"
-              action="action_member_directory_field"
-              sequence="10"/>
-
     <menuitem id="menu_member_sections"
               name="Profile Sections"
               parent="menu_member_directory_root"
               action="action_member_section"
               sequence="5"/>
 
-    <menuitem id="menu_member_field_create"
-              name="New technical field"
+    <menuitem id="menu_member_widgets"
+              name="Profile Widgets"
               parent="menu_member_directory_root"
-              action="action_member_field_create_wizard"
-              sequence="15"/>
+              action="action_member_widget"
+              sequence="8"/>
+
+    <menuitem id="menu_member_directory_fields"
+              name="Profile Fields"
+              parent="menu_member_directory_root"
+              action="action_member_directory_field"
+              sequence="10"/>
+
+    <menuitem id="menu_member_technical_fields"
+              name="Technical Fields"
+              parent="menu_member_directory_root"
+              action="action_member_technical_field"
+              sequence="12"/>
 </odoo>
