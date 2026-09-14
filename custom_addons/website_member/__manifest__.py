@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": "Members",
-    "version": "19.0.3.12.1",
+    "version": "19.0.3.14.1",
     "category": "Website",
     "summary": "Club members TCG cards + event participant website blocks",
     "description": """
@@ -20,6 +20,7 @@ Members website blocks
     "data": [
         "security/security.xml",
         "security/ir.model.access.csv",
+        "data/member_sections.xml",
         "data/profile_fields.xml",
         "data/specialty_fields.xml",
         "data/brevet_fields.xml",

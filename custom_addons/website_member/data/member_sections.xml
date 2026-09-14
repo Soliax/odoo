@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="section_identity" model="member.section">
+        <field name="name">Identite</field>
+        <field name="code">identity</field>
+        <field name="sequence">10</field>
+    </record>
+    <record id="section_contact" model="member.section">
+        <field name="name">Contact</field>
+        <field name="code">contact</field>
+        <field name="sequence">20</field>
+    </record>
+    <record id="section_address" model="member.section">
+        <field name="name">Adresse</field>
+        <field name="code">address</field>
+        <field name="sequence">30</field>
+    </record>
+    <record id="section_professional" model="member.section">
+        <field name="name">Profession</field>
+        <field name="code">professional</field>
+        <field name="sequence">40</field>
+    </record>
+    <record id="section_club" model="member.section">
+        <field name="name">Club</field>
+        <field name="code">club</field>
+        <field name="sequence">45</field>
+    </record>
+    <record id="section_lifras" model="member.section">
+        <field name="name">LIFRAS</field>
+        <field name="code">lifras</field>
+        <field name="sequence">50</field>
+    </record>
+    <record id="section_brevets" model="member.section">
+        <field name="name">Brevets</field>
+        <field name="code">brevets</field>
+        <field name="sequence">52</field>
+    </record>
+    <record id="section_specialties" model="member.section">
+        <field name="name">Specialites</field>
+        <field name="code">specialties</field>
+        <field name="sequence">55</field>
+    </record>
+    <record id="section_federations" model="member.section">
+        <field name="name">Autres federations</field>
+        <field name="code">federations</field>
+        <field name="sequence">58</field>
+    </record>
+    <record id="section_medical" model="member.section">
+        <field name="name">Medical</field>
+        <field name="code">medical</field>
+        <field name="sequence">60</field>
+    </record>
+    <record id="section_extra" model="member.section">
+        <field name="name">Extra</field>
+        <field name="code">extra</field>
+        <field name="sequence">70</field>
+    </record>
+</odoo>

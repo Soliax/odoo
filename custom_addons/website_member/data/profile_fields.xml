@@ -5,7 +5,7 @@
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_firstname</field>
         <field name="widget">text</field>
-        <field name="section">identity</field>
+        <field name="section_id" ref="section_identity"/>
         <field name="sequence">10</field>
     </record>
     <record id="field_lastname" model="member.field">
@@ -13,7 +13,7 @@
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_lastname</field>
         <field name="widget">text</field>
-        <field name="section">identity</field>
+        <field name="section_id" ref="section_identity"/>
         <field name="sequence">20</field>
     </record>
     <record id="field_birthday" model="member.field">
@@ -21,7 +21,7 @@
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_birthday</field>
         <field name="widget">date</field>
-        <field name="section">identity</field>
+        <field name="section_id" ref="section_identity"/>
         <field name="sequence">30</field>
     </record>
     <record id="field_email" model="member.field">
@@ -29,7 +29,7 @@
         <field name="source_model">res.partner</field>
         <field name="field_name">email</field>
         <field name="widget">email</field>
-        <field name="section">contact</field>
+        <field name="section_id" ref="section_contact"/>
         <field name="sequence">10</field>
     </record>
     <record id="field_phone" model="member.field">
@@ -37,7 +37,7 @@
         <field name="source_model">res.partner</field>
         <field name="field_name">phone</field>
         <field name="widget">phone</field>
-        <field name="section">contact</field>
+        <field name="section_id" ref="section_contact"/>
         <field name="sequence">20</field>
     </record>
     <record id="field_phone_home" model="member.field">
@@ -45,7 +45,7 @@
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_phone_home</field>
         <field name="widget">phone</field>
-        <field name="section">contact</field>
+        <field name="section_id" ref="section_contact"/>
         <field name="sequence">30</field>
     </record>
     <record id="field_phone_work" model="member.field">
@@ -53,7 +53,7 @@
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_phone_work</field>
         <field name="widget">phone</field>
-        <field name="section">contact</field>
+        <field name="section_id" ref="section_contact"/>
         <field name="sequence">40</field>
     </record>
     <record id="field_address" model="member.field">
@@ -61,23 +61,23 @@
         <field name="source_model">res.partner</field>
         <field name="field_name">street</field>
         <field name="widget">address</field>
-        <field name="section">address</field>
+        <field name="section_id" ref="section_address"/>
         <field name="sequence">10</field>
     </record>
     <record id="field_function" model="member.field">
-        <field name="name">Fonction club</field>
+        <field name="name">Rôle</field>
         <field name="source_model">res.partner</field>
         <field name="field_name">function</field>
         <field name="widget">text</field>
-        <field name="section">professional</field>
-        <field name="sequence">10</field>
+        <field name="section_id" ref="section_club"/>
+        <field name="sequence">20</field>
     </record>
     <record id="field_profession" model="member.field">
         <field name="name">Profession</field>
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_profession</field>
         <field name="widget">text</field>
-        <field name="section">professional</field>
+        <field name="section_id" ref="section_professional"/>
         <field name="sequence">20</field>
     </record>
     <record id="field_brevet" model="member.field">
@@ -85,7 +85,7 @@
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_brevet</field>
         <field name="widget">brevet</field>
-        <field name="section">lifras</field>
+        <field name="section_id" ref="section_lifras"/>
         <field name="sequence">10</field>
     </record>
     <record id="field_lifras_id" model="member.field">
@@ -93,7 +93,7 @@
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_lifras_id</field>
         <field name="widget">text</field>
-        <field name="section">lifras</field>
+        <field name="section_id" ref="section_lifras"/>
         <field name="sequence">20</field>
     </record>
     <record id="field_other_brevets" model="member.field">
@@ -101,7 +101,7 @@
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_other_brevets</field>
         <field name="widget">text</field>
-        <field name="section">lifras</field>
+        <field name="section_id" ref="section_lifras"/>
         <field name="sequence">30</field>
     </record>
     <record id="field_spec_cfps" model="member.field">
@@ -109,7 +109,7 @@
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_spec_cfps</field>
         <field name="widget">date</field>
-        <field name="section">specialties</field>
+        <field name="section_id" ref="section_specialties"/>
         <field name="sequence">10</field>
     </record>
     <record id="field_spec_ve" model="member.field">
@@ -117,7 +117,7 @@
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_spec_ve</field>
         <field name="widget">date</field>
-        <field name="section">specialties</field>
+        <field name="section_id" ref="section_specialties"/>
         <field name="sequence">20</field>
     </record>
     <record id="field_spec_pn" model="member.field">
@@ -125,7 +125,7 @@
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_spec_pn</field>
         <field name="widget">date</field>
-        <field name="section">specialties</field>
+        <field name="section_id" ref="section_specialties"/>
         <field name="sequence">30</field>
     </record>
     <record id="field_spec_pnc" model="member.field">
@@ -133,7 +133,7 @@
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_spec_pnc</field>
         <field name="widget">date</field>
-        <field name="section">specialties</field>
+        <field name="section_id" ref="section_specialties"/>
         <field name="sequence">40</field>
     </record>
     <record id="field_spec_in" model="member.field">
@@ -141,7 +141,7 @@
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_spec_in</field>
         <field name="widget">date</field>
-        <field name="section">specialties</field>
+        <field name="section_id" ref="section_specialties"/>
         <field name="sequence">50</field>
     </record>
     <record id="field_spec_inc" model="member.field">
@@ -149,7 +149,7 @@
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_spec_inc</field>
         <field name="widget">date</field>
-        <field name="section">specialties</field>
+        <field name="section_id" ref="section_specialties"/>
         <field name="sequence">60</field>
     </record>
     <record id="field_spec_fn" model="member.field">
@@ -157,7 +157,7 @@
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_spec_fn</field>
         <field name="widget">date</field>
-        <field name="section">specialties</field>
+        <field name="section_id" ref="section_specialties"/>
         <field name="sequence">70</field>
     </record>
     <record id="field_cfps_end" model="member.field">
@@ -165,7 +165,7 @@
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_cfps_end</field>
         <field name="widget">date</field>
-        <field name="section">specialties</field>
+        <field name="section_id" ref="section_specialties"/>
         <field name="sequence">15</field>
     </record>
     <record id="field_contact_name" model="member.field">
@@ -173,7 +173,7 @@
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_contact_name</field>
         <field name="widget">text</field>
-        <field name="section">medical</field>
+        <field name="section_id" ref="section_medical"/>
         <field name="sequence">10</field>
     </record>
     <record id="field_contact_phone" model="member.field">
@@ -181,7 +181,7 @@
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_contact_phone</field>
         <field name="widget">phone</field>
-        <field name="section">medical</field>
+        <field name="section_id" ref="section_medical"/>
         <field name="sequence">20</field>
     </record>
     <record id="field_last_medical" model="member.field">
@@ -189,7 +189,7 @@
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_last_medical</field>
         <field name="widget">date</field>
-        <field name="section">medical</field>
+        <field name="section_id" ref="section_medical"/>
         <field name="sequence">30</field>
     </record>
     <record id="field_last_ecg" model="member.field">
@@ -197,7 +197,7 @@
         <field name="source_model">res.partner</field>
         <field name="field_name">dive_last_ecg</field>
         <field name="widget">date</field>
-        <field name="section">medical</field>
+        <field name="section_id" ref="section_medical"/>
         <field name="sequence">40</field>
     </record>
 </odoo>

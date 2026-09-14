@@ -11,23 +11,16 @@ class MemberField(models.Model):
     name = fields.Char(string="Label", required=True, translate=True)
     active = fields.Boolean(default=True)
     sequence = fields.Integer(default=10)
-    section = fields.Selection(
-        [
-            ("identity", "Identite"),
-            ("contact", "Contact"),
-            ("address", "Adresse"),
-            ("professional", "Professionnel / Club"),
-            ("lifras", "LIFRAS"),
-            ("brevets", "Brevets"),
-            ("specialties", "Specialites"),
-            ("federations", "Autres federations"),
-            ("medical", "Medical"),
-            ("extra", "Extra"),
-        ],
-        default="contact",
+    section_id = fields.Many2one(
+        "member.section",
+        string="Section",
         required=True,
+        ondelete="restrict",
+        index=True,
     )
-    section_sequence = fields.Integer(compute="_compute_section_sequence", store=True)
+    section_sequence = fields.Integer(
+        related="section_id.sequence", store=True, readonly=True
+    )
     source_model = fields.Selection(
         [
             ("res.partner", "Contact (res.partner)"),
@@ -37,6 +30,16 @@ class MemberField(models.Model):
         required=True,
     )
     field_name = fields.Char(string="Technical Field", required=True)
+    is_custom = fields.Boolean(
+        string="Created from UI",
+        default=False,
+        help="Technical field was created from the Members configuration UI.",
+    )
+    show_on_backend = fields.Boolean(
+        string="Show on Club Plongee tab",
+        default=True,
+        help="For custom fields: display on the contact Club Plongee tab.",
+    )
     widget = fields.Selection(
         [
             ("text", "Text"),
@@ -68,23 +71,6 @@ class MemberField(models.Model):
         "group_id",
         string="Allowed Groups",
     )
-
-    @api.depends("section")
-    def _compute_section_sequence(self):
-        order = {
-            "identity": 10,
-            "contact": 20,
-            "address": 30,
-            "professional": 40,
-            "lifras": 50,
-            "brevets": 52,
-            "specialties": 55,
-            "federations": 58,
-            "medical": 60,
-            "extra": 70,
-        }
-        for rec in self:
-            rec.section_sequence = order.get(rec.section, 99)
 
     @api.constrains("field_name", "source_model")
     def _check_field_exists(self):
@@ -163,3 +149,93 @@ class MemberField(models.Model):
         if self.widget == "url":
             return {"type": "url", "value": value}
         return {"type": "text", "value": value}
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        records = super().create(vals_list)
+        records._sync_backend_custom_view()
+        return records
+
+    def write(self, vals):
+        res = super().write(vals)
+        if any(k in vals for k in (
+            "active", "show_on_backend", "field_name", "section_id",
+            "sequence", "name", "source_model", "is_custom",
+        )):
+            self._sync_backend_custom_view()
+        return res
+
+    def unlink(self):
+        res = super().unlink()
+        self.env["member.field"]._sync_backend_custom_view()
+        return res
+
+    @api.model
+    def _sync_backend_custom_view(self):
+        """Rebuild Club Plongee tab extras for UI-created partner fields."""
+        View = self.env["ir.ui.view"].sudo()
+        xmlid = "website_member.view_partner_form_dive_custom_fields"
+        view = self.env.ref(xmlid, raise_if_not_found=False)
+        fields_rec = self.sudo().search([
+            ("active", "=", True),
+            ("show_on_backend", "=", True),
+            ("source_model", "=", "res.partner"),
+            ("is_custom", "=", True),
+        ], order="section_sequence, sequence, id")
+
+        if not fields_rec:
+            arch = """
+                <data>
+                    <xpath expr="//page[@name='dive_club']" position="inside">
+                        <group name="dive_custom_fields" invisible="1"/>
+                    </xpath>
+                </data>
+            """
+        else:
+            chunks = [
+                '<data>',
+                '<xpath expr="//page[@name=\'dive_club\']" position="inside">',
+                '<group name="dive_custom_fields">',
+            ]
+            current_section = None
+            for conf in fields_rec:
+                if conf.field_name not in self.env["res.partner"]._fields:
+                    continue
+                sec = conf.section_id
+                if not sec or sec == current_section:
+                    pass
+                else:
+                    if current_section is not None:
+                        chunks.append("</group>")
+                    current_section = sec
+                    label = (sec.name or sec.code or "Extra").replace('"', "&quot;")
+                    chunks.append(f'<group string="{label}">')
+                fname = conf.field_name
+                flabel = (conf.name or fname).replace('"', "&quot;")
+                chunks.append(f'<field name="{fname}" string="{flabel}"/>')
+            if current_section is not None:
+                chunks.append("</group>")
+            chunks.extend(["</group>", "</xpath>", "</data>"])
+            arch = "\n".join(chunks)
+
+        if view:
+            view.write({"arch": arch})
+        else:
+            view = View.create({
+                "name": "res.partner.form.dive.custom.fields",
+                "type": "form",
+                "model": "res.partner",
+                "inherit_id": self.env.ref("base.view_partner_form").id,
+                "mode": "extension",
+                "arch": arch,
+            })
+            Imd = self.env["ir.model.data"].sudo()
+            if not Imd.search([("module", "=", "website_member"), ("name", "=", "view_partner_form_dive_custom_fields")], limit=1):
+                Imd.create({
+                    "module": "website_member",
+                    "name": "view_partner_form_dive_custom_fields",
+                    "model": "ir.ui.view",
+                    "res_id": view.id,
+                    "noupdate": True,
+                })
+        return view

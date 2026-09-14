@@ -1,5 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="view_member_section_list" model="ir.ui.view">
+        <field name="name">member.section.list</field>
+        <field name="model">member.section</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="field_count"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_member_section_form" model="ir.ui.view">
+        <field name="name">member.section.form</field>
+        <field name="model">member.section</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                        <field name="sequence"/>
+                        <field name="active"/>
+                    </group>
+                    <group string="Fields">
+                        <field name="field_ids" nolabel="1">
+                            <list>
+                                <field name="sequence" widget="handle"/>
+                                <field name="name"/>
+                                <field name="field_name"/>
+                                <field name="widget"/>
+                                <field name="active"/>
+                            </list>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
     <record id="view_member_directory_field_tree" model="ir.ui.view">
         <field name="name">member.field.list</field>
         <field name="model">member.field</field>
@@ -7,10 +49,12 @@
             <list editable="bottom">
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
-                <field name="section"/>
+                <field name="section_id"/>
                 <field name="source_model"/>
                 <field name="field_name"/>
                 <field name="widget"/>
+                <field name="is_custom" optional="show"/>
+                <field name="show_on_backend" optional="show"/>
                 <field name="visibility"/>
                 <field name="active"/>
             </list>
@@ -26,7 +70,7 @@
                     <group>
                         <group>
                             <field name="name"/>
-                            <field name="section"/>
+                            <field name="section_id"/>
                             <field name="sequence"/>
                             <field name="active"/>
                         </group>
@@ -34,6 +78,8 @@
                             <field name="source_model"/>
                             <field name="field_name"/>
                             <field name="widget"/>
+                            <field name="is_custom" readonly="1"/>
+                            <field name="show_on_backend"/>
                             <field name="visibility"/>
                             <field name="group_ids" widget="many2many_tags" invisible="visibility != 'group'"/>
                         </group>
@@ -43,10 +89,46 @@
         </field>
     </record>
 
+    <record id="view_member_field_create_wizard_form" model="ir.ui.view">
+        <field name="name">member.field.create.wizard.form</field>
+        <field name="model">member.field.create.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Create technical field">
+                <group>
+                    <field name="name"/>
+                    <field name="section_id"/>
+                    <field name="field_type"/>
+                    <field name="technical_name"
+                             placeholder="x_dive_spec_pa"/>
+                    <field name="sequence"/>
+                    <field name="show_on_profile"/>
+                    <field name="show_on_backend"/>
+                </group>
+                <footer>
+                    <button name="action_create" type="object" string="Create" class="btn-primary"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
     <record id="action_member_directory_field" model="ir.actions.act_window">
         <field name="name">Profile Fields</field>
         <field name="res_model">member.field</field>
         <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="action_member_section" model="ir.actions.act_window">
+        <field name="name">Profile Sections</field>
+        <field name="res_model">member.section</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="action_member_field_create_wizard" model="ir.actions.act_window">
+        <field name="name">New technical field</field>
+        <field name="res_model">member.field.create.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
     </record>
 
     <menuitem id="menu_member_directory_root"
@@ -60,4 +142,16 @@
               parent="menu_member_directory_root"
               action="action_member_directory_field"
               sequence="10"/>
+
+    <menuitem id="menu_member_sections"
+              name="Profile Sections"
+              parent="menu_member_directory_root"
+              action="action_member_section"
+              sequence="5"/>
+
+    <menuitem id="menu_member_field_create"
+              name="New technical field"
+              parent="menu_member_directory_root"
+              action="action_member_field_create_wizard"
+              sequence="15"/>
 </odoo>
