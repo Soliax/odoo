@@ -14,4 +14,35 @@
         <field name="user_ids" eval="[(4, ref('base.user_admin'))]"/>
         <field name="implied_by_ids" eval="[(4, ref('base.group_system'))]"/>
     </record>
+
+    <!-- Club membership groups (CB import) -->
+    <record model="res.groups.privilege" id="res_groups_privilege_club">
+        <field name="name">Club WDC</field>
+        <field name="sequence">65</field>
+        <field name="category_id" ref="base.module_category_website"/>
+    </record>
+
+    <record id="group_plongeurs" model="res.groups">
+        <field name="name">Plongeurs</field>
+        <field name="sequence">10</field>
+        <field name="privilege_id" ref="res_groups_privilege_club"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="comment">Membres plongeurs (dive_is_plongeur).</field>
+    </record>
+
+    <record id="group_hsa" model="res.groups">
+        <field name="name">HSA</field>
+        <field name="sequence">15</field>
+        <field name="privilege_id" ref="res_groups_privilege_club"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="comment">Membres hockey subaquatique (dive_is_hsa).</field>
+    </record>
+
+    <record id="group_oa" model="res.groups">
+        <field name="name">OA</field>
+        <field name="sequence">20</field>
+        <field name="privilege_id" ref="res_groups_privilege_club"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="comment">Organe d'administration / responsables (fonction club hors Membre).</field>
+    </record>
 </odoo>

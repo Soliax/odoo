@@ -287,12 +287,24 @@ def _upsert_demo_diver(env, data):
         return user
 
     partner = Partners.create(partner_vals)
+    company = env["res.company"]._ensure_wdc_company()
+    lang = env["res.lang"]._ensure_fr_be()
+    lang_code = lang.code if lang else "fr_BE"
+    group_ids = env["res.users"]._club_group_ids_for_member(
+        plongeur=data.get("plongeur", True),
+        hsa=data.get("hsa", False),
+        function=data.get("function"),
+    )
+    partner.write({"lang": lang_code, "company_id": False})
     return Users.create({
         "name": name,
         "login": data["login"],
         "password": "diverdemo",
         "partner_id": partner.id,
-        "group_ids": [(6, 0, [env.ref("base.group_user").id])],
+        "company_id": company.id,
+        "company_ids": [(6, 0, [company.id])],
+        "lang": lang_code,
+        "group_ids": [(6, 0, group_ids)],
         "members_published": True,
         "members_subtitle": data.get("function"),
     })
@@ -369,10 +381,16 @@ def _seed_demo_event_registrations(env):
 
 
 def post_init_hook(env):
+    env["res.company"]._ensure_wdc_company()
+    env["res.lang"]._ensure_fr_be()
     for data in DEMO_DIVERS:
         _upsert_demo_diver(env, data)
     other = env.ref("website_member.field_other_brevets", raise_if_not_found=False)
     if other:
-        other.write({"section": "specialties", "sequence": 90})
+        section = env.ref("website_member.section_specialties", raise_if_not_found=False)
+        vals = {"sequence": 90}
+        if section:
+            vals["section_id"] = section.id
+        other.write(vals)
     _clean_legacy_member_markup(env)
     _seed_demo_event_registrations(env)

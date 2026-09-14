@@ -89,27 +89,51 @@ def _ensure_menus(env):
 
 
 def _setup_company(env):
-    company = env.company.sudo()
-    company.write({
-        "name": company.name if company.name and company.name != "My Company" else "Waterloo Diving Club",
-        "street": company.street or "33 Rue Théophile Delbar",
-        "city": company.city or "Waterloo",
-        "zip": company.zip or "1410",
-        "country_id": env.ref("base.be", raise_if_not_found=False).id or company.country_id.id,
-        "email": company.email or "contact@wdc.be",
-        "website": company.website or "/",
-    })
+    # Prefer the dedicated WDC company when website_member is installed.
+    company = env.ref("website_member.company_wdc", raise_if_not_found=False)
+    if not company and hasattr(env["res.company"], "_ensure_wdc_company"):
+        company = env["res.company"]._ensure_wdc_company()
+    if not company:
+        company = env["res.company"].sudo().search(
+            [("name", "=", "Waterloo Diving Club")], limit=1
+        ) or env.company.sudo()
+    be = env.ref("base.be", raise_if_not_found=False)
+    eur = env.ref("base.EUR", raise_if_not_found=False)
+    state = env["res.country.state"].sudo().search([
+        ("country_id", "=", be.id if be else False),
+        ("code", "=", "WBR"),
+    ], limit=1)
+    vals = {
+        "name": "Waterloo Diving Club",
+        "street": "Rue Théophile Delbar, 33",
+        "street2": "Boite 1",
+        "city": "Waterloo",
+        "zip": "1410",
+        "country_id": be.id if be else company.country_id.id,
+        "state_id": state.id if state else company.state_id.id,
+        "vat": company.vat or "BE0477472701",
+        "email": company.email or "wdc@waterloodivingclub.be",
+        "website": company.website or "https://www.waterloodivingclub.be/",
+        "currency_id": eur.id if eur else company.currency_id.id,
+        "color": company.color or 5,
+    }
+    company.write({k: v for k, v in vals.items() if v})
 
 
 def _ensure_branding(env):
     """Site logo = logo-2.png (favicon derived from the same asset)."""
     with file_open("website_wdc/static/src/img/logo/logo-2.png", "rb") as f:
         logo_b64 = base64.b64encode(f.read())
-    company = env.company.sudo()
+    company = env.ref("website_member.company_wdc", raise_if_not_found=False)
+    if not company:
+        company = env["res.company"].sudo().search(
+            [("name", "=", "Waterloo Diving Club")], limit=1
+        ) or env.company.sudo()
     company.write({"logo": logo_b64, "name": "Waterloo Diving Club"})
     for website in env["website"].sudo().search([]):
         website.write({
             "name": "Waterloo Diving Club",
+            "company_id": company.id,
             "logo": logo_b64,
             "favicon": logo_b64,
         })

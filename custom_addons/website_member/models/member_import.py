@@ -188,14 +188,14 @@ class ResUsers(models.Model):
 
         stats = {"created": 0, "updated": 0, "skipped": 0, "errors": 0, "detail": ""}
         details = []
-        group_user = self.env.ref("base.group_user")
+        club_ctx = self._club_import_context()
 
         for i, row in enumerate(rows, 1):
             try:
                 created = self._import_one_cb_member(
                     row,
                     password=password,
-                    group_user=group_user,
+                    club_ctx=club_ctx,
                     man_avatars=man_avatars,
                     woman_avatars=woman_avatars,
                 )
@@ -218,7 +218,7 @@ class ResUsers(models.Model):
         return stats
 
     @api.model
-    def _import_one_cb_member(self, row, password, group_user, man_avatars, woman_avatars):
+    def _import_one_cb_member(self, row, password, club_ctx, man_avatars, woman_avatars):
         email = (row.get("email") or "").strip().lower()
         login = (row.get("username") or "").strip().lower()
         firstname = (row.get("firstname") or "").strip()
@@ -240,6 +240,15 @@ class ResUsers(models.Model):
         plongeur, hsa = _categories_from_nomcomplet(row.get("cb_nomcomplet") or "")
         brevet_raw = (row.get("cb_brevet") or "NB").strip().lower()
         brevet = BREVET_MAP.get(brevet_raw, False)
+        function = (row.get("cb_fonction") or "").strip() or False
+        company = club_ctx["company"]
+        lang = club_ctx["lang"]
+        group_ids = self._club_group_ids_for_member(
+            plongeur=plongeur,
+            hsa=hsa,
+            function=function,
+            ctx=club_ctx,
+        )
 
         partner_vals = {
             "name": " ".join(p for p in [firstname, lastname] if p) or row.get("name") or login,
@@ -253,7 +262,9 @@ class ResUsers(models.Model):
             "street": (row.get("cb_adresse") or "").strip() or False,
             "zip": (row.get("cb_codepostal") or "").strip() or False,
             "city": (row.get("cb_ville") or "").strip() or False,
-            "function": (row.get("cb_fonction") or "").strip() or False,
+            "function": function,
+            "lang": lang,
+            "company_id": False,
             "dive_profession": (row.get("cb_profession") or "").strip() or False,
             "dive_birthday": _parse_date(row.get("cb_naissance")),
             "dive_member_since": _parse_date(row.get("cb_inscription")),
@@ -283,6 +294,7 @@ class ResUsers(models.Model):
             "dive_fed_ida": (row.get("cb_brevet_ida") or "").strip() or False,
             "dive_fed_protec": (row.get("cb_brevet_protec") or "").strip() or False,
             "dive_fed_ssi": (row.get("cb_brevet_ssi") or "").strip() or False,
+            "dive_fed_padi": (row.get("cb_brevet_padi") or "").strip() or False,
         }
 
         other_bits = []
@@ -335,7 +347,10 @@ class ResUsers(models.Model):
                 "login": login,
                 "email": email or False,
                 "password": password,
-                "group_ids": [(6, 0, [group_user.id])],
+                "company_id": company.id,
+                "company_ids": [(6, 0, [company.id])],
+                "lang": lang,
+                "group_ids": [(6, 0, group_ids)],
                 "members_published": True,
                 "notification_type": "inbox",
             })
@@ -349,13 +364,22 @@ class ResUsers(models.Model):
         user.partner_id.with_context(
             tracking_disable=True, mail_notrack=True
         ).write(partner_vals)
-        vals = {"members_published": True}
+        keep = [
+            gid for gid in user.group_ids.ids
+            if gid not in self._club_managed_group_ids(club_ctx)
+        ]
+        vals = {
+            "members_published": True,
+            "company_id": company.id,
+            "company_ids": [(6, 0, [company.id])],
+            "lang": lang,
+            "group_ids": [(6, 0, list(dict.fromkeys(keep + group_ids)))],
+        }
         if email and (user.email or "").lower() != email:
             vals["email"] = email
-        if vals:
-            user.with_context(
-                tracking_disable=True, mail_notrack=True, no_reset_password=True
-            ).write(vals)
+        user.with_context(
+            tracking_disable=True, mail_notrack=True, no_reset_password=True
+        ).write(vals)
         return False
 
     @api.model
