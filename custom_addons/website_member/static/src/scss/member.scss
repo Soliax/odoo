@@ -1041,9 +1041,8 @@
 
 /* Profile */
 .s_md_profile_inner {
-  --md-brevet: #3a3a3a;
-  --md-brevet-hi: #888;
-  --md-brevet-lo: #111;
+  /* Brevet tokens come from .s_md_brevet-* on this node — do not force gray here
+     or the portrait ornament inherits a black fill while the hero banner stays correct. */
   --md-brevet-fill: linear-gradient(
     145deg,
     #ffffff 0%,
@@ -1059,6 +1058,15 @@
     var(--md-brevet-lo, #0b2a2e) 0%,
     var(--md-brevet, #121212) 55%,
     #121212 100%
+  );
+  /* Re-bind fill in the hero so the oval ornament tracks the same brevet as the banner. */
+  --md-brevet-fill: linear-gradient(
+    145deg,
+    #ffffff 0%,
+    var(--md-brevet-hi) 18%,
+    var(--md-brevet) 48%,
+    var(--md-brevet-lo) 78%,
+    var(--md-brevet-hi) 100%
   );
   padding: 2rem 0 2.5rem;
   color: #fff;
@@ -1104,6 +1112,7 @@
 .s_md_profile_avatar .s_md_ornament_oval {
   opacity: 0.95;
   --md-ornament-fill: var(--md-brevet-fill);
+  background: var(--md-ornament-fill);
 }
 .s_md_profile_brevet {
   font-size: 1.1rem;
@@ -1149,7 +1158,18 @@
   margin-bottom: 0.65rem;
 }
 .s_md_field dt { color: #6c757d; font-weight: 500; margin: 0; }
-.s_md_field dd { margin: 0; }
+.s_md_field dd { margin: 0; color: #1c1610; }
+.s_md_field dd a[href^="mailto:"],
+.s_md_field dd a[href^="tel:"] {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
+}
+.s_md_field dd a[href^="mailto:"]:hover,
+.s_md_field dd a[href^="tel:"]:hover {
+  color: inherit;
+  opacity: 0.85;
+}
 .s_md_rank_code {
   display: inline-block;
   padding: 0.1rem 0.45rem;
@@ -1159,6 +1179,14 @@
   font-weight: 700;
   font-size: 0.8rem;
 }
+.s_md_rank_code.brevet-1,
+.s_md_rank_code.brevet-2,
+.s_md_rank_code.brevet-3,
+.s_md_rank_code.brevet-4 { background: #1a5f7a; }
+.s_md_rank_code.brevet-am,
+.s_md_rank_code.brevet-mc,
+.s_md_rank_code.brevet-mf,
+.s_md_rank_code.brevet-mn { background: #5b2c6f; }
 
 /* Profile — member events */
 .s_md_event_list {

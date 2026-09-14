@@ -93,7 +93,7 @@
                                         <dl class="s_md_fields mb-0">
                                             <t t-foreach="section['items']" t-as="item">
                                                 <div class="s_md_field">
-                                                    <dt t-esc="item['label']"/>
+                                                    <dt t-esc="item['label'] or item.get('widget') or ''"/>
                                                     <dd>
                                                         <t t-set="data" t-value="item['data']"/>
                                                         <t t-if="data['type'] == 'email'">
@@ -104,10 +104,32 @@
                                                             <a t-att-href="'tel:%s' % data['value']"
                                                                t-esc="data['value']"/>
                                                         </t>
+                                                        <t t-elif="data['type'] == 'boolean'">
+                                                            <span t-esc="data['value']"/>
+                                                        </t>
                                                         <t t-elif="data['type'] == 'brevet'">
-                                                            <span class="s_md_rank_code"
+                                                            <span t-attf-class="s_md_rank_code #{data.get('css') or ''}"
                                                                   t-esc="data.get('short') or data['value']"/>
-                                                            <span class="ms-2" t-esc="data['value']"/>
+                                                        </t>
+                                                        <t t-elif="data['type'] == 'select'">
+                                                            <span t-attf-class="s_md_rank_code #{data.get('css') or ''}"
+                                                                  t-esc="data.get('short') or data['value']"/>
+                                                        </t>
+                                                        <t t-elif="data['type'] == 'select_multi'">
+                                                            <t t-foreach="data.get('items') or []" t-as="b">
+                                                                <span t-attf-class="s_md_rank_code me-1 #{b.get('css') or ''}"
+                                                                      t-esc="b.get('short') or b['value']"/>
+                                                            </t>
+                                                        </t>
+                                                        <t t-elif="data['type'] == 'badge'">
+                                                            <span t-attf-class="s_md_rank_code #{data.get('css') or ''}"
+                                                                  t-esc="data.get('short') or data['value']"/>
+                                                        </t>
+                                                        <t t-elif="data['type'] == 'badges'">
+                                                            <t t-foreach="data.get('items') or []" t-as="b">
+                                                                <span t-attf-class="s_md_rank_code me-1 #{b.get('css') or ''}"
+                                                                      t-esc="b.get('short') or b['value']"/>
+                                                            </t>
                                                         </t>
                                                         <t t-elif="data['type'] == 'address'">
                                                             <span style="white-space: pre-line;"
