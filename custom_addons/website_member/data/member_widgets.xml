@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="widget_text" model="member.widget">
+        <field name="name">Text</field>
+        <field name="code">text</field>
+        <field name="render_type">text</field>
+        <field name="sequence">10</field>
+        <field name="is_system" eval="True"/>
+    </record>
+    <record id="widget_email" model="member.widget">
+        <field name="name">Email</field>
+        <field name="code">email</field>
+        <field name="render_type">email</field>
+        <field name="sequence">20</field>
+        <field name="is_system" eval="True"/>
+    </record>
+    <record id="widget_phone" model="member.widget">
+        <field name="name">Phone</field>
+        <field name="code">phone</field>
+        <field name="render_type">phone</field>
+        <field name="sequence">30</field>
+        <field name="is_system" eval="True"/>
+    </record>
+    <record id="widget_url" model="member.widget">
+        <field name="name">URL</field>
+        <field name="code">url</field>
+        <field name="render_type">url</field>
+        <field name="sequence">40</field>
+        <field name="is_system" eval="True"/>
+    </record>
+    <record id="widget_html" model="member.widget">
+        <field name="name">HTML</field>
+        <field name="code">html</field>
+        <field name="render_type">html</field>
+        <field name="sequence">50</field>
+        <field name="is_system" eval="True"/>
+    </record>
+    <record id="widget_date" model="member.widget">
+        <field name="name">Date</field>
+        <field name="code">date</field>
+        <field name="render_type">date</field>
+        <field name="sequence">60</field>
+        <field name="is_system" eval="True"/>
+    </record>
+    <record id="widget_boolean" model="member.widget">
+        <field name="name">Yes / No</field>
+        <field name="code">boolean</field>
+        <field name="render_type">boolean</field>
+        <field name="sequence">70</field>
+        <field name="is_system" eval="True"/>
+    </record>
+    <record id="widget_address" model="member.widget">
+        <field name="name">Address block</field>
+        <field name="code">address</field>
+        <field name="render_type">address</field>
+        <field name="sequence">80</field>
+        <field name="is_system" eval="True"/>
+    </record>
+    <record id="widget_many2one" model="member.widget">
+        <field name="name">Related record name</field>
+        <field name="code">many2one</field>
+        <field name="render_type">many2one</field>
+        <field name="sequence">90</field>
+        <field name="is_system" eval="True"/>
+    </record>
+    <record id="widget_brevet" model="member.widget">
+        <field name="name">Brevets (LIFRAS)</field>
+        <field name="code">brevets_lifras</field>
+        <field name="render_type">brevet</field>
+        <field name="sequence">100</field>
+        <field name="is_system" eval="True"/>
+    </record>
+</odoo>

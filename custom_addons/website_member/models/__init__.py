@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from . import member_section
+from . import member_widget
 from . import member_field
 from . import member_field_wizard
 from . import res_partner
