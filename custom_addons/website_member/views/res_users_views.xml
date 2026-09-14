@@ -19,10 +19,13 @@
                             <field name="dive_lastname"/>
                             <field name="dive_gender"/>
                             <field name="dive_birthday"/>
-                            <field name="dive_member_since"/>
                             <field name="dive_profession"/>
                             <field name="dive_is_plongeur"/>
                             <field name="dive_is_hsa"/>
+                        </group>
+                        <group string="Club">
+                            <field name="dive_member_since"/>
+                            <field name="function" string="Rôle"/>
                         </group>
                         <group string="Telephones club">
                             <field name="dive_phone_home"/>
@@ -79,6 +82,7 @@
                         <group>
                             <field name="dive_fed_protec"/>
                             <field name="dive_fed_ssi"/>
+                            <field name="dive_fed_padi"/>
                         </group>
                     </group>
                 </page>
@@ -99,10 +103,13 @@
                             <field name="dive_lastname"/>
                             <field name="dive_gender"/>
                             <field name="dive_birthday"/>
-                            <field name="dive_member_since"/>
                             <field name="dive_profession"/>
                             <field name="dive_is_plongeur"/>
                             <field name="dive_is_hsa"/>
+                        </group>
+                        <group string="Club">
+                            <field name="dive_member_since"/>
+                            <field name="function" string="Rôle"/>
                         </group>
                         <group string="Telephones">
                             <field name="dive_phone_home"/>
@@ -160,6 +167,7 @@
                         <group>
                             <field name="dive_fed_protec"/>
                             <field name="dive_fed_ssi"/>
+                            <field name="dive_fed_padi"/>
                         </group>
                     </group>
                 </page>

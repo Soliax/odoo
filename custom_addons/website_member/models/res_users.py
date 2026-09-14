@@ -38,6 +38,7 @@ class ResUsers(models.Model):
     dive_fed_ida = fields.Char(related="partner_id.dive_fed_ida", readonly=False)
     dive_fed_protec = fields.Char(related="partner_id.dive_fed_protec", readonly=False)
     dive_fed_ssi = fields.Char(related="partner_id.dive_fed_ssi", readonly=False)
+    dive_fed_padi = fields.Char(related="partner_id.dive_fed_padi", readonly=False)
     dive_brevet_date_1 = fields.Date(related="partner_id.dive_brevet_date_1", readonly=False)
     dive_brevet_date_2 = fields.Date(related="partner_id.dive_brevet_date_2", readonly=False)
     dive_brevet_date_3 = fields.Date(related="partner_id.dive_brevet_date_3", readonly=False)
@@ -360,27 +361,24 @@ class ResUsers(models.Model):
             payload = conf.get_display_value(self)
             if not payload:
                 continue
-            label = dict(conf._fields["section"]._description_selection(self.env)).get(
-                conf.section, conf.section
-            )
+            label = conf.section_id.name or conf.section_id.code
+            key = conf.section_id.code or str(conf.section_id.id)
             by_section.setdefault(
-                conf.section, {"key": conf.section, "label": label, "items": []}
+                key, {"key": key, "label": label, "sequence": conf.section_id.sequence, "items": []}
             )
-            by_section[conf.section]["items"].append(
+            by_section[key]["items"].append(
                 {
                     "label": conf.name,
                     "widget": conf.widget,
                     "data": payload,
                 }
             )
-        sections = []
-        for section in [
-            "identity", "contact", "address", "professional",
-            "lifras", "brevets", "specialties", "federations", "medical", "extra",
-        ]:
-            if section in by_section and by_section[section]["items"]:
-                sections.append(by_section[section])
-        return sections
+        return [
+            section for section in sorted(
+                by_section.values(), key=lambda s: (s.get("sequence", 99), s.get("label") or "")
+            )
+            if section["items"]
+        ]
 
     get_directory_profile_fields = get_member_profile_fields
     get_directory_members = get_members

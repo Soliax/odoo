@@ -68,6 +68,7 @@ class ResPartner(models.Model):
     dive_fed_ida = fields.Char(string="IDA")
     dive_fed_protec = fields.Char(string="PROTEC")
     dive_fed_ssi = fields.Char(string="SSI")
+    dive_fed_padi = fields.Char(string="PADI")
 
     # Obtention dates for each LIFRAS brevet (filled date = earned)
     dive_brevet_date_1 = fields.Date(string="1*")
