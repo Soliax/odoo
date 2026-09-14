@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": "Members",
-    "version": "19.0.3.14.1",
+    "version": "19.0.3.15.6",
     "category": "Website",
     "summary": "Club members TCG cards + event participant website blocks",
     "description": """
@@ -21,12 +21,13 @@ Members website blocks
         "security/security.xml",
         "security/ir.model.access.csv",
         "data/member_sections.xml",
+        "data/member_widgets.xml",
+        "views/res_users_views.xml",
         "data/profile_fields.xml",
         "data/specialty_fields.xml",
         "data/brevet_fields.xml",
         "data/federation_fields.xml",
         "views/member_field_views.xml",
-        "views/res_users_views.xml",
         "views/res_config_settings_views.xml",
         "views/member_import_views.xml",
         "views/templates.xml",
