@@ -1,21 +1,28 @@
 # -*- coding: utf-8 -*-
 {
     "name": "Members",
-    "version": "19.0.3.15.6",
+    "version": "19.0.3.15.7",
     "category": "Website",
-    "summary": "Club members TCG cards + event participant website blocks",
+    "summary": "Easy club member visualization, search, profiles & event participants",
     "description": """
-Members website blocks
-======================
-* Members block: TCG-style cards with brevet gem, photo, specialties, HSA/dive icons
-* Multiselect filters + sort by name/brevet
-* Event Participants: compact TCG rows (portrait, brevet heptagon, ticket bubble)
-* Event page Style toggle for Participants
-* Club Plongee fields on contacts/users
+WDC Members
+===========
+Browse, search and present club members on the website.
+
+* Member visualization (photo, brevet, specialties)
+* Search, multiselect filters and sort by name / brevet
+* Public member profiles
+* Event participants website block
+* Website builder snippets with configurable options
+* Club Plongée / Profile Fields & Profile Widgets
 * CB JSON member import wizard
+
+Copyright (C) 2026 Anton Lallemand / Waterloo Diving Club
+License: LGPL-3
 """,
-    "author": "Independent Developer",
+    "author": "Anton Lallemand / Waterloo Diving Club",
     "license": "LGPL-3",
+    "icon": "/website_member/static/description/icon.png",
     "depends": ["website", "portal", "html_builder", "website_event"],
     "data": [
         "security/security.xml",
